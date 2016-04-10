@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
@@ -19,6 +19,10 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+
+    public function doLogin(LoginRequest $request){
+
+    }
     /**
      * Show the form for creating a new resource.
      *
