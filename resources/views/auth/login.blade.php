@@ -42,11 +42,10 @@
 										</span>
 									</div>
 									<div class="input-group pass-box">
-									  <input type="password" class="form-control upass-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
-										<span class="input-group-addon log-icon-two" id="sizing-addon2"><i class="fa fa-lock"></i>
+									  <input type="password" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
+										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-lock"></i>
 										</span>
-										<span id="message"><i class="fa fa-times"></i>Must be at least 6 characters.</span>
-										
+										<span id="pass_error" class="error"><i class="fa fa-times"></i>Must be at least 6 characters.</span>
 									</div>
 									<div class="forget">
 									<label class="checkbox-inline">
