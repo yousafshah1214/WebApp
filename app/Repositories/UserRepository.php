@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface{
 
@@ -25,7 +26,12 @@ class UserRepository implements UserRepositoryInterface{
     public function create(array $columns)
     {
         $user = new User();
+        $user->username     =   $columns['username'];
+        $user->email        =   $columns['email'];
+        $user->password     =   Hash::make($columns['password']);
         $user->save($columns);
+
+        $this->id = $user->id;
     }
 
     public function delete(int $id)
@@ -43,5 +49,13 @@ class UserRepository implements UserRepositoryInterface{
     public function getByColumn(array $column)
     {
         return User::all($column);
+    }
+
+    public function getInsertedUserId(){
+        return $this->id;
+    }
+
+    public function getUser(int $id){
+        return User::findOrFail($id);
     }
 }

@@ -32,13 +32,13 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('login','Auth\LoginController@index');
 
-    Route::post('login/process','Auth\AuthController@doLogin');
+    Route::post('login/process','Auth\LoginController@doLogin');
 
-    Route::get('signup','Auth\AuthController@signup');
+    Route::get('signup','Auth\SignupController@index');
+
+    Route::post('signup/process','Auth\SignupController@doSignup');
 
     Route::get('forgot/password','Auth\AuthController@forgotPassword');
-
-    Route::post('signup/process','Auth\AuthController@signupProcess');
 
 });
 

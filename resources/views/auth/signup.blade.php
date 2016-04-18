@@ -37,19 +37,19 @@
 							<div class="login-form">
 								{!! Form::open(array('url' => 'signup/process')) !!}
 									<div class="input-group">
-									  <input type="text" class="form-control uname-control" placeholder="Username" aria-describedby="sizing-addon2">
+									  <input type="text" class="form-control uname-control" placeholder="Username" aria-describedby="sizing-addon2" name="username">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-user"></i>
 										</span>
 									</div>
                                     <div class="input-group">
-                                        <input type="email" class="form-control uname-control" placeholder="Email" aria-describedby="sizing-addon3">
+                                        <input type="email" class="form-control uname-control" placeholder="Email" aria-describedby="sizing-addon3" name="email">
                                         <span class="input-group-addon log-icon-one" id="sizing-addon3">
                                             <i class="fa fa-at"></i>
                                         </span>
                                         <span id="email_error" class="error"><i class="fa fa-times"></i>Please provide valid email</span>
                                     </div>
 									<div class="input-group pass-box">
-									  <input type="password" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2">
+									  <input type="password" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-lock"></i>
 										</span>
 										<span id="pass_error" class="error"><i class="fa fa-times"></i>Must be at least 6 characters.</span>

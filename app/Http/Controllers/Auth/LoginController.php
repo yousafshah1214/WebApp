@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -21,7 +22,9 @@ class LoginController extends Controller
 
 
     public function doLogin(LoginRequest $request){
-
+        if(Auth::attempt(['username'    =>  $request->input('username'),    'password'      =>  $request->input('password'),    'active'    =>  1])){
+            return redirect()->intended('dsahboard');
+        }
     }
     /**
      * Show the form for creating a new resource.

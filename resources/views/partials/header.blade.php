@@ -44,7 +44,7 @@
 								</li>
 								<li><a href="search.html">DOMAINS</a></li>
 								<li><a href="{{ url("login") }}">CLIENT LOGIN</a></li>
-								<li><a href="search-notfound.html">SIGN UP</a></li>
+								<li><a href="{{ url("signup") }}">SIGN UP</a></li>
 								<li><a href="contact.html">CONTACT</a></li>
 
 							  </ul>

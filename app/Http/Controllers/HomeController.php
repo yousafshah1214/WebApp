@@ -20,7 +20,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = $this->userRepo->fetchAll();
         return view('home',compact('users'));
     }
 }

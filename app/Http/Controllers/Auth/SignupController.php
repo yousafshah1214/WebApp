@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserSignedUp;
+use App\Http\Requests\SignupRequest;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Event;
 
 class SignupController extends Controller
 {
@@ -16,7 +19,24 @@ class SignupController extends Controller
      */
     public function index()
     {
-        //
+        return view('auth.signup');
+    }
+
+    /**
+     * Process User Signup form and insert User info in database
+     *
+     * @param SignupRequest $request
+     */
+    public function doSignup(SignupRequest $request){
+        $user = new UserRepository();
+
+        $user->create($request->all());
+
+        $id = $user->getInsertedUserId();
+
+        $userObj = $user->getUser($id);
+
+        Event::fire(new UserSignedUp($userObj));
     }
 
     /**
