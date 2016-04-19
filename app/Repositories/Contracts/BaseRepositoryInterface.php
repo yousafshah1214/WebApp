@@ -13,7 +13,6 @@ interface BaseRepositoryInterface {
     public function fetchAll();
     public function getAll(String $column);
     public function paginateAll(int $page,int $perpage);
-    public function create(array $columns);
     public function delete(int $id);
     public function update(int $id,array $column);
 } 

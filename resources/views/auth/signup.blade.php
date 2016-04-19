@@ -19,7 +19,7 @@
 							<div class="social-log" >
 								<ul>
 									<li>
-                                        <a class="btn btn-block btn-lg btn-social btn-facebook">
+                                        <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{ url('signup/facebook') }}">
                                             <span class="fa fa-facebook-official"></span> Sign up with Facebook
                                         </a>
 									</li>
@@ -40,19 +40,44 @@
 									  <input type="text" class="form-control uname-control" placeholder="Username" aria-describedby="sizing-addon2" name="username">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-user"></i>
 										</span>
+                                        <span id="username_error" class="error"
+                                            @if($errors->has('username'))
+                                                  style="display:block"
+                                            @endif>
+                                            <i class="fa fa-times"></i>
+                                            @if($errors->has('username'))
+                                                {{ $errors->first('username') }}
+                                            @endif
+                                        </span>
 									</div>
                                     <div class="input-group">
                                         <input type="email" class="form-control uname-control" placeholder="Email" aria-describedby="sizing-addon3" name="email">
                                         <span class="input-group-addon log-icon-one" id="sizing-addon3">
                                             <i class="fa fa-at"></i>
                                         </span>
-                                        <span id="email_error" class="error"><i class="fa fa-times"></i>Please provide valid email</span>
+                                        <span id="email_error" class="error"
+                                            @if($errors->has('email'))
+                                               style="display:block"
+                                            @endif>
+                                            <i class="fa fa-times"></i>
+                                            @if($errors->has('email'))
+                                                {{ $errors->first('email') }}
+                                            @endif
+                                        </span>
                                     </div>
 									<div class="input-group pass-box">
 									  <input type="password" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-lock"></i>
 										</span>
-										<span id="pass_error" class="error"><i class="fa fa-times"></i>Must be at least 6 characters.</span>
+                                        <span id="pass_error" class="error"
+                                        @if($errors->has('pass'))
+                                            style="display:block"
+                                        @endif>
+                                        <i class="fa fa-times"></i>
+                                        @if($errors->has('pass'))
+                                            {{ $errors->first('pass') }}
+                                        @endif
+                                        </span>
 									</div>
 									<input class="log-btn" type="submit" name="" value="Sign up" />
 								{!! Form::close() !!}

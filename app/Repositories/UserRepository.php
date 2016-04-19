@@ -6,56 +6,37 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository implements UserRepositoryInterface{
+class UserRepository extends BaseRepository implements UserRepositoryInterface{
 
-    public function fetchAll()
-    {
-        return User::all();
-    }
+    protected $model;
+    public $userId;
 
-    public function getAll(string $column)
-    {
-        return User::all($column);
-    }
-
-    public function paginateAll(int $page,int $perpage)
-    {
-        return User::paginate($perpage);
-    }
-
-    public function create(array $columns)
-    {
-        $user = new User();
-        $user->username     =   $columns['username'];
-        $user->email        =   $columns['email'];
-        $user->password     =   Hash::make($columns['password']);
-        $user->save($columns);
-
-        $this->id = $user->id;
-    }
-
-    public function delete(int $id)
-    {
-        $user = User::find($id);
-        $user->delete();
-    }
-
-    public function update(int $id, array $column)
-    {
-        $user = User::find($id);
-        $user->save($column);
+    function __construct(User $user){
+        //Parent::__construct($user);
+        $this->model = $user;
     }
 
     public function getByColumn(array $column)
     {
-        return User::all($column);
+        return $this->model->all($column);
     }
 
     public function getInsertedUserId(){
-        return $this->id;
+        return $this->userId;
     }
 
     public function getUser(int $id){
-        return User::findOrFail($id);
+        return $this->model->findOrFail($id);
+    }
+
+    public function create(array $columns)
+    {
+        $this->model->username      =   $columns['username'];
+        $this->model->password      =   Hash::make($columns['password']);
+        $this->model->email         =   $columns['email'];
+
+        $this->model->save();
+
+        $this->userId = $this->model->id;
     }
 }

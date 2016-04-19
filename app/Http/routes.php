@@ -38,6 +38,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('signup/process','Auth\SignupController@doSignup');
 
+    Route::get('signup/facebook','Auth\SignupController@facebookSignup');
+
     Route::get('forgot/password','Auth\AuthController@forgotPassword');
 
 });

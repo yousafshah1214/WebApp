@@ -4,14 +4,27 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\UserSignedUp;
 use App\Http\Requests\SignupRequest;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\UserRepository;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Event;
+use Laravel\Socialite\Facades\Socialite;
 
 class SignupController extends Controller
 {
+
+    private $userRepo;
+
+    /**
+     * @param UserRepositoryInterface $userRepo
+     */
+    function __construct(UserRepositoryInterface $userRepo){
+        $this->userRepo = $userRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,16 +40,20 @@ class SignupController extends Controller
      *
      * @param SignupRequest $request
      */
-    public function doSignup(SignupRequest $request){
-        $user = new UserRepository();
+    public function doSignup(SignupRequest $request){;
 
-        $user->create($request->all());
 
-        $id = $user->getInsertedUserId();
+        $this->userRepo->create($request->all());
 
-        $userObj = $user->getUser($id);
+        $id = $this->userRepo->getInsertedUserId();
+
+        $userObj = $this->userRepo->getUser($id);
 
         Event::fire(new UserSignedUp($userObj));
+    }
+
+    public function facebookSignup(){
+        return Socialite::driver('facebook')->redirect();
     }
 
     /**

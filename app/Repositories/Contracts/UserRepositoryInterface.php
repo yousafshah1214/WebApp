@@ -5,7 +5,9 @@ namespace App\Repositories\Contracts;
 
 interface UserRepositoryInterface extends BaseRepositoryInterface {
 
-    public function getByColumn(array $column);
+    public function create(array $columnss);
+
+    public function getByColumn(array $columns);
 
     public function getInsertedUserId();
 

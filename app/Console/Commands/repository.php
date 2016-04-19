@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class repository extends Command
+class Repository extends Command
 {
     /**
      * The name and signature of the console command.
