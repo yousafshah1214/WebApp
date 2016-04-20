@@ -53,7 +53,26 @@ class SignupController extends Controller
     }
 
     public function facebookSignup(){
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('facebook')->scopes([
+            'public_profile',
+            'email',
+            'user_about_me',
+            'user_birthday',
+            'user_hometown',
+            'user_location',
+            'user_website',
+            'manage_pages',
+            'publish_pages'
+        ])->redirect();
+    }
+
+    /**
+     *
+     */
+    public function facebookCallback(){
+        $user = Socialite::driver('facebook')->user();
+
+        return dd($user);
     }
 
     /**

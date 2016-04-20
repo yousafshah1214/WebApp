@@ -8,8 +8,7 @@
 
 namespace App\Repositories;
 
-
-use App\Repositories\Contracts\BaseRepositoryInterface;
+use App\Contracts\Repositories\BaseRepositoryInterface;
 
 abstract class BaseRepository implements BaseRepositoryInterface{
 

@@ -38,6 +38,6 @@ return [
     'facebook'  =>  [
         'client_id' => env('FB_APP_ID'),
         'client_secret' => env('FB_APP_SECRET'),
-        'redirect' => url(env('FB_REDIRECT_URL')),
+        'redirect' => env('FB_REDIRECT_URL'),
     ],
 ];

@@ -49,7 +49,7 @@ class Repository extends Command
     }
 
     /**
-     *  Create Class in App\Repositories folder with creating/implementing App\Repositories\Contracts interface.
+     *  Create Class in App\Repositories folder with creating/implementing App\Contracts\Repositories interface.
      *
      */
     private function createClassAnd_Interface()
@@ -58,17 +58,18 @@ $newClass = "<?php
 
 namespace App\\Repositories;
 
+use App\\Contracts\\Repositories\\". $this->argument('interface') .";
 
-class " . $this->argument('name') . " " . "implements " . $this->argument('interface') . "{
+class " . $this->argument('name') . " extends BaseRepository " . "implements " . $this->argument('interface') . "{
 
 }";
 
 $newInterface = "<?php
 
-namespace App\\Repositories\\Contracts;
+namespace App\\Contracts\\Repositories;
 
 
-interface " . $this->argument('interface') . " {
+interface " . $this->argument('interface') . " extends BaseRepositoryInterface {
 
 }";
 
@@ -87,7 +88,7 @@ $newClass = "<?php
 namespace App\\Repositories;
 
 
-class " . $this->argument('name') . "{
+class " . $this->argument('name') . " extends BaseRepository{
 
 }";
 

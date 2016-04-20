@@ -44,12 +44,22 @@ return [
     'disks' => [
         'repo' => [
             'driver'    =>  'local',
-            'root'      =>  app_path('repositories'),
+            'root'      =>  app_path('Repositories'),
         ],
 
         'repoInterface' => [
             'driver'    =>  'local',
-            'root'      =>  app_path('repositories/contracts'),
+            'root'      =>  app_path('Contracts/Repositories'),
+        ],
+
+        'service' => [
+            'driver'    =>  'local',
+            'root'      =>  app_path('Services'),
+        ],
+
+        'serviceInterface' => [
+            'driver'    =>  'local',
+            'root'      =>  app_path('Contracts/Services'),
         ],
 
         'local' => [

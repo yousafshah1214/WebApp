@@ -26,21 +26,23 @@
 Route::group(['middleware' => ['web']], function () {
     //
 
-    Route::get('/', "HomeController@index");
+    Route::get('/', "HomeController@index")->name('home');
 
-    Route::get('home', "HomeController@index");
+    Route::get('home', "HomeController@index")->name('home.index');
 
-    Route::get('login','Auth\LoginController@index');
+    Route::get('login','Auth\LoginController@index')->name('login.index');
 
-    Route::post('login/process','Auth\LoginController@doLogin');
+    Route::post('login/process','Auth\LoginController@doLogin')->name('login.process');
 
-    Route::get('signup','Auth\SignupController@index');
+    Route::get('signup','Auth\SignupController@index')->name('signup.index');
 
-    Route::post('signup/process','Auth\SignupController@doSignup');
+    Route::post('signup/process','Auth\SignupController@doSignup')->name('signup.process');
 
-    Route::get('signup/facebook','Auth\SignupController@facebookSignup');
+    Route::get('signup/facebook','Auth\SignupController@facebookSignup')->name('signup.facebook');
 
-    Route::get('forgot/password','Auth\AuthController@forgotPassword');
+    Route::get('signup/facebook/callback','Auth\SignupController@facebookCallback')->name('signup.facebook.callback');
+
+    Route::get('forgot/password','Auth\PasswordController@forgotPassword')->name('password.forget');
 
 });
 
