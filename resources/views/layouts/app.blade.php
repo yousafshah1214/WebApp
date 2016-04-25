@@ -19,6 +19,8 @@
 
         <!--script secction-->
         @include("partials.scripts")
+
+        @yield("secondary_script")
         <!--end script section-->
     </body>
 </html>

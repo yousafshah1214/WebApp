@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Contracts\Services\LoggerServiceInterface;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

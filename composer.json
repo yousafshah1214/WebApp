@@ -9,7 +9,6 @@
         "laravel/framework": "5.2.*",
         "laravel/socialite": "^2.0",
         "laravelcollective/html": "^5.2",
-        "pragmarx/tracker": "^2.0",
         "geoip/geoip": "~1.14"
     },
     "require-dev": {

@@ -1,0 +1,23 @@
+{
+  "name": "Kodemania/webApp",
+  "description": "For packages dependencies",
+  "main": "",
+  "authors": [
+    "kodemania"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/yousafshah1214/WebApp",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sweetalert": "~1.1.3"
+  }
+}

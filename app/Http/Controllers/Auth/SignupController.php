@@ -2,27 +2,37 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\UserSignedUp;
+use App\Contracts\Repositories\UserRepositoryInterface;
+use App\Contracts\Services\EmailServiceInterface;
+use App\Contracts\Services\RedirectServiceInterface;
+use App\Contracts\Services\RegistrationServiceInterface;
 use App\Http\Requests\SignupRequest;
-use App\Repositories\Contracts\UserRepositoryInterface;
-use App\Repositories\UserRepository;
-use App\User;
+use App\Services\LoggerService;
 use Illuminate\Http\Request;
+use Illuminate\Session;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Event;
 use Laravel\Socialite\Facades\Socialite;
 
 class SignupController extends Controller
 {
 
-    private $userRepo;
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $repository;
+
+    /**
+     * @var RedirectServiceInterface
+     */
+    private $redirectService;
 
     /**
      * @param UserRepositoryInterface $userRepo
      */
-    function __construct(UserRepositoryInterface $userRepo){
-        $this->userRepo = $userRepo;
+    function __construct(UserRepositoryInterface $userRepo,RedirectServiceInterface $redirectService){
+        $this->repository = $userRepo;
+        $this->redirectService  =   $redirectService;
     }
 
     /**
@@ -35,23 +45,36 @@ class SignupController extends Controller
         return view('auth.signup');
     }
 
+
     /**
-     * Process User Signup form and insert User info in database
+     * Signs up New User to Our System.
      *
      * @param SignupRequest $request
+     * @param RegistrationServiceInterface $registrationService
+     * @param UserRepositoryInterface $userRepository
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function doSignup(SignupRequest $request){;
+    public function doSignup(SignupRequest $request, RegistrationServiceInterface $registrationService, EmailServiceInterface $emailService, UserRepositoryInterface $userRepository){
+        try{
+            $newRegisteredUser = $registrationService->registerUser($request->all(),$userRepository);
 
+            $emailService->sendWelcomeEmail($newRegisteredUser);
 
-        $this->userRepo->create($request->all());
+            $messageLangKey = 'auth.welcome';
 
-        $id = $this->userRepo->getInsertedUserId();
+            return $this->redirectService->redirectToSignup("successMessage",$messageLangKey);
+        }
+        catch( Exception $e ){
 
-        $userObj = $this->userRepo->getUser($id);
+            $logger = new LoggerService();
 
-        Event::fire(new UserSignedUp($userObj));
+            $logger->logException($e,"emergency");
+        }
     }
 
+    /**
+     * @return mixed
+     */
     public function facebookSignup(){
         return Socialite::driver('facebook')->scopes([
             'public_profile',
@@ -73,6 +96,29 @@ class SignupController extends Controller
         $user = Socialite::driver('facebook')->user();
 
         return dd($user);
+    }
+
+    /**
+     * redirect to twitter Oauth url
+     *
+     * @return mixed
+     */
+    public function twitterSignup(){
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    /**
+     *  Twitter callback handler
+     *
+     */
+    public function twitterCallback(){
+        $user = Socialite::driver('twitter')->user();
+
+        return dd($user);
+    }
+
+    public function activate($code){
+
     }
 
     /**

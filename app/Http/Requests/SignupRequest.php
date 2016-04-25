@@ -24,9 +24,9 @@ class SignupRequest extends Request
     public function rules()
     {
         return [
-            'username'      =>      'required|string|min:6|unique:users,username',
+            'username'      =>      'required|alpha_dash|min:6|unique:users,username',
             'password'      =>      'required|string|min:6',
-            'email'         =>      'required|email'
+            'email'         =>      'required|email|unique:user_profiles,email'
         ];
     }
 }

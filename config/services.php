@@ -40,4 +40,10 @@ return [
         'client_secret' => env('FB_APP_SECRET'),
         'redirect' => env('FB_REDIRECT_URL'),
     ],
+
+    'twitter'   =>  [
+        'client_id'         =>  env('TWITTER_CONSUMER_KEY'),
+        'client_secret'     =>  env('TWITTER_CONSUMER_SECRET'),
+        'redirect'          =>  env('TWITTER_REDIRECT_URL'),
+    ],
 ];

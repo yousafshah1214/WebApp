@@ -24,7 +24,6 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
 
     Route::get('/', "HomeController@index")->name('home');
 
@@ -38,9 +37,15 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('signup/process','Auth\SignupController@doSignup')->name('signup.process');
 
+    Route::get('signup/activate/{code}','Auth\SignupController@activate/{code}')->name('signup.activate');
+
     Route::get('signup/facebook','Auth\SignupController@facebookSignup')->name('signup.facebook');
 
     Route::get('signup/facebook/callback','Auth\SignupController@facebookCallback')->name('signup.facebook.callback');
+
+    Route::get('signup/twitter','Auth\SignupController@twitterSignup')->name('signup.twitter');
+
+    Route::get('signup/twitter/callback','Auth\SignupController@twitterCallback')->name('signup.twitter.callback');
 
     Route::get('forgot/password','Auth\PasswordController@forgotPassword')->name('password.forget');
 

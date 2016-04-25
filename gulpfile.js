@@ -12,16 +12,18 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.styles([
+    mix.copy('resources/assets/bower/sweetalert/dist/sweetalert.css','resources/assets/css').
+    styles([
         'bootstrap.min.css',
         'font-awesome.min.css',
         'owl.carousel.css',
         'bootstrap-social.css',
         'main.css',
         'custom.css',
+        'sweetalert.css'
     ]).copy('resources/assets/fonts','public/build/fonts');
 
-    mix.scripts([
+    mix.copy('resources/assets/bower/sweetalert/dist/sweetalert.min.js','resources/assets/js').scripts([
         'vendor/jquery-1.11.3.min.js',
         'vendor/jquery-2.2.2.min.js',
         'vendor/raphael-min.js',
@@ -32,7 +34,8 @@ elixir(function(mix) {
         'morris.js',
         'jquery.canvasjs.min.js',
         'plugins.js',
-        'main.js'
+        'main.js',
+        'sweetalert.min.js'
     ]);
     mix.copy("resources/assets/img","public/build/img");
 

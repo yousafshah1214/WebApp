@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,22 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $repo;
+
+    /**
+     * LoginController constructor.
+     *
+     * @param UserRepositoryInterface $userRepo
+     */
+    function __construct(UserRepositoryInterface $userRepo)
+    {
+        $this->repo = $userRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +38,12 @@ class LoginController extends Controller
     }
 
 
+    /**
+     * Login User to Our System
+     *
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function doLogin(LoginRequest $request){
         if(Auth::attempt(['username'    =>  $request->input('username'),    'password'      =>  $request->input('password'),    'active'    =>  1])){
             return redirect()->intended('dsahboard');

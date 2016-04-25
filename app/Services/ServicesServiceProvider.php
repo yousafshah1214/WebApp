@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\ServiceProvider;
+
+class ServicesServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+    }
+
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind('App\Contracts\Services\RegistrationServiceInterface',
+            'App\Services\RegistrationService');
+
+        $this->app->bind('App\Contracts\Services\EmailServiceInterface',
+            'App\Services\EmailService');
+
+        $this->app->bind('App\Contracts\Services\LoggerServiceInterface',
+            'App\Services\LoggerService');
+
+        $this->app->bind('App\Contracts\Services\RedirectServiceInterface',
+            'App\Services\RedirectService');
+    }
+}

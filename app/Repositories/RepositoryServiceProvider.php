@@ -1,26 +1,32 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Kodemania
- * Date: 08/4/2016
- * Time: 12:48 AM
- */
 
 namespace App\Repositories;
 
-
 use Illuminate\Support\ServiceProvider;
 
-class RepositoryServiceProvider extends ServiceProvider{
+class RepositoryServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+    }
 
     /**
-     * Register the service provider.
+     * Register the application services.
      *
      * @return void
      */
     public function register()
     {
-        $this->app->bind('App\Repositories\Contracts\UserRepositoryInterface',
+        $this->app->bind('App\Contracts\Repositories\UserRepositoryInterface',
             'App\Repositories\UserRepository');
+
+        $this->app->bind('App\Contracts\Repositories\UserProfileRepositoryInterface',
+            'App\Repositories\UserProfileRepository');
     }
 }

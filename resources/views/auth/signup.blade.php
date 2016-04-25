@@ -19,12 +19,12 @@
 							<div class="social-log" >
 								<ul>
 									<li>
-                                        <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{ url('signup/facebook') }}">
+                                        <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{ route('signup.facebook') }}">
                                             <span class="fa fa-facebook-official"></span> Sign up with Facebook
                                         </a>
 									</li>
 									<li>
-                                        <a class="btn btn-block btn-lg btn-social btn-twitter">
+                                        <a class="btn btn-block btn-lg btn-social btn-twitter" href="{{ route('signup.twitter') }}">
                                             <span class="fa fa-twitter"></span> Sign up with Twitter
                                         </a>
                                     </li>
@@ -99,5 +99,11 @@
         <!--script secction-->
         @include("...partials.scripts")
         <!--end script section-->
+
+		<script type="text/javascript">
+			@if(Session::has("successMessage"))
+                sweetAlert( "{!! Session::get('successMessage') !!}");
+			@endif
+		</script>
     </body>
 </html>

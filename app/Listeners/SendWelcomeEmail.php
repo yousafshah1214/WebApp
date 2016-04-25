@@ -6,8 +6,9 @@ use App\Events\UserSignedUp;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
-class SendWelcomeEmail
+class SendWelcomeEmail implements ShouldQueue
 {
 
     private $mailer;
@@ -15,7 +16,7 @@ class SendWelcomeEmail
     /**
      * Create the event listener.
      *
-     * @return void
+     * @param Mailer $mailer
      */
     public function __construct(Mailer $mailer)
     {
@@ -31,9 +32,9 @@ class SendWelcomeEmail
     public function handle(UserSignedUp $event)
     {
         $user = $event->user;
-        $this->mailer->send('auth.email.welcome',['user' => $user],function($m) use ($user){
+        $this->mailer->queue('auth.emails.welcome',['user' => $user],function($m) use ($user){
             $m->from('noreply@ismartz.com','Ismartz.com');
-            $m->to($user->email, $user->username)->subject('Please Activate your Account');
+            $m->to($user->profile->email, $user->username)->subject('Please Activate your Account');
         });
     }
 }

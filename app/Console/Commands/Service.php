@@ -40,9 +40,11 @@ class Service extends Command
     {
         if($this->argument('interface')){
             $this->createClass_Interface();
+            $this->info("Service and ServiceInterface created sucessfully.");
         }
         else{
             $this->createClass();
+            $this->info("Service created Sucessfully.");
         }
 
     }
