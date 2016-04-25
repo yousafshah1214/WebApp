@@ -2,75 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7169ca5-c36a-490f-85ec-22e69f14a35a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.bowerrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Kodemania.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vagrant.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Models/ModelBaseInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Models/UserModelInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Models/UserProfileModelInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Repositories/SocialUserRepositoryInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Repositories/UserProfileRepositoryInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Services/AuthenticationServiceInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Services/EmailServiceInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Services/LoggerServiceInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Services/RedirectServiceInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Services/RegistrationServiceInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Contracts/Services/SocialAuthenticationServiceInterface.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Providers/ModelServiceProvider.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Repositories/SocialUserRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Repositories/UserProfileRepository.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Services/AuthenticationService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Services/EmailService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Services/LoggerService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Services/RedirectService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Services/RegistrationService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Services/ServicesServiceProvider.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Services/SocialAuthenticationService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/SocialUser.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/UserProfile.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_04_23_131408_create_social_users_table.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_04_23_131540_create_countries_table.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_04_23_131601_create_cities_table.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_04_23_131901_create_user_profiles_table.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/auth/emails/welcome.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/errors/later/404.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/errors/later/500.blade.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/build/css/all-c6ac9e9f5d.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/build/js/all-55cb4552e9.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Console/Commands/Service.php" afterPath="$PROJECT_DIR$/app/Console/Commands/Service.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Contracts/Repositories/BaseRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Contracts/Repositories/BaseRepositoryInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Contracts/Repositories/UserRepositoryInterface.php" afterPath="$PROJECT_DIR$/app/Contracts/Repositories/UserRepositoryInterface.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/SignupController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/SignupController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Requests/SignupRequest.php" afterPath="$PROJECT_DIR$/app/Http/Requests/SignupRequest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/routes.php" afterPath="$PROJECT_DIR$/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Listeners/SendWelcomeEmail.php" afterPath="$PROJECT_DIR$/app/Listeners/SendWelcomeEmail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/RepositoryServiceProvider.php" afterPath="$PROJECT_DIR$/app/Repositories/RepositoryServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/UserRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/UserRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/User.php" afterPath="$PROJECT_DIR$/app/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.php" afterPath="$PROJECT_DIR$/config/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/services.php" afterPath="$PROJECT_DIR$/config/services.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/session.php" afterPath="$PROJECT_DIR$/config/session.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/factories/ModelFactory.php" afterPath="$PROJECT_DIR$/database/factories/ModelFactory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/css/all.css.map" afterPath="$PROJECT_DIR$/public/build/css/all.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/js/all.js.map" afterPath="$PROJECT_DIR$/public/build/js/all.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/build/rev-manifest.json" afterPath="$PROJECT_DIR$/public/build/rev-manifest.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/all.css" afterPath="$PROJECT_DIR$/public/css/all.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/all.css.map" afterPath="$PROJECT_DIR$/public/css/all.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/all.js" afterPath="$PROJECT_DIR$/public/js/all.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/all.js.map" afterPath="$PROJECT_DIR$/public/js/all.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/auth/signup.blade.php" afterPath="$PROJECT_DIR$/resources/views/auth/signup.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
     </list>
     <ignored path="ismartz.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -107,8 +39,8 @@
       <file leaf-file-name="SignupController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/SignupController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.9272728">
-              <caret line="127" column="7" selection-start-line="127" selection-start-column="7" selection-end-line="127" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.3183024">
+              <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
               <folding>
                 <element signature="e#45#100#0#PHP" expanded="true" />
               </folding>
@@ -563,8 +495,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3872" height="2092" extended-state="7" />
-    <editor active="false" />
+    <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17838542" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="1511" y="148" width="818" height="1863" />
@@ -573,7 +505,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12870221" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -990,8 +922,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/SignupController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9272728">
-          <caret line="127" column="7" selection-start-line="127" selection-start-column="7" selection-end-line="127" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.3183024">
+          <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
           <folding>
             <element signature="e#45#100#0#PHP" expanded="true" />
           </folding>
