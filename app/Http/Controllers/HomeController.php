@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Services\LoggerServiceInterface;
 use App\Http\Requests;
-use Illuminate\Support\Facades\Session;
 
 /**
  * Class HomeController

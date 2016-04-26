@@ -9,15 +9,18 @@
 namespace App\Contracts\Repositories;
 
 
+use App\Contracts\Models\UserProfileModelInterface;
+
 interface UserRepositoryInterface extends BaseRepositoryInterface
 {
     /**
      * Create Database Entity with given columns to User Table
      *
-     * @param array $columnss
+     * @param array $columns
+     * @param $type
      * @return mixed
      */
-    public function create(array $columnss);
+    public function create(array $columns, $type);
 
     /**
      * Return collection of User Model with only given columns
@@ -41,4 +44,12 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
      * @return mixed
      */
     public function getUser(int $id);
+
+    /**
+     * Attachs given profile model to User Model
+     *
+     * @param UserProfileModelInterface $profile
+     * @return mixed
+     */
+    public function attachProfile(UserProfileModelInterface $profile);
 }

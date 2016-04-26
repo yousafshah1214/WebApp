@@ -446,3 +446,7 @@
 			</div>
 		</section><!--End Blog Section-->
 @endsection
+
+@section('secondary_script')
+
+@endsection

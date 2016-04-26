@@ -15,6 +15,6 @@ return [
 
     'failed'            =>  'These credentials do not match our records.',
     'throttle'          =>  'Too many login attempts. Please try again in :seconds seconds.',
-    'welcome'           =>  ' You have been Successfully Registered!! Please Check you mail for activation ',
-
+    'welcome'           =>  'You have been Successfully Registered!! Please Check you mail for activation',
+    'error'             =>  'Error Occur!! We have informed the development team. It will be solved shortly. Please try later.',
 ];

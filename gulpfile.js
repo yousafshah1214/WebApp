@@ -13,6 +13,7 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.copy('resources/assets/bower/sweetalert/dist/sweetalert.css','resources/assets/css').
+        copy('resources/assets/bower/PACE/themes/blue/pace-theme-flash.css','resources/assets/css').
     styles([
         'bootstrap.min.css',
         'font-awesome.min.css',
@@ -20,10 +21,13 @@ elixir(function(mix) {
         'bootstrap-social.css',
         'main.css',
         'custom.css',
-        'sweetalert.css'
+        'sweetalert.css',
+        'pace-theme-flash.css'
     ]).copy('resources/assets/fonts','public/build/fonts');
 
-    mix.copy('resources/assets/bower/sweetalert/dist/sweetalert.min.js','resources/assets/js').scripts([
+    mix.copy('resources/assets/bower/sweetalert/dist/sweetalert.min.js','resources/assets/js')
+        .copy('resources/assets/bower/PACE/pace.min.js','resources/assets/js')
+        .scripts([
         'vendor/jquery-1.11.3.min.js',
         'vendor/jquery-2.2.2.min.js',
         'vendor/raphael-min.js',
@@ -35,9 +39,12 @@ elixir(function(mix) {
         'jquery.canvasjs.min.js',
         'plugins.js',
         'main.js',
-        'sweetalert.min.js'
+        'sweetalert.min.js',
+        'pace.min.js',
     ]);
     mix.copy("resources/assets/img","public/build/img");
 
     mix.version(['css/all.css','js/all.js']);
+
+    mix.phpUnit();
 });

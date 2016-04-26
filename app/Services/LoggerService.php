@@ -15,11 +15,12 @@ class LoggerService extends BaseService implements LoggerServiceInterface
      * @param Exception $e
      * @param $level
      * @return string
+     * @throws Exception
      */
     public function logException(Exception $e,$level){
         if(env('APP_DEBUG')){
             /** @var Exception $e */
-            return $e->getMessage();
+            throw $e;
         }
         else{
             $message = "{$level} level Error occur at {$e->getLine()} in file {$e->getFile()} and displays this message \"{$e->getMessage()}\"";
@@ -28,7 +29,7 @@ class LoggerService extends BaseService implements LoggerServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * @param string $message
      */
     public function logInfoMessage(string $message)
     {

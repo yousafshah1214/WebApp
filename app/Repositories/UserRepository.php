@@ -2,15 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Contracts\EloquentModelInterface;
 use App\Contracts\Models\UserModelInterface;
+use App\Contracts\Models\UserProfileModelInterface;
 use App\Contracts\Repositories\UserProfileRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
+use App\Repositories\AbstractRepositories\UserRepositoryAbstract;
 use App\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository extends BaseRepository implements UserRepositoryInterface{
+class UserRepository extends UserRepositoryAbstract implements UserRepositoryInterface{
 
     /**
      * @var User Model Object
@@ -84,18 +85,68 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface{
      * @return mixed|void
      * @throws Exception
      */
-    public function create(array $columns)
+    public function create(array $columns,$type)
     {
-        $this->model->username          =   $columns['username'];
-        $this->model->password          =   Hash::make($columns['password']);
-        $this->model->activate_token    =   Hash::make($columns['email'].str_random(8));
+        $userCredentials = null;
+
+        if($type == "form"){
+            $userCredentials = $this->getUserCredentials($columns);
+        }
+        else if($type = "facebook"){
+            $userCredentials = $this->getFacebookUserCredentials($columns);
+        }
+
+        $this->createUserWith($userCredentials);
 
         if(! $this->model->save() ){
             throw new Exception("Error In saving User to Database");
         }
 
-        $this->profile->createUserProfile(array('email' =>  $columns['email']), $this->model);
-
         $this->userId = $this->model->id;
     }
+
+    protected function getUserCredentials(array $columns)
+    {
+        $credentials = array(
+            'username'          =>  $columns['username'],
+            'password'          =>  $columns['password'],
+            'activate_token'    =>  md5($columns['email'].str_random(8).time())
+        );
+
+        return $credentials;
+    }
+
+    protected function getFacebookUserCredentials(array $columns)
+    {
+        $credentials = array(
+            'social'            =>  true,
+            'active'            =>  true
+        );
+
+        return $credentials;
+    }
+
+    /**
+     * Fill User Model with given data
+     *
+     * @param array $columns
+     */
+    protected function createUserWith(array $columns)
+    {
+        foreach($columns as $columnKey => $columnValue){
+            $this->model->{$columnKey}  =   $columnValue;
+        }
+    }
+
+    /**
+     * Attach Profile to User Model Instances and saves to database
+     *
+     * @param UserProfileModelInterface $profile
+     * @return mixed|void
+     */
+    public function attachProfile(UserProfileModelInterface $profile)
+    {
+        $this->model->profile()->save($profile);
+    }
+
 }

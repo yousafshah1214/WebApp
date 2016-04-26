@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repositories\UserProfileRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\EmailServiceInterface;
+use App\Contracts\Services\LoggerServiceInterface;
 use App\Contracts\Services\RedirectServiceInterface;
 use App\Contracts\Services\RegistrationServiceInterface;
 use App\Http\Requests\SignupRequest;
-use App\Services\LoggerService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Session;
 
@@ -28,11 +30,43 @@ class SignupController extends Controller
     private $redirectService;
 
     /**
-     * @param UserRepositoryInterface $userRepo
+     * @var LoggerServiceInterface
      */
-    function __construct(UserRepositoryInterface $userRepo,RedirectServiceInterface $redirectService){
+    private $logger;
+
+    /**
+     * @var EmailServiceInterface
+     */
+    private $mailer;
+
+    /**
+     * @var UserProfileRepositoryInterface
+     */
+    private $profileRepository;
+
+    /**
+     * @param UserRepositoryInterface $userRepo
+     * @param RedirectServiceInterface $redirectService
+     * @param LoggerServiceInterface $logger
+     * @param EmailServiceInterface $mailer
+     * @param UserProfileRepositoryInterface $profileRepository
+     */
+    function __construct(UserRepositoryInterface $userRepo,RedirectServiceInterface $redirectService,LoggerServiceInterface $logger, EmailServiceInterface $mailer, UserProfileRepositoryInterface $profileRepository ){
+
+        /** UserRepository instance */
         $this->repository = $userRepo;
-        $this->redirectService  =   $redirectService;
+
+        /** RedirectService instance */
+        $this->redirect  =   $redirectService;
+
+        /** LoggerService instance */
+        $this->logger   =   $logger;
+
+        /** Email Service instance */
+        $this->mailer   =   $mailer;
+
+        /** UserProfileRepository instance */
+        $this->profileRepository    =   $profileRepository;
     }
 
     /**
@@ -51,28 +85,28 @@ class SignupController extends Controller
      *
      * @param SignupRequest $request
      * @param RegistrationServiceInterface $registrationService
-     * @param UserRepositoryInterface $userRepository
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function doSignup(SignupRequest $request, RegistrationServiceInterface $registrationService, EmailServiceInterface $emailService, UserRepositoryInterface $userRepository){
+    public function doSignup(SignupRequest $request, RegistrationServiceInterface $registrationService){
+
+        $type = 'form';
+
         try{
-            $newRegisteredUser = $registrationService->registerUser($request->all(),$userRepository);
-
-            $emailService->sendWelcomeEmail($newRegisteredUser);
-
+            $newRegisteredUser = $registrationService->registerUser($type,$request->all(),$this->repository,$this->profileRepository);
+            $this->mailer->sendWelcomeEmail($newRegisteredUser);
             $messageLangKey = 'auth.welcome';
-
-            return $this->redirectService->redirectToSignup("successMessage",$messageLangKey);
+            return $this->redirect->toSignup("successMessage",$messageLangKey);
         }
         catch( Exception $e ){
-
-            $logger = new LoggerService();
-
-            $logger->logException($e,"emergency");
+            $this->logger->logException($e,"emergency");
         }
+        $messageLangKey = 'auth.error';
+        return $this->redirect->toSignup("failureMessage",$messageLangKey);
     }
 
     /**
+     * redirects user to facebook oAuth api
+     *
      * @return mixed
      */
     public function facebookSignup(){
@@ -90,12 +124,37 @@ class SignupController extends Controller
     }
 
     /**
-     *
+     * Callback function for facebook oAuth api
+     * @param RegistrationServiceInterface $registrationService
+     * @return mixed
      */
-    public function facebookCallback(){
+    public function facebookCallback(RegistrationServiceInterface $registrationService){
+
         $user = Socialite::driver('facebook')->user();
 
-        return dd($user);
+        $type = 'facebook';
+
+        dd($user);
+
+        $columns = array(
+            'social'    =>  true,
+            'email'     =>  $user->email,
+            'name'      =>  $user->name,
+            'provider'  =>  'facebook',
+            'token'     =>  $user->token,
+        );
+        try{
+            $newRegisteredUser = $registrationService->registerUser($type,$columns,$this->repository,$this->profileRepository);
+
+            $this->mailer->sendWelcomeEmail($newRegisteredUser);
+
+            $messageLangKey = 'auth.welcome';
+
+            return $this->redirectService->redirectToSignup("successMessage",$messageLangKey);
+        }
+        catch(Exception $e){
+            $this->logger->logException($e,"emergency");
+        }
     }
 
     /**

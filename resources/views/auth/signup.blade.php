@@ -79,7 +79,7 @@
                                         @endif
                                         </span>
 									</div>
-									<input class="log-btn" type="submit" name="" value="Sign up" />
+									<input class="log-btn" type="submit" name="signup" value="Sign up" />
 								{!! Form::close() !!}
 								<span class="singnup-now"> Signed up before?<a href="{{ url('login') }}"> Login now!</a> </span>
 							</div>
@@ -103,6 +103,9 @@
 		<script type="text/javascript">
 			@if(Session::has("successMessage"))
                 sweetAlert( "{!! Session::get('successMessage') !!}");
+			@endif
+			@if(Session::has("failureMessage"))
+				sweetAlert("Oops...","{!! Session::get('failureMessage') !!}","error");
 			@endif
 		</script>
     </body>

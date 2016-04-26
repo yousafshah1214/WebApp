@@ -12,13 +12,13 @@ interface RedirectServiceInterface extends BaseServiceInterface
      * @param string|null $messageLangKey
      * @return mixed
      */
-    public function redirectToHome(string $messageKey = null, string $messageLangKey = null);
+    public function toHome(string $messageKey = null, string $messageLangKey = null);
 
     /**
      * @param string|null $messageKey
      * @param string|null $messageLangKey
      * @return mixed
      */
-    public function redirectToSignup(string $messageKey = null, string $messageLangKey = null);
+    public function toSignup(string $messageKey = null, string $messageLangKey = null);
 
 }
