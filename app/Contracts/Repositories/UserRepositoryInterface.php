@@ -9,6 +9,8 @@
 namespace App\Contracts\Repositories;
 
 
+use App\Contracts\Models\SocialUserModelInterface;
+use App\Contracts\Models\UserModelInterface;
 use App\Contracts\Models\UserProfileModelInterface;
 
 interface UserRepositoryInterface extends BaseRepositoryInterface
@@ -46,10 +48,18 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
     public function getUser(int $id);
 
     /**
-     * Attachs given profile model to User Model
+     * Attaches given profile model to User Model
      *
      * @param UserProfileModelInterface $profile
      * @return mixed
      */
     public function attachProfile(UserProfileModelInterface $profile);
+
+    /**
+     * Attaches given SocialUser Model to User Model
+     *
+     * @param SocialUserModelInterface $socialUser
+     * @return mixed
+     */
+    public function attachSocial(SocialUserModelInterface $socialUser);
 }

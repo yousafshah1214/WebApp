@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Contracts\Models\SocialUserModelInterface;
 use App\Contracts\Models\UserModelInterface;
 use App\Contracts\Models\UserProfileModelInterface;
 use App\Contracts\Repositories\UserProfileRepositoryInterface;
@@ -119,8 +120,9 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
     protected function getFacebookUserCredentials(array $columns)
     {
         $credentials = array(
-            'social'            =>  true,
-            'active'            =>  true
+            'social'            =>  $columns['social'],
+            'active'            =>  $columns['active'],
+            'username'          =>  $columns['username']
         );
 
         return $credentials;
@@ -149,4 +151,11 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
         $this->model->profile()->save($profile);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function attachSocial(SocialUserModelInterface $socialUser)
+    {
+        $this->model->social()->save($socialUser);
+    }
 }

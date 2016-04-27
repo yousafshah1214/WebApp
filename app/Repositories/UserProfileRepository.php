@@ -45,7 +45,6 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
         if(! $user->profile()->save($this->model)){
             throw new Exception("Error: unable to create user profile with user");
         }
-
     }
 
     /**
@@ -57,9 +56,7 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
 
         $credentials = $this->getProfileCredentials($columns);
 
-        $this->getProfileObjFilled($credentials);
-
-        //$this->model->save();
+        $this->getProfileObjectFilled($credentials);
 
         return $this->model;
     }
@@ -83,7 +80,7 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
         return $credentials;
     }
 
-    protected function getProfileObjFilled(array $columns)
+    protected function getProfileObjectFilled(array $columns)
     {
         foreach($columns as $key => $column){
             $this->model->{$key} =  $column;

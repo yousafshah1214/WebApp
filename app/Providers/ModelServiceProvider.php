@@ -28,5 +28,8 @@ class ModelServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Models\UserProfileModelInterface',
             'App\UserProfile');
+
+        $this->app->bind('App\Contracts\Models\SocialUserModelInterface',
+            'App\SocialUser');
     }
 }

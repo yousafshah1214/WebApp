@@ -17,5 +17,5 @@ abstract class UserProfileRepositoryAbstract extends BaseRepository
 
     abstract protected function getFacebookProfileCredentials(array $columns);
 
-    abstract protected function getProfileObjFilled(array $columns);
+    abstract protected function getProfileObjectFilled(array $columns);
 }

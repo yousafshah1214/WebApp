@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Repositories\SocialUserRepositoryInterface;
 use App\Contracts\Repositories\UserProfileRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\EmailServiceInterface;
@@ -45,13 +46,18 @@ class SignupController extends Controller
     private $profileRepository;
 
     /**
+     * @var SocialUserRepositoryInterface
+     */
+    private $socialRepository;
+
+    /**
      * @param UserRepositoryInterface $userRepo
      * @param RedirectServiceInterface $redirectService
      * @param LoggerServiceInterface $logger
      * @param EmailServiceInterface $mailer
      * @param UserProfileRepositoryInterface $profileRepository
      */
-    function __construct(UserRepositoryInterface $userRepo,RedirectServiceInterface $redirectService,LoggerServiceInterface $logger, EmailServiceInterface $mailer, UserProfileRepositoryInterface $profileRepository ){
+    function __construct(UserRepositoryInterface $userRepo,RedirectServiceInterface $redirectService,LoggerServiceInterface $logger, EmailServiceInterface $mailer, UserProfileRepositoryInterface $profileRepository, SocialUserRepositoryInterface $socialUser ){
 
         /** UserRepository instance */
         $this->repository = $userRepo;
@@ -67,6 +73,9 @@ class SignupController extends Controller
 
         /** UserProfileRepository instance */
         $this->profileRepository    =   $profileRepository;
+
+        /** SocialUserRepository instance */
+        $this->socialRepository = $socialUser;
     }
 
     /**
@@ -134,27 +143,40 @@ class SignupController extends Controller
 
         $type = 'facebook';
 
-        dd($user);
+//        dd($user->user);
 
         $columns = array(
             'social'    =>  true,
+            'active'    =>  true,
+            'username'  =>  implode("",explode(" ",$user->name)),
             'email'     =>  $user->email,
             'name'      =>  $user->name,
-            'provider'  =>  'facebook',
+            'provider'  =>  $type,
             'token'     =>  $user->token,
         );
+
+        if(isset($user->user["gender"])){
+
+            array_add($columns,"gender", ($user->user["gender"] == "male")? true : false );
+
+        }
+
         try{
-            $newRegisteredUser = $registrationService->registerUser($type,$columns,$this->repository,$this->profileRepository);
+            $newRegisteredUser = $registrationService->registerUser($type,$columns,$this->repository,$this->profileRepository,$this->socialRepository);
 
             $this->mailer->sendWelcomeEmail($newRegisteredUser);
 
             $messageLangKey = 'auth.welcome';
 
-            return $this->redirectService->redirectToSignup("successMessage",$messageLangKey);
+            return $this->redirect->toSignup("successMessage",$messageLangKey);
         }
         catch(Exception $e){
+
             $this->logger->logException($e,"emergency");
         }
+
+        $messageLangKey = 'auth.error';
+        return $this->redirect->toSignup("failureMessage",$messageLangKey);
     }
 
     /**

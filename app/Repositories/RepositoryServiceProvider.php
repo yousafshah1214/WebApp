@@ -28,5 +28,8 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Repositories\UserProfileRepositoryInterface',
             'App\Repositories\UserProfileRepository');
+
+        $this->app->bind('App\Contracts\Repositories\SocialUserRepositoryInterface',
+            'App\Repositories\SocialUserRepository');
     }
 }

@@ -14,7 +14,7 @@ class LoggerService extends BaseService implements LoggerServiceInterface
      *
      * @param Exception $e
      * @param $level
-     * @return string
+     * @return Exception
      * @throws Exception
      */
     public function logException(Exception $e,$level){
