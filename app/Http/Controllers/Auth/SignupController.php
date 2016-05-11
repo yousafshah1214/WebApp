@@ -98,18 +98,26 @@ class SignupController extends Controller
      */
     public function index()
     {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create(){
         return view('auth.signup');
     }
 
-
     /**
-     * Signs up New User to Our System.
+     * Store a newly created resource|user in storage.
      *
      * @param SignupRequest $request
      * @param RegistrationServiceInterface $registrationService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function doSignup(SignupRequest $request, RegistrationServiceInterface $registrationService){
+    public function store(SignupRequest $request, RegistrationServiceInterface $registrationService){
 
         $type = 'form';
 
@@ -152,28 +160,19 @@ class SignupController extends Controller
      * @return mixed
      */
     public function facebookCallback(RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations){
-
         try{
             $user = Socialite::driver('facebook')->user();
-
             $type = 'facebook';
-
             $columns = $this->extractor->getFacebookDetails($user,$type);
-
             $this->SetGenderIfFetchFromSocial($user, $columns);
-
             if($extraValidations->EmailExistsOrNot($user->email,$this->profileRepository)){
                 /** True if Email Exists */
                 $messageLangKey = 'auth.social.emailExists';
                 return $this->redirect->toSignup("failureMessage",$messageLangKey);
             }
-
             $newRegisteredUser = $registrationService->registerUser($type,$columns,$this->repository,$this->profileRepository,$this->socialRepository);
-
             $this->mailer->sendWelcomeEmail($newRegisteredUser);
-
             $messageLangKey = 'auth.welcome';
-
             return $this->redirect->toSignup("successMessage",$messageLangKey);
         }
         catch(ClientException $e){
@@ -183,7 +182,6 @@ class SignupController extends Controller
         catch(Exception $e){
             $this->logger->logException($e,"emergency");
         }
-
         $messageLangKey = 'auth.error';
         return $this->redirect->toSignup("failureMessage",$messageLangKey);
     }
@@ -205,36 +203,24 @@ class SignupController extends Controller
      * @return mixed
      */
     public function twitterCallback(RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations){
-
         try{
             $user = Socialite::driver('twitter')->user();
-
             $type = 'twitter';
-
-
-
             $columns = $this->extractor->getTwitterDetails($user,$type);
-
             $this->SetGenderIfFetchFromSocial($user, $columns);
-
 //            if($extraValidations->EmailExistsOrNot($user->email,$this->profileRepository)){
 //                /** True if Email Exists */
 //                $messageLangKey = 'auth.social.emailExists';
 //                return $this->redirect->toSignup("failureMessage",$messageLangKey);
 //            }
-
             if($extraValidations->UsernameExistsOrNot($user->nickname, $this->repository )){
                 /** True if Username Exists */
                 $messageLangKey = 'auth.social.usernameExists';
                 return $this->redirect->toSignup("failureMessage",$messageLangKey);
             }
-
             $newRegisteredUser = $registrationService->registerUser($type,$columns,$this->repository,$this->profileRepository,$this->socialRepository);
-
             $this->mailer->sendWelcomeEmail($newRegisteredUser);
-
             $messageLangKey = 'auth.welcome';
-
             return $this->redirect->toSignup("successMessage",$messageLangKey);
         }
         catch(ClientException $e){
@@ -244,34 +230,12 @@ class SignupController extends Controller
         catch(Exception $e){
             $this->logger->logException($e,"emergency");
         }
-
         $messageLangKey = 'auth.error';
         return $this->redirect->toSignup("failureMessage",$messageLangKey);
     }
 
     public function activate($code){
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

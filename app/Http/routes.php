@@ -33,9 +33,9 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('login/process','Auth\LoginController@doLogin')->name('login.process');
 
-    Route::get('signup','Auth\SignupController@index')->name('signup.index');
+    Route::get('signup','Auth\SignupController@create')->name('signup.index');
 
-    Route::post('signup/process','Auth\SignupController@doSignup')->name('signup.process');
+    Route::post('signup/process','Auth\SignupController@store')->name('signup.process');
 
     Route::get('signup/activate/{code}','Auth\SignupController@activate/{code}')->name('signup.activate');
 
