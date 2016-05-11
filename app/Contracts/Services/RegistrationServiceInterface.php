@@ -20,14 +20,4 @@ interface RegistrationServiceInterface extends BaseServiceInterface
      * @return mixed
      */
     public function registerUser($type, array $columns, UserRepositoryInterface $userRepository, UserProfileRepositoryInterface $profileRepository, SocialUserRepositoryInterface $socialUserRepository = null);
-
-    /**
-     * Create New User in Database using UserRepository via signup with Facebook
-     *
-     * @param array $columns
-     * @param UserRepositoryInterface $userRepository
-     * @param UserProfileRepositoryInterface $profileRepository
-     * @return mixed
-     */
-    public function registerFacebookUser(array $columns, UserRepositoryInterface $userRepository, UserProfileRepositoryInterface $profileRepository);
 }

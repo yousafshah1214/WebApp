@@ -19,6 +19,11 @@ class User extends Model implements UserModelInterface
         return $this->hasOne('App\UserProfile');
     }
 
+    /**
+     * Method for User - SocialUser Relationship
+     *
+     * @return mixed
+     */
     public function social(){
         return $this->hasOne('App\SocialUser');
     }

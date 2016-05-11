@@ -16,9 +16,9 @@ class CreateSocialUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('network');
             $table->string('networkToken');
+            $table->string('networkUserId');
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

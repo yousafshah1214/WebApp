@@ -13,9 +13,36 @@ use App\Repositories\BaseRepository;
 
 abstract class UserProfileRepositoryAbstract extends BaseRepository
 {
+    /**
+     * return array with profile credentials from given array
+     *
+     * @param array $columns
+     * @return mixed
+     */
     abstract protected function getProfileCredentials(array $columns);
 
+    /**
+     * return facebook profile credentials array from given array
+     *
+     * @param array $columns
+     * @return mixed
+     */
     abstract protected function getFacebookProfileCredentials(array $columns);
 
+    /**
+     * return twitter profile credentials array from given array
+     *
+     * @param array $columns
+     * @return mixed
+     */
+    abstract protected function getTwitterProfileCredentials(array $columns);
+
+    /**
+     * Profile data is filled to model object
+     *
+     * @param array $columns
+     * @return mixed
+     */
     abstract protected function getProfileObjectFilled(array $columns);
+
 }

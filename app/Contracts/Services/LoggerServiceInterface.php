@@ -22,5 +22,5 @@ interface LoggerServiceInterface extends BaseServiceInterface
      * @param string $message
      * @return mixed
      */
-    public function logInfoMessage(string $message);
+    public function logInfoMessage($message);
 }

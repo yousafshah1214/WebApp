@@ -14,13 +14,11 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             $table->string('username')->unique();
-            $table->boolean('social');
             $table->string('password', 60);
+            $table->boolean('social')->default(0);
+            $table->boolean('active')->default(0);
             $table->string('activate_token',60);
-            $table->timestamp("activate_token_start_time");
-            $table->boolean('active');
             $table->rememberToken();
             $table->timestamps();
         });

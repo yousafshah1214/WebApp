@@ -13,17 +13,17 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'username'  =>  $faker->userName,
-        'password' => bcrypt(str_random(10)),
-        'social'    =>  $faker->boolean(0),
-        'active'    =>  $faker->boolean(100),
+        'username'      =>  $faker->userName,
+        'password'      =>  bcrypt(str_random(10)),
+        'social'        =>  $faker->boolean(0),
+        'active'        =>  $faker->boolean(100),
         'remember_token' => str_random(10),
     ];
 });
 
 $factory->define(App\UserProfile::class, function (Faker\Generator $faker) use ($factory){
     return [
-        'email'     =>  $faker->email
+        'name'      =>  $faker->name,
+        'email'     =>  $faker->email,
     ];
 });

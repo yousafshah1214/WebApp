@@ -13,7 +13,7 @@ use App\Contracts\Repositories\BaseRepositoryInterface;
 abstract class BaseRepository implements BaseRepositoryInterface{
 
     /**
-     * Fetches all records with all columns
+     * Fetch all records
      *
      * @return mixed
      */
@@ -23,7 +23,7 @@ abstract class BaseRepository implements BaseRepositoryInterface{
     }
 
     /**
-     * Fetches all records with given columns
+     * Get all records with specified columns
      *
      * @param array $columns
      * @return mixed
@@ -34,51 +34,55 @@ abstract class BaseRepository implements BaseRepositoryInterface{
     }
 
     /**
-     * Paginate the collection of model.
+     * Get all records with all columns and with pagination
      *
-     * @param int $page
-     * @param int $perpage
+     * @param $page
+     * @param $perpage
      * @return mixed
      */
-    public function paginateAll(int $page, int $perpage)
+    public function paginateAll($page, $perpage)
     {
         return $this->model->paginate($perpage);
     }
 
     /**
-     * Deletes entity from database table with given ID
+     * Delete record of specified ID
      *
-     * @param int $id
-     * @throw ModelNotFoundException by FindOrFail method
+     * @param $id
+     * @return mixed
      */
-    public function delete(int $id)
+    public function delete($id)
     {
         $entity = $this->model->findOrFail($id);
         $entity->delete();
     }
 
     /**
+     * Update specified columns of given record ID
      *
-     *
-     * @param int $id
+     * @param $id
      * @param array $column
-     * @throw ModelNotFoundException by FindOrFail method
+     * @return mixed
      */
-    public function update(int $id, array $column)
+    public function update($id, array $column)
     {
         $entity = $this->model->findOrFail($id);
         $entity->save($column);
     }
 
     /**
+     * Get all records with only specified columns with pagination
+     *
      * @param array $columns
-     * @param int $page
-     * @param int $perpage
+     * @param $page
+     * @param $perpage
      * @return mixed
      */
-    public function getAllPaginated(array $columns, int $page, int $perpage)
+    public function getAllPaginated(array $columns,$page, $perpage)
     {
         return $this->model->all($columns)->paginate($perpage);
     }
+
+
 }
 

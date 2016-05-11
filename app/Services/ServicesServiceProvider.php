@@ -34,5 +34,11 @@ class ServicesServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Services\RedirectServiceInterface',
             'App\Services\RedirectService');
+
+        $this->app->bind('App\Contracts\Services\ExtraValidationServiceInterface',
+            'App\Services\ExtraValidationService');
+
+        $this->app->bind('App\Contracts\Services\DataExtractorServiceInterface',
+            'App\Services\DataExtractorService');
     }
 }

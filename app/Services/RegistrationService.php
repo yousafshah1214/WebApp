@@ -29,6 +29,7 @@ class RegistrationService extends RegistrationServiceAbstract implements Registr
         $profile = $userProfileRepository->make($columns,$type);
 
         if($this->isSocialUser($type) && $this->isSocialUserRepositoryAvailable($socialUserRepository)){
+
             $social = $socialUserRepository->make($columns,$type);
 
             $userRepository->attachSocial($social);
@@ -56,19 +57,6 @@ class RegistrationService extends RegistrationServiceAbstract implements Registr
     protected function isSocialUserRepositoryAvailable(SocialUserRepositoryInterface $socialUserRepository = null)
     {
         return ( ! is_null($socialUserRepository));
-    }
-
-    /**
-     * Create New User in Database using UserRepository via signup with Facebook
-     *
-     * @param array $columns
-     * @param UserRepositoryInterface $userRepository
-     * @param UserProfileRepositoryInterface $profileRepository
-     * @return mixed|void
-     */
-    public function registerFacebookUser(array $columns, UserRepositoryInterface $userRepository, UserProfileRepositoryInterface $profileRepository)
-    {
-
     }
 
 }

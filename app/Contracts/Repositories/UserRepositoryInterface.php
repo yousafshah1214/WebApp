@@ -45,7 +45,7 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
      * @param int $id
      * @return mixed
      */
-    public function getUser(int $id);
+    public function getUser($id);
 
     /**
      * Attaches given profile model to User Model
@@ -62,4 +62,12 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
      * @return mixed
      */
     public function attachSocial(SocialUserModelInterface $socialUser);
+
+    /**
+     * checks availability of given username.
+     *
+     * @param $username
+     * @return mixed
+     */
+    public function usernameCount($username);
 }

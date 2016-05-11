@@ -33,14 +33,18 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
     public function create(array $columns, $type, UserModelInterface $user){
 
         $credentials = null;
+
         if($type=="form"){
             $credentials = $this->getProfileCredentials($columns);
         }
         elseif($type=="facebook"){
             $credentials = $this->getFacebookProfileCredentials($columns);
         }
+        else if($type=="twitter"){
+            $credentials = $this->getTwitterProfileCredentials($columns);
+        }
 
-        $this->getProfileObjFilled($credentials);
+        $this->getProfileObjectFilled($credentials);
 
         if(! $user->profile()->save($this->model)){
             throw new Exception("Error: unable to create user profile with user");
@@ -48,19 +52,50 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
     }
 
     /**
+     * Make new User Profile without User Model
+     *
      * @param array $columns
      * @param $type
      * @return UserProfileModelInterface|UserProfile
      */
     public function make(array $columns, $type){
 
-        $credentials = $this->getProfileCredentials($columns);
+        $credentials = null;
+
+        if($type=="form"){
+            $credentials = $this->getProfileCredentials($columns);
+        }
+        elseif($type=="facebook"){
+            $credentials = $this->getFacebookProfileCredentials($columns);
+        }
+        else if($type=="twitter"){
+            $credentials = $this->getTwitterProfileCredentials($columns);
+        }
 
         $this->getProfileObjectFilled($credentials);
 
         return $this->model;
     }
 
+    /**
+     * Returns Counts of email records where the given email matches.
+     *
+     * @param $email
+     * @return mixed
+     */
+    public function emailCounts($email)
+    {
+        $emailsCounts = $this->model->where("email", '=', $email)->count();
+
+        return $emailsCounts;
+    }
+
+    /**
+     * return array with profile credentials from given array
+     *
+     * @param array $columns
+     * @return mixed
+     */
     protected function getProfileCredentials(array $columns)
     {
         $credentials = array(
@@ -70,6 +105,13 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
         return $credentials;
     }
 
+
+    /**
+     * return facebook profile credentials array from given array
+     *
+     * @param array $columns
+     * @return mixed
+     */
     protected function getFacebookProfileCredentials(array $columns)
     {
         $credentials = array(
@@ -80,6 +122,27 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
         return $credentials;
     }
 
+    /**
+     * return twitter profile credentials array from given array
+     *
+     * @param array $columns
+     * @return mixed
+     */
+    protected function getTwitterProfileCredentials(array $columns)
+    {
+        $credentials = array(
+            'name'      =>  $columns['name']
+        );
+
+        return $credentials;
+    }
+
+    /**
+     * Profile data is filled to model object
+     *
+     * @param array $columns
+     * @return mixed
+     */
     protected function getProfileObjectFilled(array $columns)
     {
         foreach($columns as $key => $column){

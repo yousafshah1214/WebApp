@@ -22,5 +22,4 @@ interface SocialUserRepositoryInterface extends BaseRepositoryInterface {
      * @return mixed
      */
     public function make(array $columns);
-
 }

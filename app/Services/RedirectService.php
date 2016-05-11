@@ -15,7 +15,7 @@ class RedirectService extends BaseService implements RedirectServiceInterface
      * @param string $messageLangKey
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
      */
-    public function toHome(string $messageKey = null, string $messageLangKey = null)
+    public function toHome($messageKey = null, $messageLangKey = null)
     {
         if(! is_null($messageKey) && ! is_null($messageLangKey)){
             return redirect()->route('home.index')->with($messageKey,trans($messageLangKey));
@@ -31,7 +31,7 @@ class RedirectService extends BaseService implements RedirectServiceInterface
      * @param string|null $messageLangKey
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function toSignup(string $messageKey = null, string $messageLangKey = null){
+    public function toSignup($messageKey = null, $messageLangKey = null){
         $redirect = redirect()->route('signup.index');
 
         if(! is_null($messageKey) && ! is_null($messageLangKey)){

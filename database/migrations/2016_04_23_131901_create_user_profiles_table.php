@@ -15,12 +15,12 @@ class CreateUserProfilesTable extends Migration
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->text('intro');
-            $table->string('profilePicUrl');
-            $table->string('email')->unique();
-            $table->boolean('gender');
+            $table->text('intro')->nullable();
+            $table->string('profilePicUrl')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->boolean('gender')->nullable();
             $table->string('phone')->unique()->nullable();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->integer('city_id')->unsigned();
             $table->integer('country_id')->unsigned();
             $table->BigInteger('user_id')->unsigned();

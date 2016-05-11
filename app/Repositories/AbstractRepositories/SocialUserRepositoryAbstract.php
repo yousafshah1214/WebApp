@@ -21,7 +21,20 @@ Abstract class SocialUserRepositoryAbstract extends BaseRepository
      */
     abstract protected function getSocialCredentials(array $columns);
 
+    /**
+     * Get Social Data Filled in Model
+     *
+     * @param array $columns
+     * @return mixed
+     */
     abstract protected function getSocialObjectFilled(array $columns);
 
+    /**
+     * Get Object filled with Social Data in Model Object.
+     * This function call getSocialCredentials and getSocialObjectFilled
+     *
+     * @param array $columns
+     * @return mixed
+     */
     abstract protected function getSocialObjectWithCredentialsFilled(array $columns);
 }

@@ -30,8 +30,9 @@ class LoggerService extends BaseService implements LoggerServiceInterface
 
     /**
      * @param string $message
+     * @return mixed|void
      */
-    public function logInfoMessage(string $message)
+    public function logInfoMessage($message)
     {
         Log::info($message);
     }

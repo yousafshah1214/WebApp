@@ -13,9 +13,27 @@ use App\Repositories\BaseRepository;
 
 abstract class UserRepositoryAbstract extends BaseRepository
 {
+    /**
+     * Return User Credentials from given data
+     *
+     * @param array $columns
+     * @return mixed
+     */
     abstract protected function getUserCredentials(array $columns);
 
+    /**
+     * Return Facebook User Credential from given data
+     *
+     * @param array $columns
+     * @return array
+     */
     abstract protected function getFacebookUserCredentials(array $columns);
 
+    /**
+     * Fill User Model with given data
+     *
+     * @param array $columns
+     * @return mixed
+     */
     abstract protected function createUserWith(array $columns);
 }

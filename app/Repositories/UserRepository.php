@@ -71,9 +71,9 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      * @return mixed
      * @throw ModelNotFoundException
      */
-    public function getUser(int $id){
+    public function getUser($id){
         /**
-         * findorFail method throws ModelNotFOundException if no User found with given Id
+         * findorFail method throws ModelNotFoundException if no User found with given Id
          *
         */
         return $this->model->findOrFail($id);
@@ -83,6 +83,7 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      * Creates User in database Table Users.
      *
      * @param array $columns
+     * @param $type
      * @return mixed|void
      * @throws Exception
      */
@@ -106,6 +107,12 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
         $this->userId = $this->model->id;
     }
 
+    /**
+     * Return User Credentials from given data
+     *
+     * @param array $columns
+     * @return array
+     */
     protected function getUserCredentials(array $columns)
     {
         $credentials = array(
@@ -117,6 +124,12 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
         return $credentials;
     }
 
+    /**
+     * Return Facebook User Credential from given data
+     *
+     * @param array $columns
+     * @return array
+     */
     protected function getFacebookUserCredentials(array $columns)
     {
         $credentials = array(
@@ -132,6 +145,7 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      * Fill User Model with given data
      *
      * @param array $columns
+     * @return mixed
      */
     protected function createUserWith(array $columns)
     {
@@ -158,4 +172,18 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
     {
         $this->model->social()->save($socialUser);
     }
+
+    /**
+     * returns number of username exists with given username.
+     *
+     * @param $username
+     * @return mixed
+     */
+    public function usernameCount($username)
+    {
+        $usernameCount = $this->model->where("username","=",$username)->count();
+
+        return $usernameCount;
+    }
+
 }

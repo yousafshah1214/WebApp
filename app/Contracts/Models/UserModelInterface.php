@@ -17,4 +17,11 @@ interface UserModelInterface extends ModelBaseInterface
      * @return mixed
      */
     public function profile();
+
+    /**
+     * Method for User - SocialUser Relationship
+     *
+     * @return mixed
+     */
+    public function social();
 }

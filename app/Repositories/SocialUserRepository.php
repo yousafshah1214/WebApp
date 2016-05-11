@@ -6,6 +6,7 @@ use App\Contracts\Models\SocialUserModelInterface;
 use App\Contracts\Models\UserModelInterface;
 use App\Contracts\Repositories\SocialUserRepositoryInterface;
 use App\Repositories\AbstractRepositories\SocialUserRepositoryAbstract;
+use Exception;
 
 class SocialUserRepository extends SocialUserRepositoryAbstract implements SocialUserRepositoryInterface{
 
@@ -30,6 +31,7 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
      * @param array $columns
      * @param UserModelInterface $user
      * @return mixed|void
+     * @throws Exception
      */
     public function create(array $columns, UserModelInterface $user)
     {
@@ -55,7 +57,11 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
     }
 
     /**
+     * Get Object filled with Social Data in Model Object.
+     * This function call getSocialCredentials and getSocialObjectFilled
+     *
      * @param array $columns
+     * @return mixed
      */
     protected function getSocialObjectWithCredentialsFilled(array $columns)
     {
@@ -65,10 +71,10 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
     }
 
     /**
-     * Extract Necessary data for SocialUser Model from given array
+     * Get Social Credentials out of given array
      *
      * @param array $columns
-     * @return mixed|void
+     * @return mixed
      */
     protected function getSocialCredentials(array $columns)
     {
@@ -81,9 +87,10 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
     }
 
     /**
-     * Fill SocialUser Model with given array
+     * Get Social Data Filled in Model
      *
      * @param array $columns
+     * @return mixed
      */
     protected function getSocialObjectFilled(array $columns)
     {
@@ -91,4 +98,6 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
             $this->model->{$columnKey}  = $columnValue;
         }
     }
+
+
 }
