@@ -29,13 +29,23 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('home', "HomeController@index")->name('home.index');
 
-    Route::get('login','Auth\LoginController@index')->name('login.index');
+    Route::get('login','Auth\LoginController@create')->name('login.index');
 
     Route::post('login/process','Auth\LoginController@doLogin')->name('login.process');
+
+    Route::get('login/facebook','Auth\LoginController@facebookLogin')->name('login.facebook');
+
+    Route::get('login/twitter','Auth\LoginController@twitterLogin')->name('login.twitter');
 
     Route::get('signup','Auth\SignupController@create')->name('signup.index');
 
     Route::post('signup/process','Auth\SignupController@store')->name('signup.process');
+
+    Route::post('signup/process/ajax','Auth\SignupController@store')->name('signup.process.ajax');
+
+    Route::post('check/username','Auth\ValidationController@checkUsername')->name('signup.check.username');
+
+    Route::post('check/email','Auth\ValidationController@checkEmail')->name('signup.check.email');
 
     Route::get('signup/activate/{code}','Auth\SignupController@activate/{code}')->name('signup.activate');
 
@@ -48,6 +58,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('signup/twitter/callback','Auth\SignupController@twitterCallback')->name('signup.twitter.callback');
 
     Route::get('forgot/password','Auth\PasswordController@forgotPassword')->name('password.forget');
+
+});
+
+Route::group(['middleware' =>   'auth'], function(){
+
+    Route::get('dashboard','DashboardController@index')->name('dashboard');
 
 });
 

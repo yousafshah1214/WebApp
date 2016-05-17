@@ -22,4 +22,22 @@ interface SocialUserRepositoryInterface extends BaseRepositoryInterface {
      * @return mixed
      */
     public function make(array $columns);
+
+    /**
+     * Count Social User via token
+     *
+     * @param $type
+     * @param $token
+     * @return integer
+     */
+    public function socialUserCount($type, $token);
+
+    /**
+     * get User Model from Social user table via Token
+     *
+     * @param $type
+     * @param $token
+     * @return mixed
+     */
+    public function getUserFromSocialite($type, $token);
 }

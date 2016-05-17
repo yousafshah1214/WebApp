@@ -19,12 +19,12 @@
 							<div class="social-log" >
 								<ul>
 									<li>
-                                        <a class="btn btn-block btn-lg btn-social btn-facebook">
+                                        <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{ route('login.facebook') }}">
                                             <span class="fa fa-facebook-official"></span> Login with Facebook
                                         </a>
 									</li>
 									<li>
-                                        <a class="btn btn-block btn-lg btn-social btn-twitter">
+                                        <a class="btn btn-block btn-lg btn-social btn-twitter" href="{{ route('login.twitter') }}">
                                             <span class="fa fa-twitter"></span> Login with Twitter
                                         </a>
                                     </li>

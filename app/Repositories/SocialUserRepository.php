@@ -10,7 +10,6 @@ use Exception;
 
 class SocialUserRepository extends SocialUserRepositoryAbstract implements SocialUserRepositoryInterface{
 
-
     /**
      * @var SocialUserModelInterface
      */
@@ -57,6 +56,33 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
     }
 
     /**
+     * @param $type
+     * @param $id
+     * @return integer
+     */
+    public function socialUserCount($type, $id)
+    {
+        $count = $this->model->where('network','=',$type)->where('networkUserId','=',$id)->count();
+        return $count;
+    }
+
+    /**
+     * get User Model from Social user table via Token
+     *
+     * @param $type
+     * @param $id
+     * @return mixed
+     */
+    public function getUserFromSocialite($type, $id)
+    {
+        $socialUser = $this->model->where('network','=',$type)->where('networkUserId','=',$id)->first();
+
+        $user = $socialUser->user;
+
+        return $user;
+    }
+
+    /**
      * Get Object filled with Social Data in Model Object.
      * This function call getSocialCredentials and getSocialObjectFilled
      *
@@ -79,8 +105,9 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
     protected function getSocialCredentials(array $columns)
     {
         $credentials = array(
-            'network'         =>  $columns['provider'],
-            'networkToken'    =>  $columns['token'],
+            'network'           =>  $columns['provider'],
+            'networkUserId'     =>  $columns['network_user_id'],
+            'networkToken'      =>  $columns['token'],
         );
 
         return $credentials;

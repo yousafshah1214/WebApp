@@ -22,4 +22,5 @@ return [
                                 'emailExists'       =>  'Email Already Exists. Please Try to login',
                                 'usernameExists'    =>  'Username Already Exists. Please Try to Login or Signup via form',
                             ],
+    'alreadySignedUp'   =>  'You are not Registered. Please Register.',
 ];

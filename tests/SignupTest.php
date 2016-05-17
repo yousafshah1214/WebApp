@@ -67,6 +67,4 @@ class SignupTest extends TestCase
             ->press('signup')
             ->see("Error");
     }
-
-
 }

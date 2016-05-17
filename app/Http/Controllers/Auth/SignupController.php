@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\Repositories\SocialUserRepositoryInterface;
 use App\Contracts\Repositories\UserProfileRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
+use App\Contracts\Services\AuthenticationServiceInterface;
 use App\Contracts\Services\DataExtractorServiceInterface;
 use App\Contracts\Services\EmailServiceInterface;
 use App\Contracts\Services\ExtraValidationServiceInterface;
@@ -15,9 +16,10 @@ use App\Http\Requests\SignupRequest;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
-use Illuminate\Session;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 
 class SignupController extends Controller
@@ -92,16 +94,6 @@ class SignupController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -125,12 +117,18 @@ class SignupController extends Controller
             $newRegisteredUser = $registrationService->registerUser($type,$request->all(),$this->repository,$this->profileRepository);
             $this->mailer->sendWelcomeEmail($newRegisteredUser);
             $messageLangKey = 'auth.welcome';
+            if($request->ajax()){
+                return $this->ResponseToAjaxRequest('true',$messageLangKey);
+            }
             return $this->redirect->toSignup("successMessage",$messageLangKey);
         }
         catch( Exception $e ){
             $this->logger->logException($e,"emergency");
         }
         $messageLangKey = 'auth.error';
+        if($request->ajax()){
+            return $this->ResponseToAjaxRequest('false',$messageLangKey);
+        }
         return $this->redirect->toSignup("failureMessage",$messageLangKey);
     }
 
@@ -149,20 +147,39 @@ class SignupController extends Controller
             'user_location',
             'user_website',
             'manage_pages',
-            'publish_pages'
+            'publish_pages',
         ])->redirect();
     }
 
     /**
      * Callback function for facebook oAuth api
+     * @param Request $request
      * @param RegistrationServiceInterface $registrationService
      * @param ExtraValidationServiceInterface $extraValidations
+     * @param AuthenticationServiceInterface $authService
      * @return mixed
      */
-    public function facebookCallback(RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations){
+    public function facebookCallback(Request $request ,RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations, AuthenticationServiceInterface $authService){
         try{
             $user = Socialite::driver('facebook')->user();
             $type = 'facebook';
+            /**
+             * logs in Social User if it already signed up before.
+             */
+            if($authService->loginSocialUserIfExists($type,$user,$this->socialRepository)){
+                /**
+                 * This function loginSocialUserIfExists return true if user exists
+                 * false if user does not exists
+                 */
+                $userModel = $authService->returnUserObjFromSocial($type,$user,$this->socialRepository);
+                Auth::login($userModel);
+                return $this->redirect->toDashboard();
+            }
+            else if (Session::get('facebookLogin')){
+                // request is from login page. show proper error message to user.
+                $messageLangKey = 'auth.alreadySignedUp';
+                return $this->redirect->toLogin("failureMessage",$messageLangKey);
+            }
             $columns = $this->extractor->getFacebookDetails($user,$type);
             $this->SetGenderIfFetchFromSocial($user, $columns);
             if($extraValidations->EmailExistsOrNot($user->email,$this->profileRepository)){
@@ -202,10 +219,27 @@ class SignupController extends Controller
      * @param ExtraValidationServiceInterface $extraValidations
      * @return mixed
      */
-    public function twitterCallback(RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations){
+    public function twitterCallback(RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations, AuthenticationServiceInterface $authService){
         try{
             $user = Socialite::driver('twitter')->user();
             $type = 'twitter';
+            /**
+             * logs in Social User if it already signed up before.
+             */
+            if($authService->loginSocialUserIfExists($type,$user,$this->socialRepository)){
+                /**
+                 * This function loginSocialUserIfExists return true if user exists
+                 * false if user does not exists
+                 */
+                $userModel = $authService->returnUserObjFromSocial($type,$user,$this->socialRepository);
+                Auth::login($userModel);
+                return $this->redirect->toDashboard();
+            }
+            else if (Session::get('twitterLogin')){
+                // request is from login page. show proper error message to user.
+                $messageLangKey = 'auth.alreadySignedUp';
+                return $this->redirect->toLogin("failureMessage",$messageLangKey);
+            }
             $columns = $this->extractor->getTwitterDetails($user,$type);
             $this->SetGenderIfFetchFromSocial($user, $columns);
 //            if($extraValidations->EmailExistsOrNot($user->email,$this->profileRepository)){
@@ -239,51 +273,6 @@ class SignupController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
      * Set gender to data array if it is set in $user object of Socialite
      *
      * @param $user
@@ -294,5 +283,21 @@ class SignupController extends Controller
         if (isset($user->user["gender"])) {
             array_add($columns, "gender", ($user->user["gender"] == "male") ? true : false);
         }
+    }
+
+    /**
+     * @param $messageLangKey
+     * @return array
+     */
+    private function ResponseToAjaxRequest($status,$messageLangKey)
+    {
+        return array('status' => $status, 'message' => trans($messageLangKey));
+    }
+
+    private function loginUserIfExists($type,$user,ExtraValidationServiceInterface $extraValidationService, SocialUserRepositoryInterface $socialRepository, AuthenticationServiceInterface $authService){
+
+
+        $count = $socialRepository->socialUserCount($type,$user->token);
+        dd($count);
     }
 }

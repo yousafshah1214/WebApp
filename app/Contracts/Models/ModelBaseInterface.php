@@ -9,13 +9,14 @@
 namespace App\Contracts\Models;
 
 use ArrayAccess;
+use Illuminate\Contracts\Auth\Authenticatable;
 use JsonSerializable;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Contracts\Routing\UrlRoutable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-interface ModelBaseInterface extends ArrayAccess,Arrayable, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable
+interface ModelBaseInterface extends ArrayAccess,Arrayable, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable, Authenticatable
 {
 
 }

@@ -24,6 +24,7 @@ class DataExtractorService extends BaseService implements DataExtractorServiceIn
             'name'      =>  $user->name,
             'provider'  =>  $type,
             'token'     =>  $user->token,
+            'network_user_id'   =>  $user->getId()
         );
 
         if(isset($user->nickname)){
@@ -54,6 +55,7 @@ class DataExtractorService extends BaseService implements DataExtractorServiceIn
             'name'      =>  $user->name,
             'provider'  =>  $type,
             'token'     =>  $user->token,
+            'network_user_id'   =>  $user->getId()
         );
     }
 }

@@ -30,6 +30,7 @@ elixir(function(mix) {
         .scripts([
         'vendor/jquery-1.11.3.min.js',
         'vendor/jquery-2.2.2.min.js',
+        'scripts.js',
         'vendor/raphael-min.js',
         'bootstrap.min.js',
         'jquery.mixitup.min.js',

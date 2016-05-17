@@ -23,6 +23,9 @@ class ServicesServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('App\Contracts\Services\AuthenticationServiceInterface',
+            'App\Services\AuthenticationService');
+
         $this->app->bind('App\Contracts\Services\RegistrationServiceInterface',
             'App\Services\RegistrationService');
 

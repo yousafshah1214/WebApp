@@ -35,9 +35,9 @@
 					</div>
 					<div class="col-sm-4 col-sm-offset-4">
 							<div class="login-form">
-								{!! Form::open(array('url' => 'signup/process')) !!}
+								{!! Form::open(array('url' => 'signup/process','id'	=>	'register')) !!}
 									<div class="input-group">
-									  <input type="text" class="form-control uname-control" placeholder="Username" aria-describedby="sizing-addon2" name="username">
+									  <input id="username" type="text" class="form-control uname-control" placeholder="Username" aria-describedby="sizing-addon2" name="username" required minlength="6">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-user"></i>
 										</span>
                                         <span id="username_error" class="error"
@@ -51,7 +51,7 @@
                                         </span>
 									</div>
                                     <div class="input-group">
-                                        <input type="email" class="form-control uname-control" placeholder="Email" aria-describedby="sizing-addon3" name="email">
+                                        <input id="email" type="email" required class="form-control uname-control" placeholder="Email" aria-describedby="sizing-addon3" name="email">
                                         <span class="input-group-addon log-icon-one" id="sizing-addon3">
                                             <i class="fa fa-at"></i>
                                         </span>
@@ -66,7 +66,7 @@
                                         </span>
                                     </div>
 									<div class="input-group pass-box">
-									  <input type="password" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
+									  <input id="password" type="password" required minlength="6" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-lock"></i>
 										</span>
                                         <span id="pass_error" class="error"
@@ -79,7 +79,7 @@
                                         @endif
                                         </span>
 									</div>
-									<input class="log-btn" type="submit" name="signup" value="Sign up" />
+									<input id="submit" class="log-btn" type="submit" name="signup" value="Sign up" data-loading-text="Signing Up..." autocomplete="off"/>
 								{!! Form::close() !!}
 								<span class="singnup-now"> Signed up before?<a href="{{ url('login') }}"> Login now!</a> </span>
 							</div>
@@ -100,13 +100,5 @@
         @include("...partials.scripts")
         <!--end script section-->
 
-		<script type="text/javascript">
-			@if(Session::has("successMessage"))
-                sweetAlert( "{!! Session::get('successMessage') !!}");
-			@endif
-			@if(Session::has("failureMessage"))
-				sweetAlert("Oops...","{!! Session::get('failureMessage') !!}","error");
-			@endif
-		</script>
     </body>
 </html>
