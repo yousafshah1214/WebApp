@@ -262,14 +262,23 @@ class SignupController extends Controller
             return $this->redirect->toSignup("successMessage",$messageLangKey);
         }
         catch(Exception $e){
-            $this->logger->logException($e,"emergency");
+            $this->logger->logException($e,"Exception in User Registration");
+
+            $messageLangKey = 'auth.error';
+            return $this->redirect->toSignup("failureMessage",$messageLangKey);
         }
-        $messageLangKey = 'auth.error';
-        return $this->redirect->toSignup("failureMessage",$messageLangKey);
     }
 
-    public function activate($code){
+    public function activate($code,RegistrationServiceInterface $registrationService){
+        try{
+            $registrationService->activateUser($code,$this->repository);
 
+            $messageLangKey = 'auth.activated';
+            return $this->redirect->toSignup("successMessage",$messageLangKey);
+        }
+        catch(Exception $e){
+            $this->logger->logException($e,"Exception in User Activation");
+        }
     }
 
     /**

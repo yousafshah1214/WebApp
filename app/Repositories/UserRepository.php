@@ -186,4 +186,38 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
         return $usernameCount;
     }
 
+    /**
+     * Get User via Activation Code.
+     *
+     * @param $activateCode
+     * @return User
+     * @throws Exception
+     */
+    public function getUserFromActivateCode($activateCode)
+    {
+        try{
+            $user = $this->model->where('activate_token','=',$activateCode)->where('active','=',false)->firstOrFail();
+
+            return $user;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Activate User if found any user with given activation code
+     *
+     * @param UserModelInterface $user
+     * @return mixed
+     */
+    public function activateUser(UserModelInterface $user)
+    {
+        $this->model = $user;
+
+        $this->model->active = 1;
+
+        $this->model->save();
+    }
+
 }

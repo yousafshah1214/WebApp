@@ -70,4 +70,20 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
      * @return mixed
      */
     public function usernameCount($username);
+
+    /**
+     * Get User via Activation Code.
+     *
+     * @param $activateCode
+     * @return mixed
+     */
+    public function getUserFromActivateCode($activateCode);
+
+    /**
+     * Activate User if found any user with given activation code
+     *
+     * @param UserModelInterface $user
+     * @return mixed
+     */
+    public function activateUser(UserModelInterface $user);
 }

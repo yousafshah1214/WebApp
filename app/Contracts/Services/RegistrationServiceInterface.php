@@ -20,4 +20,13 @@ interface RegistrationServiceInterface extends BaseServiceInterface
      * @return mixed
      */
     public function registerUser($type, array $columns, UserRepositoryInterface $userRepository, UserProfileRepositoryInterface $profileRepository, SocialUserRepositoryInterface $socialUserRepository = null);
+
+    /**
+     * Activates User with Given Code.
+     *
+     * @param $code
+     * @param UserRepositoryInterface $userRepository
+     * @return mixed
+     */
+    public function activateUser($code, UserRepositoryInterface $userRepository);
 }

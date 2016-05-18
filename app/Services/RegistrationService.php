@@ -21,23 +21,49 @@ class RegistrationService extends RegistrationServiceAbstract implements Registr
      * @param UserProfileRepositoryInterface $userProfileRepository
      * @param SocialUserRepositoryInterface $socialUserRepository
      * @return mixed User Model
+     * @throws Exception
      */
     public function registerUser($type, array $columns, UserRepositoryInterface $userRepository, UserProfileRepositoryInterface $userProfileRepository, SocialUserRepositoryInterface $socialUserRepository = null)
     {
-        $userRepository->create($columns, $type);
+        try{
+            $userRepository->create($columns, $type);
 
-        $profile = $userProfileRepository->make($columns,$type);
+            $profile = $userProfileRepository->make($columns,$type);
 
-        if($this->isSocialUser($type) && $this->isSocialUserRepositoryAvailable($socialUserRepository)){
+            if($this->isSocialUser($type) && $this->isSocialUserRepositoryAvailable($socialUserRepository)){
 
-            $social = $socialUserRepository->make($columns,$type);
+                $social = $socialUserRepository->make($columns,$type);
 
-            $userRepository->attachSocial($social);
+                $userRepository->attachSocial($social);
+            }
+
+            $userRepository->attachProfile($profile);
+
+            return $userRepository->getUser($userRepository->getInsertedUserId());
         }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
 
-        $userRepository->attachProfile($profile);
+    /**
+     * Activates User with Given Code.
+     *
+     * @param $code
+     * @param UserRepositoryInterface $userRepository
+     * @return mixed
+     * @throws Exception
+     */
+    public function activateUser($code, UserRepositoryInterface $userRepository)
+    {
+        try{
+            $user = $userRepository->getUserFromActivateCode($code);
 
-        return $userRepository->getUser($userRepository->getInsertedUserId());
+            $userRepository->activateUser($user);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**

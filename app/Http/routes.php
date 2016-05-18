@@ -47,7 +47,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('check/email','Auth\ValidationController@checkEmail')->name('signup.check.email');
 
-    Route::get('signup/activate/{code}','Auth\SignupController@activate/{code}')->name('signup.activate');
+    Route::get('signup/activate/{code}','Auth\SignupController@activate')->name('signup.activate');
 
     Route::get('signup/facebook','Auth\SignupController@facebookSignup')->name('signup.facebook');
 

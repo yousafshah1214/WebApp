@@ -23,4 +23,5 @@ return [
                                 'usernameExists'    =>  'Username Already Exists. Please Try to Login or Signup via form',
                             ],
     'alreadySignedUp'   =>  'You are not Registered. Please Register.',
+    'activated'         =>  'Your account has been activated!! You can login to our website now.',
 ];
