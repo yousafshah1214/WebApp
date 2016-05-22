@@ -31,23 +31,27 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
      * @throws Exception
      */
     public function create(array $columns, $type, UserModelInterface $user){
+        try{
+            $credentials = null;
 
-        $credentials = null;
+            if($type=="form"){
+                $credentials = $this->getProfileCredentials($columns);
+            }
+            elseif($type=="facebook"){
+                $credentials = $this->getFacebookProfileCredentials($columns);
+            }
+            else if($type=="twitter"){
+                $credentials = $this->getTwitterProfileCredentials($columns);
+            }
 
-        if($type=="form"){
-            $credentials = $this->getProfileCredentials($columns);
+            $this->getProfileObjectFilled($credentials);
+
+            if(! $user->profile()->save($this->model)){
+                throw new Exception("Error: unable to create user profile with user");
+            }
         }
-        elseif($type=="facebook"){
-            $credentials = $this->getFacebookProfileCredentials($columns);
-        }
-        else if($type=="twitter"){
-            $credentials = $this->getTwitterProfileCredentials($columns);
-        }
-
-        $this->getProfileObjectFilled($credentials);
-
-        if(! $user->profile()->save($this->model)){
-            throw new Exception("Error: unable to create user profile with user");
+        catch(Exception $e){
+            throw $e;
         }
     }
 
@@ -57,24 +61,30 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
      * @param array $columns
      * @param $type
      * @return UserProfileModelInterface|UserProfile
+     * @throws Exception
      */
     public function make(array $columns, $type){
 
-        $credentials = null;
+        try{
+            $credentials = null;
 
-        if($type=="form"){
-            $credentials = $this->getProfileCredentials($columns);
-        }
-        elseif($type=="facebook"){
-            $credentials = $this->getFacebookProfileCredentials($columns);
-        }
-        else if($type=="twitter"){
-            $credentials = $this->getTwitterProfileCredentials($columns);
-        }
+            if($type=="form"){
+                $credentials = $this->getProfileCredentials($columns);
+            }
+            elseif($type=="facebook"){
+                $credentials = $this->getFacebookProfileCredentials($columns);
+            }
+            else if($type=="twitter"){
+                $credentials = $this->getTwitterProfileCredentials($columns);
+            }
 
-        $this->getProfileObjectFilled($credentials);
+            $this->getProfileObjectFilled($credentials);
 
-        return $this->model;
+            return $this->model;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -82,12 +92,18 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
      *
      * @param $email
      * @return mixed
+     * @throws Exception
      */
     public function emailCounts($email)
     {
-        $emailsCounts = $this->model->where("email", '=', $email)->count();
+        try{
+            $emailsCounts = $this->model->where("email", '=', $email)->count();
 
-        return $emailsCounts;
+            return $emailsCounts;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -95,31 +111,42 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function getProfileCredentials(array $columns)
     {
-        $credentials = array(
-            'email'     =>  $columns['email'],
-        );
+        try{
+            $credentials = array(
+                'email'     =>  $columns['email'],
+            );
 
-        return $credentials;
+            return $credentials;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
-
 
     /**
      * return facebook profile credentials array from given array
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function getFacebookProfileCredentials(array $columns)
     {
-        $credentials = array(
-            'email'     =>  $columns['email'],
-            'name'      =>  $columns['name']
-        );
+        try{
+            $credentials = array(
+                'email'     =>  $columns['email'],
+                'name'      =>  $columns['name']
+            );
 
-        return $credentials;
+            return $credentials;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -127,14 +154,20 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function getTwitterProfileCredentials(array $columns)
     {
-        $credentials = array(
-            'name'      =>  $columns['name']
-        );
+        try{
+            $credentials = array(
+                'name'      =>  $columns['name']
+            );
 
-        return $credentials;
+            return $credentials;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -142,11 +175,17 @@ class UserProfileRepository extends UserProfileRepositoryAbstract implements Use
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function getProfileObjectFilled(array $columns)
     {
-        foreach($columns as $key => $column){
-            $this->model->{$key} =  $column;
+        try{
+            foreach($columns as $key => $column){
+                $this->model->{$key} =  $column;
+            }
+        }
+        catch(Exception $e){
+            throw $e;
         }
     }
 

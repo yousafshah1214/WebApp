@@ -7,6 +7,7 @@ use App\Contracts\Repositories\SocialUserRepositoryInterface;
 use App\Contracts\Repositories\UserProfileRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\ExtraValidationServiceInterface;
+use Exception;
 
 class ExtraValidationService extends BaseService implements ExtraValidationServiceInterface
 {
@@ -19,15 +20,21 @@ class ExtraValidationService extends BaseService implements ExtraValidationServi
      * @param $email
      * @param UserProfileRepositoryInterface $userProfileRepository
      * @return bool
+     * @throws Exception
      */
     public function EmailExistsOrNot($email, UserProfileRepositoryInterface $userProfileRepository)
     {
-        $count = $userProfileRepository->emailCounts($email);
+        try{
+            $count = $userProfileRepository->emailCounts($email);
 
-        if($count > 0){
-            return true;
+            if($count > 0){
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -36,15 +43,21 @@ class ExtraValidationService extends BaseService implements ExtraValidationServi
      * @param $username
      * @param UserRepositoryInterface $userRepository
      * @return bool
+     * @throws Exception
      */
     public function UsernameExistsOrNot($username, UserRepositoryInterface $userRepository)
     {
-        $count = $userRepository->usernameCount($username);
+        try{
+            $count = $userRepository->usernameCount($username);
 
-        if($count > 0){
-            return true;
+            if($count > 0){
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -54,17 +67,21 @@ class ExtraValidationService extends BaseService implements ExtraValidationServi
      * @param $user
      * @param SocialUserRepositoryInterface $socialRepository
      * @return bool
+     * @throws Exception
      */
     public function SocialUserExistsOrNot($type,$user, SocialUserRepositoryInterface $socialRepository)
     {
-        $count = $socialRepository->socialUserCount($type,$socialRepository);
-
-        if($count > 0){
-            // true means user exists in database.
-            return true;
+        try{
+            $count = $socialRepository->socialUserCount($type,$socialRepository);
+            if($count > 0){
+                // true means user exists in database.
+                return true;
+            }
+            return false;
         }
-
-        return false;
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
 }

@@ -278,6 +278,8 @@ class SignupController extends Controller
         }
         catch(Exception $e){
             $this->logger->logException($e,"Exception in User Activation");
+            $messageLangKey = 'auth.activationError';
+            return $this->redirect->toPreviousPage("failureMessage",$messageLangKey);
         }
     }
 
@@ -286,27 +288,34 @@ class SignupController extends Controller
      *
      * @param $user
      * @param $columns
+     * @throws Exception
      */
     private function SetGenderIfFetchFromSocial($user, $columns)
     {
-        if (isset($user->user["gender"])) {
-            array_add($columns, "gender", ($user->user["gender"] == "male") ? true : false);
+        try{
+            if (isset($user->user["gender"])) {
+                array_add($columns, "gender", ($user->user["gender"] == "male") ? true : false);
+            }
+        }
+        catch(Exception $e){
+            throw $e;
         }
     }
 
     /**
+     * @param $status
      * @param $messageLangKey
      * @return array
+     * @throws Exception
      */
     private function ResponseToAjaxRequest($status,$messageLangKey)
     {
-        return array('status' => $status, 'message' => trans($messageLangKey));
+        try{
+            return array('status' => $status, 'message' => trans($messageLangKey));
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
-    private function loginUserIfExists($type,$user,ExtraValidationServiceInterface $extraValidationService, SocialUserRepositoryInterface $socialRepository, AuthenticationServiceInterface $authService){
-
-
-        $count = $socialRepository->socialUserCount($type,$user->token);
-        dd($count);
-    }
 }

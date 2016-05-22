@@ -67,7 +67,7 @@
                                     </div>
 									<div class="input-group pass-box">
 									  <input id="password" type="password" required minlength="6" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
-										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-lock"></i>
+										<span class="input-group-addon log-icon-one" id="sizing-addon4"><i class="fa fa-lock"></i>
 										</span>
                                         <span id="pass_error" class="error"
                                         @if($errors->has('pass'))

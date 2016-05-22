@@ -72,6 +72,14 @@ interface UserRepositoryInterface extends BaseRepositoryInterface
     public function usernameCount($username);
 
     /**
+     * Count Users with given activation code.
+     *
+     * @param $activateCode
+     * @return int
+     */
+    public function UserCountWithActivateCode($activateCode);
+
+    /**
      * Get User via Activation Code.
      *
      * @param $activateCode

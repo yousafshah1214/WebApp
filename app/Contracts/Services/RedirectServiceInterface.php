@@ -41,4 +41,12 @@ interface RedirectServiceInterface extends BaseServiceInterface
      */
     public function toLogin($messageKey = null, $messageLangKey = null);
 
+    /**
+     * Redirects to previous page.
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     */
+    public function toPreviousPage($messageKey = null, $messageLangKey = null);
 }

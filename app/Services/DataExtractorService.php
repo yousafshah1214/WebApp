@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Contracts\Services\DataExtractorServiceInterface;
+use Exception;
 
 class DataExtractorService extends BaseService implements DataExtractorServiceInterface
 {
@@ -14,29 +15,34 @@ class DataExtractorService extends BaseService implements DataExtractorServiceIn
      * @param $user
      * @param $type
      * @return mixed
+     * @throws Exception
      */
     public function getFacebookDetails($user, $type)
     {
-        $credentials = array(
-            'social'    =>  true,
-            'active'    =>  true,
-            'email'     =>  $user->email,
-            'name'      =>  $user->name,
-            'provider'  =>  $type,
-            'token'     =>  $user->token,
-            'network_user_id'   =>  $user->getId()
-        );
+        try{
+            $credentials = array(
+                'social'    =>  true,
+                'active'    =>  true,
+                'email'     =>  $user->email,
+                'name'      =>  $user->name,
+                'provider'  =>  $type,
+                'token'     =>  $user->token,
+                'network_user_id'   =>  $user->getId()
+            );
 
-        if(isset($user->nickname)){
-            $username = uniqid($user->nickname);
-            $credentials = array_add($credentials,'username',$username);
-        }
-        else{
-            $username = uniqid(implode("",explode(" ",$user->name)));
-            $credentials = array_add($credentials,'username',$username);
-        }
+            if(isset($user->nickname)){
+                $username = uniqid($user->nickname);
+                $credentials = array_add($credentials,'username',$username);
+            }
+            else{
+                $username = uniqid(implode("",explode(" ",$user->name)));
+                $credentials = array_add($credentials,'username',$username);
+            }
 
-        return $credentials;
+            return $credentials;
+        }catch (Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -45,17 +51,22 @@ class DataExtractorService extends BaseService implements DataExtractorServiceIn
      * @param $user
      * @param $type
      * @return mixed
+     * @throws Exception
      */
     public function getTwitterDetails($user, $type)
     {
-        return array(
-            'social'    =>  true,
-            'active'    =>  true,
-            'username'  =>  $user->nickname,
-            'name'      =>  $user->name,
-            'provider'  =>  $type,
-            'token'     =>  $user->token,
-            'network_user_id'   =>  $user->getId()
-        );
+        try{
+            return array(
+                'social'    =>  true,
+                'active'    =>  true,
+                'username'  =>  $user->nickname,
+                'name'      =>  $user->name,
+                'provider'  =>  $type,
+                'token'     =>  $user->token,
+                'network_user_id'   =>  $user->getId()
+            );
+        }catch (Exception $e){
+            throw $e;
+        }
     }
 }

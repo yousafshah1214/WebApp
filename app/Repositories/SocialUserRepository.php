@@ -34,11 +34,16 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
      */
     public function create(array $columns, UserModelInterface $user)
     {
-        /** $this->model is filled with data and ready to be saved with User Model Relation */
-        $this->getSocialObjectWithCredentialsFilled($columns);
+        try{
+            /** $this->model is filled with data and ready to be saved with User Model Relation */
+            $this->getSocialObjectWithCredentialsFilled($columns);
 
-        if(! $user->social()->save($this->model)){
-            throw new Exception("Error: unable to create user profile with user");
+            if(! $user->social()->save($this->model)){
+                throw new Exception("Error: unable to create user profile with user");
+            }
+        }
+        catch(Exception $e){
+            throw $e;
         }
     }
 
@@ -47,23 +52,35 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     public function make(array $columns)
     {
-        $this->getSocialObjectWithCredentialsFilled($columns);
+        try{
+            $this->getSocialObjectWithCredentialsFilled($columns);
 
-        return $this->model;
+            return $this->model;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
      * @param $type
      * @param $id
-     * @return integer
+     * @return int
+     * @throws Exception
      */
     public function socialUserCount($type, $id)
     {
-        $count = $this->model->where('network','=',$type)->where('networkUserId','=',$id)->count();
-        return $count;
+        try{
+            $count = $this->model->where('network','=',$type)->where('networkUserId','=',$id)->count();
+            return $count;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -72,14 +89,20 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
      * @param $type
      * @param $id
      * @return mixed
+     * @throws Exception
      */
     public function getUserFromSocialite($type, $id)
     {
-        $socialUser = $this->model->where('network','=',$type)->where('networkUserId','=',$id)->first();
+        try{
+            $socialUser = $this->model->where('network','=',$type)->where('networkUserId','=',$id)->first();
 
-        $user = $socialUser->user;
+            $user = $socialUser->user;
 
-        return $user;
+            return $user;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -88,12 +111,18 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function getSocialObjectWithCredentialsFilled(array $columns)
     {
-        $credentials = $this->getSocialCredentials($columns);
+        try{
+            $credentials = $this->getSocialCredentials($columns);
 
-        $this->getSocialObjectFilled($credentials);
+            $this->getSocialObjectFilled($credentials);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -101,16 +130,22 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function getSocialCredentials(array $columns)
     {
-        $credentials = array(
-            'network'           =>  $columns['provider'],
-            'networkUserId'     =>  $columns['network_user_id'],
-            'networkToken'      =>  $columns['token'],
-        );
+        try{
+            $credentials = array(
+                'network'           =>  $columns['provider'],
+                'networkUserId'     =>  $columns['network_user_id'],
+                'networkToken'      =>  $columns['token'],
+            );
 
-        return $credentials;
+            return $credentials;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -118,13 +153,18 @@ class SocialUserRepository extends SocialUserRepositoryAbstract implements Socia
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function getSocialObjectFilled(array $columns)
     {
-        foreach($columns as $columnKey => $columnValue){
-            $this->model->{$columnKey}  = $columnValue;
+        try{
+            foreach($columns as $columnKey => $columnValue){
+                $this->model->{$columnKey}  = $columnValue;
+            }
+        }
+        catch(Exception $e){
+            throw $e;
         }
     }
-
 
 }

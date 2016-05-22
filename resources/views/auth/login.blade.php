@@ -37,7 +37,7 @@
 							<div class="login-form">
 								{!! Form::open(array('url'  =>  'login/process')) !!}
 									<div class="input-group">
-									  <input type="text" class="form-control uname-control" placeholder="Username" aria-describedby="sizing-addon2" name="username">
+									  <input id="username" type="text" class="form-control uname-control" placeholder="Username" aria-describedby="sizing-addon2" name="username">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-user"></i>
 										</span>
 										<span id="username_error" class="error"
@@ -51,7 +51,7 @@
 										</span>
 									</div>
 									<div class="input-group pass-box">
-									  <input type="password" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
+									  <input id="password" type="password" class="form-control uname-control" placeholder="Password" aria-describedby="sizing-addon2" name="password">
 										<span class="input-group-addon log-icon-one" id="sizing-addon2"><i class="fa fa-lock"></i>
 										</span>
 										<span id="pass_error" class="error"

@@ -24,4 +24,5 @@ return [
                             ],
     'alreadySignedUp'   =>  'You are not Registered. Please Register.',
     'activated'         =>  'Your account has been activated!! You can login to our website now.',
+    'activationError'   =>  "We are Sorry!! Something didn't work as we expected. We have noted this issue and our team is working to solve it. Thanks for your patience.",
 ];

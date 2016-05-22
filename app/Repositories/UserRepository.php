@@ -45,10 +45,16 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param array $column
      * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @throws Exception
      */
     public function getByColumn(array $column)
     {
-        return $this->model->all($column);
+        try{
+            return $this->model->all($column);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -58,10 +64,15 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      * @throws Exception
      */
     public function getInsertedUserId(){
-        if(is_null($this->userId)){
-           throw new Exception("Error: User Id not set");
+        try{
+            if(is_null($this->userId)){
+                throw new Exception("Error: User Id not set");
+            }
+            return $this->userId;
         }
-        return $this->userId;
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -69,6 +80,7 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param int $id
      * @return mixed
+     * @throws Exception
      * @throw ModelNotFoundException
      */
     public function getUser($id){
@@ -76,7 +88,12 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
          * findorFail method throws ModelNotFoundException if no User found with given Id
          *
         */
-        return $this->model->findOrFail($id);
+        try{
+            return $this->model->findOrFail($id);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -89,22 +106,27 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      */
     public function create(array $columns,$type)
     {
-        $userCredentials = null;
+        try{
+            $userCredentials = null;
 
-        if($type == "form"){
-            $userCredentials = $this->getUserCredentials($columns);
+            if($type == "form"){
+                $userCredentials = $this->getUserCredentials($columns);
+            }
+            else if($type = "facebook"){
+                $userCredentials = $this->getFacebookUserCredentials($columns);
+            }
+
+            $this->createUserWith($userCredentials);
+
+            if(! $this->model->save() ){
+                throw new Exception("Error In saving User to Database");
+            }
+
+            $this->userId = $this->model->id;
         }
-        else if($type = "facebook"){
-            $userCredentials = $this->getFacebookUserCredentials($columns);
+        catch(Exception $e){
+            throw $e;
         }
-
-        $this->createUserWith($userCredentials);
-
-        if(! $this->model->save() ){
-            throw new Exception("Error In saving User to Database");
-        }
-
-        $this->userId = $this->model->id;
     }
 
     /**
@@ -112,16 +134,22 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param array $columns
      * @return array
+     * @throws Exception
      */
     protected function getUserCredentials(array $columns)
     {
-        $credentials = array(
-            'username'          =>  $columns['username'],
-            'password'          =>  $columns['password'],
-            'activate_token'    =>  md5($columns['email'].str_random(8).time())
-        );
+        try{
+            $credentials = array(
+                'username'          =>  $columns['username'],
+                'password'          =>  $columns['password'],
+                'activate_token'    =>  md5($columns['email'].str_random(8).time())
+            );
 
-        return $credentials;
+            return $credentials;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -129,16 +157,22 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param array $columns
      * @return array
+     * @throws Exception
      */
     protected function getFacebookUserCredentials(array $columns)
     {
-        $credentials = array(
-            'social'            =>  $columns['social'],
-            'active'            =>  $columns['active'],
-            'username'          =>  $columns['username']
-        );
+        try{
+            $credentials = array(
+                'social'            =>  $columns['social'],
+                'active'            =>  $columns['active'],
+                'username'          =>  $columns['username']
+            );
 
-        return $credentials;
+            return $credentials;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -146,11 +180,17 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     protected function createUserWith(array $columns)
     {
-        foreach($columns as $columnKey => $columnValue){
-            $this->model->{$columnKey}  =   $columnValue;
+        try{
+            foreach($columns as $columnKey => $columnValue){
+                $this->model->{$columnKey}  =   $columnValue;
+            }
+        }
+        catch(Exception $e){
+            throw $e;
         }
     }
 
@@ -159,10 +199,16 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param UserProfileModelInterface $profile
      * @return mixed|void
+     * @throws Exception
      */
     public function attachProfile(UserProfileModelInterface $profile)
     {
-        $this->model->profile()->save($profile);
+        try{
+            $this->model->profile()->save($profile);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -170,7 +216,12 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      */
     public function attachSocial(SocialUserModelInterface $socialUser)
     {
-        $this->model->social()->save($socialUser);
+        try{
+            $this->model->social()->save($socialUser);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -178,12 +229,35 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param $username
      * @return mixed
+     * @throws Exception
      */
     public function usernameCount($username)
     {
-        $usernameCount = $this->model->where("username","=",$username)->count();
+        try{
+            $usernameCount = $this->model->where("username","=",$username)->count();
 
-        return $usernameCount;
+            return $usernameCount;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Count Users with given activation code.
+     *
+     * @param $activateCode
+     * @return int
+     * @throws Exception
+     */
+    public function UserCountWithActivateCode($activateCode)
+    {
+        try{
+            return $this->model->where('activate_token','=',$activateCode)->where('active','=',false)->count();
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -210,14 +284,20 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
      *
      * @param UserModelInterface $user
      * @return mixed
+     * @throws Exception
      */
     public function activateUser(UserModelInterface $user)
     {
-        $this->model = $user;
+        try{
+            $this->model = $user;
 
-        $this->model->active = 1;
+            $this->model->active = 1;
 
-        $this->model->save();
+            $this->model->save();
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
 }

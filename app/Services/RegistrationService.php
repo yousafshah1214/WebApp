@@ -49,17 +49,18 @@ class RegistrationService extends RegistrationServiceAbstract implements Registr
     /**
      * Activates User with Given Code.
      *
-     * @param $code
+     * @param $activateCode
      * @param UserRepositoryInterface $userRepository
      * @return mixed
      * @throws Exception
      */
-    public function activateUser($code, UserRepositoryInterface $userRepository)
+    public function activateUser($activateCode, UserRepositoryInterface $userRepository)
     {
         try{
-            $user = $userRepository->getUserFromActivateCode($code);
-
-            $userRepository->activateUser($user);
+            if($userRepository->UserCountWithActivateCode($activateCode) > 0){
+                $user = $userRepository->getUserFromActivateCode($activateCode);
+                $userRepository->activateUser($user);
+            }
         }
         catch(Exception $e){
             throw $e;

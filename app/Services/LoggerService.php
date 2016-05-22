@@ -37,5 +37,4 @@ class LoggerService extends BaseService implements LoggerServiceInterface
         Log::info($message);
     }
 
-
 }

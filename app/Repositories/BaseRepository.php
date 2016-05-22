@@ -9,17 +9,23 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\BaseRepositoryInterface;
+use Exception;
 
 abstract class BaseRepository implements BaseRepositoryInterface{
 
     /**
      * Fetch all records
-     *
      * @return mixed
+     * @throws Exception
      */
     public function fetchAll()
     {
-        return $this->model->all();
+        try{
+            return $this->model->all();
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -27,10 +33,16 @@ abstract class BaseRepository implements BaseRepositoryInterface{
      *
      * @param array $columns
      * @return mixed
+     * @throws Exception
      */
     public function getAll(array $columns)
     {
-        return $this->model->all($columns);
+        try{
+            return $this->model->all($columns);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -39,10 +51,16 @@ abstract class BaseRepository implements BaseRepositoryInterface{
      * @param $page
      * @param $perpage
      * @return mixed
+     * @throws Exception
      */
     public function paginateAll($page, $perpage)
     {
-        return $this->model->paginate($perpage);
+        try{
+            return $this->model->paginate($perpage);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -50,11 +68,17 @@ abstract class BaseRepository implements BaseRepositoryInterface{
      *
      * @param $id
      * @return mixed
+     * @throws Exception
      */
     public function delete($id)
     {
-        $entity = $this->model->findOrFail($id);
-        $entity->delete();
+        try{
+            $entity = $this->model->findOrFail($id);
+            $entity->delete();
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -63,11 +87,17 @@ abstract class BaseRepository implements BaseRepositoryInterface{
      * @param $id
      * @param array $column
      * @return mixed
+     * @throws Exception
      */
     public function update($id, array $column)
     {
-        $entity = $this->model->findOrFail($id);
-        $entity->save($column);
+        try{
+            $entity = $this->model->findOrFail($id);
+            $entity->save($column);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
     /**
@@ -77,10 +107,16 @@ abstract class BaseRepository implements BaseRepositoryInterface{
      * @param $page
      * @param $perpage
      * @return mixed
+     * @throws Exception
      */
     public function getAllPaginated(array $columns,$page, $perpage)
     {
-        return $this->model->all($columns)->paginate($perpage);
+        try{
+            return $this->model->all($columns)->paginate($perpage);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
     }
 
 
