@@ -26,7 +26,7 @@ class SignupRequest extends Request
         return [
             'username'      =>      'required|alpha_dash|min:6|unique:users,username',
             'password'      =>      'required|string|min:6',
-            'email'         =>      'required|email|unique:user_profiles,email'
+            'email'         =>      'required|email|min:6|unique:user_profiles,email'
         ];
     }
 }

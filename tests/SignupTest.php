@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class SignupTest extends TestCase
 {
@@ -18,7 +19,7 @@ class SignupTest extends TestCase
      *
      * @return void
      */
-    public function testSignup_process_fresh_user()
+    public function test_signup_process_fresh_user()
     {
         $username = str_random(16)."yousa".time();
 
@@ -36,7 +37,7 @@ class SignupTest extends TestCase
             ->see("Successfully");
     }
 
-    public function testSignup_user_is_registered_before_same_email_case(){
+    public function test_signup_user_is_registered_before_same_email_case(){
 
         $userRepo = new UserRepository(new User(),new UserProfileRepository(new UserProfile()));
 
@@ -52,7 +53,7 @@ class SignupTest extends TestCase
             ->see("Error");
     }
 
-    public function testSignup_user_is_registered_before_same_username(){
+    public function test_signup_user_is_registered_before_same_username(){
 
         $userRepo = new UserRepository(new User(),new UserProfileRepository(new UserProfile()));
 
@@ -67,4 +68,73 @@ class SignupTest extends TestCase
             ->press('signup')
             ->see("Error");
     }
+
+    public function test_signup_process_fresh_user_ajax(){
+        $username = str_random(16);
+        $email = $username."@gmail.com";
+
+        Session::start();
+
+        $this->visit('/signup')
+            ->type($username,'username')
+            ->type($email,'email')
+            ->type('yousafraza','password')
+            ->press('signup')
+            ->seeInDatabase('users',array('username'    =>  $username))
+            ->seeInDatabase('user_profiles',array('email'   =>  $email))
+            ->see('You have been Successfully Registered!! Please Check you mail for activation.');
+        ;
+    }
+
+    public function test_signup_with_short_username(){
+        $username = str_random(5);
+
+        $email = $username."@gmail.com";
+
+        $this->visit('/signup');
+        $this->type($username, 'username');
+        $this->type($email, 'email');
+        $this->type('yousaf', 'password');
+        $this->press('signup');
+        $this->seePageIs('signup');
+        $this->dontSeeInDatabase('users',array('username'   =>  $username));
+        $this->dontSeeInDatabase('user_profiles',array('email'  =>  $email));
+        $this->assertResponseOk();
+    }
+
+    public function test_signup_with_short_email()
+    {
+        $username = str_random(6);
+
+        $email = str_random(1)."@g.c";
+
+        $this->visit('/signup');
+        $this->type($username,'username');
+        $this->type($email,'email');
+        $this->type('yousaf','password');
+        $this->press('signup');
+
+        $this->seePageIs('signup');
+        $this->dontSeeInDatabase('users',array('username'   =>  $username));
+        $this->dontSeeInDatabase('user_profiles',array('email'  =>  $email));
+        $this->assertResponseOk();
+    }
+
+    public function test_signup_with_short_password(){
+        $username = str_random(6);
+
+        $email = str_random(1)."@gmail.com";
+
+        $this->visit('/signup');
+        $this->type($username,'username');
+        $this->type($email,'email');
+        $this->type('yousa','password');
+        $this->press('signup');
+
+        $this->seePageIs('signup');
+        $this->dontSeeInDatabase('users',array('username'   =>  $username));
+        $this->dontSeeInDatabase('user_profiles',array('email'  =>  $email));
+        $this->assertResponseOk();
+    }
+
 }

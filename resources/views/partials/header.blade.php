@@ -32,20 +32,37 @@
 							<!--Collect the nav links, forms, and other content for toggling-->
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-
 							  <ul class="nav navbar-nav navbar-right">
-								<li><a href="{{ url("home") }}">HOME</a></li>
-								<li><a href="pricing.html">FEATURES<i class="fa fa-caret-down"></i></a>
-									<ul>
-										<li><a href="creative-dash.html"> Section 1</a></li>
-										<li><a href="dashbord.html">Section 1</a></li>
-										<li><a href="">Section 1</a></li>
-									</ul>
-								</li>
-								<li><a href="search.html">DOMAINS</a></li>
-								<li><a href="{{ url("login") }}">CLIENT LOGIN</a></li>
-								<li><a href="{{ url("signup") }}">SIGN UP</a></li>
-								<li><a href="contact.html">CONTACT</a></li>
+
+                                  @if(! Auth::check())
+                                      <li><a href="{{ url("home") }}">HOME</a></li>
+                                      <li><a href="#">FEATURES<i class="fa fa-caret-down"></i></a>
+                                          <ul>
+                                              <li><a href="creative-dash.html"> Section 1</a></li>
+                                              <li><a href="dashbord.html">Section 1</a></li>
+                                              <li><a href="">Section 1</a></li>
+                                          </ul>
+                                      </li>
+                                      <li><a href="{{ url("pricing") }}">Pricing</a></li>
+                                  @endif
+
+                                  <li><a href="{{ url("search") }}">Search</a></li>
+
+                                  @if(Auth::check())
+
+                                      <li><a href="{{ url("dashboard") }}">Dashboard</a></li>
+                                      <li><a href="{{ url("account/".Auth::user()->id) }}">My Account</a></li>
+                                  @endif
+
+                                  @if(! Auth::check())
+                                      <li><a href="{{ url("login") }}">CLIENT LOGIN</a></li>
+                                      <li><a href="{{ url("signup") }}">SIGN UP</a></li>
+                                  @endif
+
+                                      <li><a href="{{ url("contact") }}">CONTACT</a></li>
+                                  @if(Auth::check())
+                                      <li><a href="{{ url("logout") }}">Logout</a></li>
+                                  @endif
 
 							  </ul>
 							</div><!-- /.navbar-collapse -->
@@ -57,3 +74,7 @@
 		</div>
 
 		</header>
+
+    @if(Auth::check())
+        @include('partials.userMenu')
+    @endif

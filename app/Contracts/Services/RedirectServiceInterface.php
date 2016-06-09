@@ -49,4 +49,13 @@ interface RedirectServiceInterface extends BaseServiceInterface
      * @return mixed
      */
     public function toPreviousPage($messageKey = null, $messageLangKey = null);
+
+    /**
+     * Redirects User to intended page.
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     */
+    public function toIntendedPage($messageKey = null, $messageLangKey = null);
 }

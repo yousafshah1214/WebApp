@@ -5,80 +5,6 @@
 
     $(document).ready(function(){
 
-        $("#username").focusout(function(){
-
-            var usernameTxt = $("#username").val();
-
-            if(usernameTxt.length > 5){
-                $.ajax({
-                    type: 'POST',
-                    url: "check/username",
-                    data: {
-                        _token : $("input[name='_token']").val(),
-                        username : usernameTxt
-                    },
-                    success:function(data){
-                        if(data == "unavailable"){
-                            $("#sizing-addon2 .fa-user").css({'color':'#e74f4e'});
-                            $("#username").css({'border':'1px solid #e74f4e','border-right':'1px solid #898989'});
-                            $("#sizing-addon2").css({'border':'1px solid #e74f4e','border-left':'1px solid #898989'});
-                            $("#username_error").html("<i class='fa fa-times'></i> Username not available").css({'color':'#e74f4e'}).fadeIn(500);
-                        }
-                        else if(data == "available"){
-                            $("#sizing-addon2 .fa-user").css({'color':'#5cb85c'});
-                            $("#username").css({'border':'1px solid #5cb85c','border-right':'1px solid #898989'});
-                            $("#sizing-addon2").css({'border':'1px solid #5cb85c','border-left':'1px solid #898989'});
-                            $("#username_error").html("<i class='fa fa-check'></i> Username available").css({'color':'#5cb85c'}).fadeIn(500);
-                        }
-                    }
-                });
-            }
-            else{
-                $("#sizing-addon2 .fa-user").css({'color':'#e74f4e'});
-                $("#username").css({'border':'1px solid #e74f4e','border-right':'1px solid #898989'});
-                $("#sizing-addon2").css({'border':'1px solid #e74f4e','border-left':'1px solid #898989'});
-                $("#username_error").html("<i class='fa fa-times'></i> Username is not enough long").css({'color':'#e74f4e'}).fadeIn(500);
-            }
-
-        });
-
-        $("#email").keydown(function(){
-
-            var emailTxt = $("#email").val();
-
-            if(emailTxt.length > 5){
-                $.ajax({
-                    type: 'POST',
-                    url: "check/email",
-                    data: {
-                        _token : $("input[name='_token']").val(),
-                        email : emailTxt
-                    },
-                    success:function(data){
-                        if(data == "unavailable"){
-                            $("#sizing-addon3 .fa-at").css({'color':'#e74f4e'});
-                            $("#email").css({'border':'1px solid #e74f4e','border-right':'1px solid #898989'});
-                            $("#sizing-addon3").css({'border':'1px solid #e74f4e','border-left':'1px solid #898989'});
-                            $("#email_error").html("<i class='fa fa-times'></i> Email not available").css({'color':'#e74f4e'}).fadeIn(500);
-                        }
-                        else if(data == "available"){
-                            $("#sizing-addon3 .fa-at").css({'color':'#5cb85c'});
-                            $("#email").css({'border':'1px solid #5cb85c','border-right':'1px solid #898989'});
-                            $("#sizing-addon3").css({'border':'1px solid #5cb85c','border-left':'1px solid #898989'});
-                            $("#email_error").html("<i class='fa fa-check'></i> Email available").css({'color':'#5cb85c'}).fadeIn(500);
-                        }
-                    }
-                });
-            }
-            else{
-                $("#sizing-addon3 .fa-at").css({'color':'#e74f4e'});
-                $("#email").css({'border':'1px solid #e74f4e','border-right':'1px solid #898989'});
-                $("#sizing-addon3").css({'border':'1px solid #e74f4e','border-left':'1px solid #898989'});
-                $("#email_error").html("<i class='fa fa-times'></i> Email is not enough long").css({'color':'#e74f4e'}).fadeIn(500);
-            }
-
-        });
-
         $("#password").keydown(function(){
             var pass = $(this).val();
 
@@ -169,6 +95,76 @@
 
         $("#login").submit(function (e){
             e.preventDefault();
+
+            var submitBtn = $('#submit').button('loading');
+            var username = $("#username").val();
+            var email = $("#email").val();
+            var pass  = $("#password").val();
+            var sendAjax = true;
+
+            if(username.length < 6 ){
+                $("#sizing-addon2 .fa-user").css({'color':'#e74f4e'});
+                $("#username").css({'border':'1px solid #e74f4e','border-right':'1px solid #898989'});
+                $("#sizing-addon2").css({'border':'1px solid #e74f4e','border-left':'1px solid #898989'});
+                $("#username_error").html("<i class='fa fa-times'></i> Username should be longer then 6 characters").css({'color':'#e74f4e'}).fadeIn(500);
+                sendAjax = false;
+            }
+
+            if(email.length < 6 ){
+                $("#sizing-addon3 .fa-at").css({'color':'#e74f4e'});
+                $("#email").css({'border':'1px solid #e74f4e','border-right':'1px solid #898989'});
+                $("#sizing-addon3").css({'border':'1px solid #e74f4e','border-left':'1px solid #898989'});
+                $("#email_error").html("<i class='fa fa-times'></i> Email should be longer then 6 characters").css({'color':'#e74f4e'}).fadeIn(500);
+                sendAjax = false;
+            }
+
+            if(pass.length < 6 ){
+                $("#sizing-addon4 .fa-lock").css({'color':'#e74f4e'});
+                $("#password").css({'border':'1px solid #e74f4e','border-right':'1px solid #898989'});
+                $("#sizing-addon4").css({'border':'1px solid #e74f4e','border-left':'1px solid #898989'});
+                $("#pass_error").html("<i class='fa fa-times'></i> Password Should be Longer then 6 characters").css({'color':'#e74f4e'}).fadeIn(500);
+                sendAjax = false;
+            }
+
+            if(sendAjax) {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: 'login/process/ajax',
+                    data: {
+                        _token: $("input[name='_token']").val(),
+                        username: username,
+                        password: pass
+                    },
+                    error: function (data) {
+                        sweetAlert('Oops...', data.responseJSON.username[0] + "\n" + data.responseJSON.email[0], "error");
+                        submitBtn.button('reset');
+                    },
+                    success: function (data) {
+                        submitBtn.button('reset');
+                        try {
+                            if (data.status) {
+                                swal({
+                                    title: "Success",
+                                    text: data.message + "You will be redirected to dashboard in 2 seconds",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }, 'success');
+
+                                setTimeout(function () {
+                                    window.location = "/dashboard";
+                                }, 2000);
+                            }
+                        }
+                        catch (e) {
+                            // catches exception
+                            console.log(e);
+                            sweetAlert('Oops...', "Some issue occur!. Please try later", "error");
+                        }
+
+                    }
+                });
+            }
         });
 
     });

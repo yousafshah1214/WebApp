@@ -105,6 +105,28 @@ class RedirectService extends RedirectServiceAbstract implements RedirectService
     }
 
     /**
+     * Redirects User to intended page.
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     * @throws Exception
+     */
+    public function toIntendedPage($messageKey = null, $messageLangKey = null)
+    {
+        try{
+            $route = redirect()->intended('dashboard');
+
+            $redirect = $this->setRedirectMessage($route,$messageKey,$messageLangKey);
+
+            return $redirect;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
      * Make Redirect to given route with given parameters
      *
      * @param $route

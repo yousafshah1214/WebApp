@@ -9,7 +9,9 @@
 namespace App\Contracts\Models;
 
 
-interface UserModelInterface extends ModelBaseInterface
+use Illuminate\Contracts\Auth\Authenticatable;
+
+interface UserModelInterface extends ModelBaseInterface,Authenticatable
 {
     /**
      * Method for User - UserProfiles Relationship

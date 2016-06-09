@@ -269,7 +269,12 @@ class SignupController extends Controller
         }
     }
 
-    public function activate($code,RegistrationServiceInterface $registrationService){
+    /**
+     * @param $code
+     * @param RegistrationServiceInterface $registrationService
+     * @return mixed
+     */
+    public function activate($code, RegistrationServiceInterface $registrationService){
         try{
             $registrationService->activateUser($code,$this->repository);
 

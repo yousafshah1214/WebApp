@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class ValidationController extends Controller
 {
@@ -43,36 +44,34 @@ class ValidationController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return string
      */
-    public function checkUsername(){
-        $username = Input::get('username');
+    public function checkUsername(Request $request){
 
-        if(strlen($username) > 0){
-            $count = $this->extraValidatorService->UsernameExistsOrNot($username,$this->userRepo);
+        $validator = Validator::make($request->all(),[
+            'username'     =>  'required|unique:users,username|min:6'
+        ]);
 
-            if($count > 0){
-                return "unavailable";
-            }
-            return "available";
+        if($validator->fails()){
+            // validation fails.
+            return "unavailable";
         }
-        return null;
+        return "available";
     }
 
     /**
+     * @param Request $request
      * @return string
      */
-    public function checkEmail(){
-        $email = Input::get('email');
+    public function checkEmail(Request $request){
+        $validator = Validator::make($request->all(),[
+            'email'     =>  'required|email|unique:user_profiles,email|min:6'
+        ]);
 
-        if(strlen($email) > 0){
-            $count = $this->extraValidatorService->EmailExistsOrNot($email,$this->userProfileRepo);
-
-            if($count > 0){
-                return "unavailable";
-            }
-            return "available";
+        if($validator->fails()){
+            return "unavailable";
         }
-        return null;
+        return "available";
     }
 }
