@@ -37,6 +37,16 @@ elixir(function(mix) {
         'pace-theme-flash.css'
     ]).copy('resources/assets/fonts','public/build/fonts');
 
+    mix.styles([
+        'admin/bootstrap.css',
+        'admin/font-awesome.min.css',
+        'admin/materialadmin.css',
+        'admin/material-design-iconic-font.min.css',
+        'admin/libs/rickshaw/rickshaw.css',
+        'admin/libs/morris/morris.core.css',
+    ],'public/adminAssets/css').copy('resources/assets/admin/css/fonts','public/adminAssets/fonts');
+
+
     mix.copy('resources/assets/bower/sweetalert/dist/sweetalert.min.js','resources/assets/js')
         .copy('resources/assets/bower/PACE/pace.min.js','resources/assets/js')
         .scripts([
@@ -56,9 +66,39 @@ elixir(function(mix) {
         'pace.min.js',
     ]);
 
-    //mix.browserify("ajax.js","resources/assets/js");
+    mix.scripts([
+            'admin/libs/jquery/jquery-1.11.2.min.js',
+            'admin/libs/jquery/jquery-migrate-1.2.1.min.js',
+            'admin/libs/bootstrap/bootstrap.min.js',
+            'admin/libs/spin.js/spin.min.js',
+            'admin/libs/autosize/jquery.autosize.min.js',
+            'admin/libs/moment/moment.min.js',
+            "admin/libs/flot/jquery.flot.min.js",
+            "admin/libs/flot/jquery.flot.time.min.js",
+            "admin/libs/flot/jquery.flot.resize.min.js",
+            "admin/libs/flot/jquery.flot.orderBars.js",
+            "admin/libs/flot/jquery.flot.pie.js",
+            "admin/libs/flot/curvedLines.js",
+            "admin/libs/jquery-knob/jquery.knob.min.js",
+            "admin/libs/sparkline/jquery.sparkline.min.js",
+            "admin/libs/nanoscroller/jquery.nanoscroller.min.js",
+            "admin/libs/d3/d3.min.js",
+            "admin/libs/d3/d3.v3.js",
+            "admin/libs/rickshaw/rickshaw.min.js",
+            "admin/core/source/App.js",
+            "admin/core/source/AppNavigation.js",
+            "admin/core/source/AppOffcanvas.js",
+            "admin/core/source/AppCard.js",
+            "admin/core/source/AppForm.js",
+            "admin/core/source/AppNavSearch.js",
+            "admin/core/source/AppVendor.js",
+            "admin/core/demo/Demo.js",
+            "admin/core/demo/DemoDashboard.js"
+        ],'public/adminAssets/js');
 
     mix.copy("resources/assets/img","public/build/img");
+
+    mix.copy("resources/assets/js/admin/libs/utils","public/adminAssets/js");
 
     mix.version(['css/all.css','js/all.js']);
 
@@ -69,7 +109,4 @@ elixir(function(mix) {
      * Admin related gulp tasks
      *
      */
-
-
-
 });

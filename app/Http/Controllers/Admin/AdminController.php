@@ -17,7 +17,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //dd(Auth::guard('admin')->user());
+        return view('admin.dashboard');
     }
 
     /**
@@ -27,7 +27,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
