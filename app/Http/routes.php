@@ -46,6 +46,8 @@ Route::group(['middleware' => ['web']], function(){
 
         Route::get('admin', 'Admin\AdminController@index')->name('admin.dashboard');
 
+        Route::post('admin/search', 'Admin\SearchController@index')->name('admin.search');
+
     });
 
 });

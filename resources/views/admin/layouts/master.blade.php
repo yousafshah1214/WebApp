@@ -1,1033 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Material Admin - Dashboard</title>
+@include('admin.partials.head')
+<body>
+<!-- Start Page Loading -->
+<div class="loading"><img src="{{ asset('build/adminAssets/img/loading.gif') }}" alt="loading-img"></div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START TOP -->
+@include('admin.partials.top')
+<!-- END TOP -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
 
-    <!-- BEGIN META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="your,keywords">
-    <meta name="description" content="Short explanation about this website">
-    <!-- END META -->
 
-    <!-- BEGIN STYLESHEETS -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('adminAssets/css/all.css') }}" />
-    <!-- END STYLESHEETS -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START SIDEBAR -->
+@include('admin.partials.sidebar')
+<!-- END SIDEBAR -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="{{ asset('adminAssets/js/html5shiv.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('adminAssets/js/respond.min.js') }}"></script>
-    <![endif]-->
-</head>
-<body class="menubar-hoverable header-fixed ">
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START CONTENT -->
+<div class="content">
 
-<!-- BEGIN HEADER-->
-<header id="header" >
-    <div class="headerbar">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="headerbar-left">
-            <ul class="header-nav header-nav-options">
-                <li class="header-nav-brand" >
-                    <div class="brand-holder">
-                        <a href="{{ route('admin.dashboard') }}">
-                            <span class="text-lg text-bold text-primary">ADMIN HOME</span>
-                        </a>
-                    </div>
+    <!-- Start Page Header -->
+    <div class="page-header">
+        <h1 class="title">Dashboard</h1>
+        <ol class="breadcrumb">
+            <li class="active">This is a quick overview of some features</li>
+        </ol>
+
+        <!-- Start Page Header Right Div -->
+        <div class="right">
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-light">Dashboard</a>
+                <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+            </div>
+        </div>
+        <!-- End Page Header Right Div -->
+
+    </div>
+    <!-- End Page Header -->
+
+
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START CONTAINER -->
+    <div class="container-widget">
+
+        <!-- Start Top Stats -->
+        <div class="col-md-12">
+            <ul class="topstats clearfix">
+                <li class="arrow"></li>
+                <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-dot-circle-o"></i> Today Profit</span>
+                    <h3>$36.45</h3>
+                    <span class="diff"><b class="color-down"><i class="fa fa-caret-down"></i> 26%</b> from yesterday</span>
                 </li>
-                <li>
-                    <a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
-                        <i class="fa fa-bars"></i>
-                    </a>
+                <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-calendar-o"></i> This Week</span>
+                    <h3>$96.25</h3>
+                    <span class="diff"><b class="color-up"><i class="fa fa-caret-up"></i> 26%</b> from last week</span>
+                </li>
+                <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-shopping-cart"></i> Total Sales</span>
+                    <h3 class="color-up">696</h3>
+                    <span class="diff"><b class="color-up"><i class="fa fa-caret-up"></i> 26%</b> from last month</span>
+                </li>
+                <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-users"></i> Visitors</span>
+                    <h3>960</h3>
+                    <span class="diff"><b class="color-down"><i class="fa fa-caret-down"></i> 26%</b> from yesterday</span>
+                </li>
+                <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-eye"></i> Page View</span>
+                    <h3 class="color-up">46.230</h3>
+                    <span class="diff"><b class="color-down"><i class="fa fa-caret-down"></i> 26%</b> from yesterday</span>
+                </li>
+                <li class="col-xs-6 col-lg-2">
+                    <span class="title"><i class="fa fa-clock-o"></i> Avarage Time</span>
+                    <h3 class="color-down">2:10<small>min</small></h3>
+                    <span class="diff"><b class="color-up"><i class="fa fa-caret-up"></i> 26%</b> from last week</span>
                 </li>
             </ul>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="headerbar-right">
-            <ul class="header-nav header-nav-options">
-                <li>
-                    <!-- Search form -->
-                    <form class="navbar-search" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
-                        </div>
-                        <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
-                    </form>
-                </li>
-                <li class="dropdown hidden-xs">
-                    <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown">
-                        <i class="fa fa-bell"></i><sup class="badge style-danger">4</sup>
-                    </a>
-                    <ul class="dropdown-menu animation-expand">
-                        <li class="dropdown-header">Today's messages</li>
-                        <li>
-                            <a class="alert alert-callout alert-warning" href="javascript:void(0);">
-                                <img class="pull-right img-circle dropdown-avatar" src="{{ asset('build/img/admin/avatar2.jpg') }}" alt="" />
-                                <strong>Alex Anistor</strong><br/>
-                                <small>Testing functionality...</small>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="alert alert-callout alert-info" href="javascript:void(0);">
-                                <img class="pull-right img-circle dropdown-avatar" src="{{ asset('build/img/admin/avatar3.jpg') }}" alt="" />
-                                <strong>Alicia Adell</strong><br/>
-                                <small>Reviewing last changes...</small>
-                            </a>
-                        </li>
-                        <li class="dropdown-header">Options</li>
-                        <li><a href="../../html/pages/login.html">View all messages <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
-                        <li><a href="../../html/pages/login.html">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
-                    </ul><!--end .dropdown-menu -->
-                </li><!--end .dropdown -->
-                <li class="dropdown hidden-xs">
-                    <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown">
-                        <i class="fa fa-area-chart"></i>
-                    </a>
-                    <ul class="dropdown-menu animation-expand">
-                        <li class="dropdown-header">Server load</li>
-                        <li class="dropdown-progress">
-                            <a href="javascript:void(0);">
-                                <div class="dropdown-label">
-                                    <span class="text-light">Server load <strong>Today</strong></span>
-                                    <strong class="pull-right">93%</strong>
-                                </div>
-                                <div class="progress"><div class="progress-bar progress-bar-danger" style="width: 93%"></div></div>
-                            </a>
-                        </li><!--end .dropdown-progress -->
-                        <li class="dropdown-progress">
-                            <a href="javascript:void(0);">
-                                <div class="dropdown-label">
-                                    <span class="text-light">Server load <strong>Yesterday</strong></span>
-                                    <strong class="pull-right">30%</strong>
-                                </div>
-                                <div class="progress"><div class="progress-bar progress-bar-success" style="width: 30%"></div></div>
-                            </a>
-                        </li><!--end .dropdown-progress -->
-                        <li class="dropdown-progress">
-                            <a href="javascript:void(0);">
-                                <div class="dropdown-label">
-                                    <span class="text-light">Server load <strong>Lastweek</strong></span>
-                                    <strong class="pull-right">74%</strong>
-                                </div>
-                                <div class="progress"><div class="progress-bar progress-bar-warning" style="width: 74%"></div></div>
-                            </a>
-                        </li><!--end .dropdown-progress -->
-                    </ul><!--end .dropdown-menu -->
-                </li><!--end .dropdown -->
-            </ul><!--end .header-nav-options -->
-            <ul class="header-nav header-nav-profile">
-                <li class="dropdown">
-                    <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-                        <img src="{{ asset('build/img/admin/avatar1.jpg') }}" alt="" />
-								<span class="profile-info">
-									Daniel Johnson
-									<small>Administrator</small>
-								</span>
-                    </a>
-                    <ul class="dropdown-menu animation-dock">
-                        <li class="dropdown-header">Config</li>
-                        <li><a href="../../html/pages/profile.html">My profile</a></li>
-                        <li><a href="../../html/pages/blog/post.html">My blog <span class="badge style-danger pull-right">16</span></a></li>
-                        <li><a href="../../html/pages/calendar.html">My appointments</a></li>
-                        <li class="divider"></li>
-                        <li><a href="../../html/pages/locked.html"><i class="fa fa-fw fa-lock"></i> Lock</a></li>
-                        <li><a href="../../html/pages/login.html"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
-                    </ul><!--end .dropdown-menu -->
-                </li><!--end .dropdown -->
-            </ul><!--end .header-nav-profile -->
-            <ul class="header-nav header-nav-toggle">
-                <li>
-                    <a class="btn btn-icon-toggle btn-default" href="#offcanvas-search" data-toggle="offcanvas" data-backdrop="false">
-                        <i class="fa fa-ellipsis-v"></i>
-                    </a>
-                </li>
-            </ul><!--end .header-nav-toggle -->
-        </div><!--end #header-navbar-collapse -->
-    </div>
-</header>
-<!-- END HEADER-->
+        <!-- End Top Stats -->
 
-<!-- BEGIN BASE-->
-<div id="base">
 
-    <!-- BEGIN OFFCANVAS LEFT -->
-    <div class="offcanvas">
-    </div><!--end .offcanvas-->
-    <!-- END OFFCANVAS LEFT -->
+        <!-- Start First Row -->
+        <div class="row">
 
-    <!-- BEGIN CONTENT-->
-    <div id="content">
-        <section>
-            <div class="section-body">
-                <div class="row">
+            <!-- Start Chart Daily -->
+            <div class="col-md-12 col-lg-7">
+                <div class=" panel-widget widget chart-with-stats clearfix" style="height:450px;">
 
-                    <!-- BEGIN ALERT - REVENUE -->
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body no-padding">
-                                <div class="alert alert-callout alert-info no-margin">
-                                    <strong class="pull-right text-success text-lg">0,38% <i class="md md-trending-up"></i></strong>
-                                    <strong class="text-xl">$ 32,829</strong><br/>
-                                    <span class="opacity-50">Revenue</span>
-                                    <div class="stick-bottom-left-right">
-                                        <div class="height-2 sparkline-revenue" data-line-color="#bdc1c1"></div>
-                                    </div>
-                                </div>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END ALERT - REVENUE -->
-
-                    <!-- BEGIN ALERT - VISITS -->
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body no-padding">
-                                <div class="alert alert-callout alert-warning no-margin">
-                                    <strong class="pull-right text-warning text-lg">0,01% <i class="md md-swap-vert"></i></strong>
-                                    <strong class="text-xl">432,901</strong><br/>
-                                    <span class="opacity-50">Visits</span>
-                                    <div class="stick-bottom-right">
-                                        <div class="height-1 sparkline-visits" data-bar-color="#e5e6e6"></div>
-                                    </div>
-                                </div>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END ALERT - VISITS -->
-
-                    <!-- BEGIN ALERT - BOUNCE RATES -->
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body no-padding">
-                                <div class="alert alert-callout alert-danger no-margin">
-                                    <strong class="pull-right text-danger text-lg">0,18% <i class="md md-trending-down"></i></strong>
-                                    <strong class="text-xl">42.90%</strong><br/>
-                                    <span class="opacity-50">Bounce rate</span>
-                                    <div class="stick-bottom-left-right">
-                                        <div class="progress progress-hairline no-margin">
-                                            <div class="progress-bar progress-bar-danger" style="width:43%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END ALERT - BOUNCE RATES -->
-
-                    <!-- BEGIN ALERT - TIME ON SITE -->
-                    <div class="col-md-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body no-padding">
-                                <div class="alert alert-callout alert-success no-margin">
-                                    <h1 class="pull-right text-success"><i class="md md-timer"></i></h1>
-                                    <strong class="text-xl">54 sec.</strong><br/>
-                                    <span class="opacity-50">Avg. time on site</span>
-                                </div>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END ALERT - TIME ON SITE -->
-
-                </div><!--end .row -->
-                <div class="row">
-
-                    <!-- BEGIN SITE ACTIVITY -->
-                    <div class="col-md-9">
-                        <div class="card ">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="card-head">
-                                        <header>Site activity</header>
-                                    </div><!--end .card-head -->
-                                    <div class="card-body height-8">
-                                        <div id="flot-visitors-legend" class="flot-legend-horizontal stick-top-right no-y-padding"></div>
-                                        <div id="flot-visitors" class="flot height-7" data-title="Activity entry" data-color="#7dd8d2,#0aa89e"></div>
-                                    </div><!--end .card-body -->
-                                </div><!--end .col -->
-                                <div class="col-md-4">
-                                    <div class="card-head">
-                                        <header>Today's stats</header>
-                                    </div>
-                                    <div class="card-body height-8">
-                                        <strong>214</strong> members
-                                        <span class="pull-right text-success text-sm">0,18% <i class="md md-trending-up"></i></span>
-                                        <div class="progress progress-hairline">
-                                            <div class="progress-bar progress-bar-primary-dark" style="width:43%"></div>
-                                        </div>
-                                        756 pageviews
-                                        <span class="pull-right text-success text-sm">0,68% <i class="md md-trending-up"></i></span>
-                                        <div class="progress progress-hairline">
-                                            <div class="progress-bar progress-bar-primary-dark" style="width:11%"></div>
-                                        </div>
-                                        291 bounce rates
-                                        <span class="pull-right text-danger text-sm">21,08% <i class="md md-trending-down"></i></span>
-                                        <div class="progress progress-hairline">
-                                            <div class="progress-bar progress-bar-danger" style="width:93%"></div>
-                                        </div>
-                                        32,301 visits
-                                        <span class="pull-right text-success text-sm">0,18% <i class="md md-trending-up"></i></span>
-                                        <div class="progress progress-hairline">
-                                            <div class="progress-bar progress-bar-primary-dark" style="width:63%"></div>
-                                        </div>
-                                        132 pages
-                                        <span class="pull-right text-success text-sm">0,18% <i class="md md-trending-up"></i></span>
-                                        <div class="progress progress-hairline">
-                                            <div class="progress-bar progress-bar-primary-dark" style="width:47%"></div>
-                                        </div>
-                                    </div><!--end .card-body -->
-                                </div><!--end .col -->
-                            </div><!--end .row -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END SITE ACTIVITY -->
-
-                    <!-- BEGIN SERVER STATUS -->
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-head">
-                                <header class="text-primary">Server status</header>
-                            </div><!--end .card-head -->
-                            <div class="card-body height-4">
-                                <div class="pull-right text-center">
-                                    <em class="text-primary">Temperature</em>
-                                    <br/>
-                                    <div id="serverStatusKnob" class="knob knob-shadow knob-primary knob-body-track size-2">
-                                        <input type="text" class="dial" data-min="0" data-max="100" data-thickness=".09" value="50" data-readOnly=true>
-                                    </div>
-                                </div>
-                            </div><!--end .card-body -->
-                            <div class="card-body height-4 no-padding">
-                                <div class="stick-bottom-left-right">
-                                    <div id="rickshawGraph" class="height-4" data-color1="#0aa89e" data-color2="rgba(79, 89, 89, 0.2)"></div>
-                                </div>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END SERVER STATUS -->
-
-                </div><!--end .row -->
-                <div class="row">
-
-                    <!-- BEGIN TODOS -->
-                    <div class="col-md-3">
-                        <div class="card ">
-                            <div class="card-head">
-                                <header>Todo's</header>
-                                <div class="tools">
-                                    <a class="btn btn-icon-toggle btn-close"><i class="md md-close"></i></a>
-                                </div>
-                            </div><!--end .card-head -->
-                            <div class="card-body no-padding height-9 scroll">
-                                <ul class="list" data-sortable="true">
-                                    <li class="tile">
-                                        <div class="checkbox checkbox-styled tile-text">
-                                            <label>
-                                                <input type="checkbox" checked>
-                                                <span>Call clients for follow-up</span>
-                                            </label>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction btn-default">
-                                            <i class="md md-delete"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="checkbox checkbox-styled tile-text">
-                                            <label>
-                                                <input type="checkbox">
-														<span>
-															Schedule meeting
-															<small>opportunity for new customers</small>
-														</span>
-                                            </label>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction btn-default">
-                                            <i class="md md-delete"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="checkbox checkbox-styled tile-text">
-                                            <label>
-                                                <input type="checkbox">
-														<span>
-															Upload files to server
-															<small>The files must be shared with all members of the board</small>
-														</span>
-                                            </label>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction btn-default">
-                                            <i class="md md-delete"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="checkbox checkbox-styled tile-text">
-                                            <label>
-                                                <input type="checkbox">
-                                                <span>Forward important tasks</span>
-                                            </label>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction btn-default">
-                                            <i class="md md-delete"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="checkbox checkbox-styled tile-text">
-                                            <label>
-                                                <input type="checkbox">
-                                                <span>Forward important tasks</span>
-                                            </label>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction btn-default">
-                                            <i class="md md-delete"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="checkbox checkbox-styled tile-text">
-                                            <label>
-                                                <input type="checkbox">
-                                                <span>Forward important tasks</span>
-                                            </label>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction btn-default">
-                                            <i class="md md-delete"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END TODOS -->
-
-                    <!-- BEGIN REGISTRATION HISTORY -->
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-head">
-                                <header>Registration history</header>
-                                <div class="tools">
-                                    <a class="btn btn-icon-toggle btn-refresh"><i class="md md-refresh"></i></a>
-                                    <a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
-                                    <a class="btn btn-icon-toggle btn-close"><i class="md md-close"></i></a>
-                                </div>
-                            </div><!--end .card-head -->
-                            <div class="card-body no-padding height-9">
-                                <div class="row">
-                                    <div class="col-sm-6 hidden-xs">
-                                        <div class="force-padding text-sm text-default-light">
-                                            <p>
-                                                <i class="md md-mode-comment text-primary-light"></i>
-                                                The registrations are measured from the time that the redesign was fully implemented and after the first e-mailing.
-                                            </p>
-                                        </div>
-                                    </div><!--end .col -->
-                                    <div class="col-sm-6">
-                                        <div class="force-padding pull-right text-default-light">
-                                            <h2 class="no-margin text-primary-dark"><span class="text-xxl">66.05%</span></h2>
-                                            <i class="fa fa-caret-up text-success fa-fw"></i> more registrations
-                                        </div>
-                                    </div><!--end .col -->
-                                </div><!--end .row -->
-                                <div class="stick-bottom-left-right force-padding">
-                                    <div id="flot-registrations" class="flot height-5" data-title="Registration history" data-color="#0aa89e"></div>
-                                </div>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END REGISTRATION HISTORY -->
-
-                    <!-- BEGIN NEW REGISTRATIONS -->
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-head">
-                                <header>New registrations</header>
-                                <div class="tools hidden-md">
-                                    <a class="btn btn-icon-toggle btn-close"><i class="md md-close"></i></a>
-                                </div>
-                            </div><!--end .card-head -->
-                            <div class="card-body no-padding height-9 scroll">
-                                <ul class="list divider-full-bleed">
-                                    <li class="tile">
-                                        <div class="tile-content">
-                                            <div class="tile-icon">
-                                                <img src="../../assets/img/avatar9.jpg?1404026744" alt="" />
-                                            </div>
-                                            <div class="tile-text">Ann Laurens</div>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction">
-                                            <i class="md md-block text-default-light"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="tile-content">
-                                            <div class="tile-icon">
-                                                <img src="../../assets/img/avatar4.jpg?1404026791" alt="" />
-                                            </div>
-                                            <div class="tile-text">Alex Nelson</div>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction">
-                                            <i class="md md-block text-default-light"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="tile-content">
-                                            <div class="tile-icon">
-                                                <img src="../../assets/img/avatar11.jpg?1404026774" alt="" />
-                                            </div>
-                                            <div class="tile-text">Mary Peterson</div>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction">
-                                            <i class="md md-block text-default-light"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="tile-content">
-                                            <div class="tile-icon">
-                                                <img src="../../assets/img/avatar7.jpg?1404026721" alt="" />
-                                            </div>
-                                            <div class="tile-text">Philip Ericsson</div>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction">
-                                            <i class="md md-block text-default-light"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="tile-content">
-                                            <div class="tile-icon">
-                                                <img src="../../assets/img/avatar8.jpg?1404026729" alt="" />
-                                            </div>
-                                            <div class="tile-text">Jim Peters</div>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction">
-                                            <i class="md md-block text-default-light"></i>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <div class="tile-content">
-                                            <div class="tile-icon">
-                                                <img src="../../assets/img/avatar2.jpg?1404026449" alt="" />
-                                            </div>
-                                            <div class="tile-text">Jessica Cruise</div>
-                                        </div>
-                                        <a class="btn btn-flat ink-reaction">
-                                            <i class="md md-block text-default-light"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div><!--end .card-body -->
-                        </div><!--end .card -->
-                    </div><!--end .col -->
-                    <!-- END NEW REGISTRATIONS -->
-
-                </div><!--end .row -->
-            </div><!--end .section-body -->
-        </section>
-    </div><!--end #content-->
-    <!-- END CONTENT -->
-
-    <!-- BEGIN MENUBAR-->
-    <div id="menubar" class="menubar-inverse ">
-        <div class="menubar-fixed-panel">
-            <div>
-                <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
-                    <i class="fa fa-bars"></i>
-                </a>
-            </div>
-            <div class="expanded">
-                <a href="../../html/dashboards/dashboard.html">
-                    <span class="text-lg text-bold text-primary ">MATERIAL&nbsp;ADMIN</span>
-                </a>
-            </div>
-        </div>
-        <div class="menubar-scroll-panel">
-
-            <!-- BEGIN MAIN MENU -->
-            <ul id="main-menu" class="gui-controls">
-
-                <!-- BEGIN DASHBOARD -->
-                <li>
-                    <a href="../../html/dashboards/dashboard.html" class="active">
-                        <div class="gui-icon"><i class="md md-home"></i></div>
-                        <span class="title">Dashboard</span>
-                    </a>
-                </li><!--end /menu-li -->
-                <!-- END DASHBOARD -->
-
-                <!-- BEGIN EMAIL -->
-                <li class="gui-folder">
-                    <a>
-                        <div class="gui-icon"><i class="md md-email"></i></div>
-                        <span class="title">Email</span>
-                    </a>
-                    <!--start submenu -->
-                    <ul>
-                        <li><a href="../../html/mail/inbox.html" ><span class="title">Inbox</span></a></li>
-                        <li><a href="../../html/mail/compose.html" ><span class="title">Compose</span></a></li>
-                        <li><a href="../../html/mail/reply.html" ><span class="title">Reply</span></a></li>
-                        <li><a href="../../html/mail/message.html" ><span class="title">View message</span></a></li>
-                    </ul><!--end /submenu -->
-                </li><!--end /menu-li -->
-                <!-- END EMAIL -->
-
-                <!-- BEGIN DASHBOARD -->
-                <li>
-                    <a href="../../html/layouts/builder.html" >
-                        <div class="gui-icon"><i class="md md-web"></i></div>
-                        <span class="title">Layouts</span>
-                    </a>
-                </li><!--end /menu-li -->
-                <!-- END DASHBOARD -->
-
-                <!-- BEGIN UI -->
-                <li class="gui-folder">
-                    <a>
-                        <div class="gui-icon"><i class="fa fa-puzzle-piece fa-fw"></i></div>
-                        <span class="title">UI elements</span>
-                    </a>
-                    <!--start submenu -->
-                    <ul>
-                        <li><a href="../../html/ui/colors.html" ><span class="title">Colors</span></a></li>
-                        <li><a href="../../html/ui/typography.html" ><span class="title">Typography</span></a></li>
-                        <li><a href="../../html/ui/cards.html" ><span class="title">Cards</span></a></li>
-                        <li><a href="../../html/ui/buttons.html" ><span class="title">Buttons</span></a></li>
-                        <li><a href="../../html/ui/lists.html" ><span class="title">Lists</span></a></li>
-                        <li><a href="../../html/ui/tabs.html" ><span class="title">Tabs</span></a></li>
-                        <li><a href="../../html/ui/accordions.html" ><span class="title">Accordions</span></a></li>
-                        <li><a href="../../html/ui/messages.html" ><span class="title">Messages</span></a></li>
-                        <li><a href="../../html/ui/offcanvas.html" ><span class="title">Off-canvas</span></a></li>
-                        <li><a href="../../html/ui/grid.html" ><span class="title">Grid</span></a></li>
-                        <li class="gui-folder">
-                            <a href="javascript:void(0);">
-                                <span class="title">Icons</span>
-                            </a>
-                            <!--start submenu -->
-                            <ul>
-                                <li><a href="../../html/ui/icons/materialicons.html" ><span class="title">Material Design Icons</span></a></li>
-                                <li><a href="../../html/ui/icons/fontawesome.html" ><span class="title">Font Awesome</span></a></li>
-                                <li><a href="../../html/ui/icons/glyphicons.html" ><span class="title">Glyphicons</span></a></li>
-                                <li><a href="../../html/ui/icons/skycons.html" ><span class="title">Skycons</span></a></li>
-                            </ul><!--end /submenu -->
-                        </li><!--end /menu-li -->
-                    </ul><!--end /submenu -->
-                </li><!--end /menu-li -->
-                <!-- END UI -->
-
-                <!-- BEGIN TABLES -->
-                <li class="gui-folder">
-                    <a>
-                        <div class="gui-icon"><i class="fa fa-table"></i></div>
-                        <span class="title">Tables</span>
-                    </a>
-                    <!--start submenu -->
-                    <ul>
-                        <li><a href="../../html/tables/static.html" ><span class="title">Static Tables</span></a></li>
-                        <li><a href="../../html/tables/dynamic.html" ><span class="title">Dynamic Tables</span></a></li>
-                        <li><a href="../../html/tables/responsive.html" ><span class="title">Responsive Table</span></a></li>
-                    </ul><!--end /submenu -->
-                </li><!--end /menu-li -->
-                <!-- END TABLES -->
-
-                <!-- BEGIN FORMS -->
-                <li class="gui-folder">
-                    <a>
-                        <div class="gui-icon"><span class="glyphicon glyphicon-list-alt"></span></div>
-                        <span class="title">Forms</span>
-                    </a>
-                    <!--start submenu -->
-                    <ul>
-                        <li><a href="../../html/forms/basic.html" ><span class="title">Form basic</span></a></li>
-                        <li><a href="../../html/forms/advanced.html" ><span class="title">Form advanced</span></a></li>
-                        <li><a href="../../html/forms/layouts.html" ><span class="title">Form layouts</span></a></li>
-                        <li><a href="../../html/forms/editors.html" ><span class="title">Editors</span></a></li>
-                        <li><a href="../../html/forms/validation.html" ><span class="title">Form validation</span></a></li>
-                        <li><a href="../../html/forms/wizard.html" ><span class="title">Form wizard</span></a></li>
-                    </ul><!--end /submenu -->
-                </li><!--end /menu-li -->
-                <!-- END FORMS -->
-
-                <!-- BEGIN PAGES -->
-                <li class="gui-folder">
-                    <a>
-                        <div class="gui-icon"><i class="md md-computer"></i></div>
-                        <span class="title">Pages</span>
-                    </a>
-                    <!--start submenu -->
-                    <ul>
-                        <li class="gui-folder">
-                            <a href="javascript:void(0);">
-                                <span class="title">Contacts</span>
-                            </a>
-                            <!--start submenu -->
-                            <ul>
-                                <li><a href="../../html/pages/contacts/search.html" ><span class="title">Search</span></a></li>
-                                <li><a href="../../html/pages/contacts/details.html" ><span class="title">Contact card</span></a></li>
-                                <li><a href="../../html/pages/contacts/add.html" ><span class="title">Insert contact</span></a></li>
-                            </ul><!--end /submenu -->
-                        </li><!--end /menu-li -->
-                        <li class="gui-folder">
-                            <a href="javascript:void(0);">
-                                <span class="title">Search</span>
-                            </a>
-                            <!--start submenu -->
-                            <ul>
-                                <li><a href="../../html/pages/search/results-text.html" ><span class="title">Results - Text</span></a></li>
-                                <li><a href="../../html/pages/search/results-text-image.html" ><span class="title">Results - Text and Image</span></a></li>
-                            </ul><!--end /submenu -->
-                        </li><!--end /menu-li -->
-                        <li class="gui-folder">
-                            <a href="javascript:void(0);">
-                                <span class="title">Blog</span>
-                            </a>
-                            <!--start submenu -->
-                            <ul>
-                                <li><a href="../../html/pages/blog/masonry.html" ><span class="title">Blog masonry</span></a></li>
-                                <li><a href="../../html/pages/blog/list.html" ><span class="title">Blog list</span></a></li>
-                                <li><a href="../../html/pages/blog/post.html" ><span class="title">Blog post</span></a></li>
-                            </ul><!--end /submenu -->
-                        </li><!--end /menu-li -->
-                        <li class="gui-folder">
-                            <a href="javascript:void(0);">
-                                <span class="title">Error pages</span>
-                            </a>
-                            <!--start submenu -->
-                            <ul>
-                                <li><a href="../../html/pages/404.html" ><span class="title">404 page</span></a></li>
-                                <li><a href="../../html/pages/500.html" ><span class="title">500 page</span></a></li>
-                            </ul><!--end /submenu -->
-                        </li><!--end /menu-li -->
-                        <li><a href="../../html/pages/profile.html" ><span class="title">User profile<span class="badge style-accent">42</span></span></a></li>
-                        <li><a href="../../html/pages/invoice.html" ><span class="title">Invoice</span></a></li>
-                        <li><a href="../../html/pages/calendar.html" ><span class="title">Calendar</span></a></li>
-                        <li><a href="../../html/pages/pricing.html" ><span class="title">Pricing</span></a></li>
-                        <li><a href="../../html/pages/timeline.html" ><span class="title">Timeline</span></a></li>
-                        <li><a href="../../html/pages/maps.html" ><span class="title">Maps</span></a></li>
-                        <li><a href="../../html/pages/locked.html" ><span class="title">Lock screen</span></a></li>
-                        <li><a href="../../html/pages/login.html" ><span class="title">Login</span></a></li>
-                        <li><a href="../../html/pages/blank.html" ><span class="title">Blank page</span></a></li>
-                    </ul><!--end /submenu -->
-                </li><!--end /menu-li -->
-                <!-- END FORMS -->
-
-                <!-- BEGIN CHARTS -->
-                <li>
-                    <a href="../../html/charts/charts.html" >
-                        <div class="gui-icon"><i class="md md-assessment"></i></div>
-                        <span class="title">Charts</span>
-                    </a>
-                </li><!--end /menu-li -->
-                <!-- END CHARTS -->
-
-                <!-- BEGIN LEVELS -->
-                <li class="gui-folder">
-                    <a>
-                        <div class="gui-icon"><i class="fa fa-folder-open fa-fw"></i></div>
-                        <span class="title">Menu levels demo</span>
-                    </a>
-                    <!--start submenu -->
-                    <ul>
-                        <li><a href="#"><span class="title">Item 1</span></a></li>
-                        <li><a href="#"><span class="title">Item 1</span></a></li>
-                        <li class="gui-folder">
-                            <a href="javascript:void(0);">
-                                <span class="title">Open level 2</span>
-                            </a>
-                            <!--start submenu -->
-                            <ul>
-                                <li><a href="#"><span class="title">Item 2</span></a></li>
-                                <li class="gui-folder">
-                                    <a href="javascript:void(0);">
-                                        <span class="title">Open level 3</span>
-                                    </a>
-                                    <!--start submenu -->
-                                    <ul>
-                                        <li><a href="#"><span class="title">Item 3</span></a></li>
-                                        <li><a href="#"><span class="title">Item 3</span></a></li>
-                                        <li class="gui-folder">
-                                            <a href="javascript:void(0);">
-                                                <span class="title">Open level 4</span>
-                                            </a>
-                                            <!--start submenu -->
-                                            <ul>
-                                                <li><a href="#"><span class="title">Item 4</span></a></li>
-                                                <li class="gui-folder">
-                                                    <a href="javascript:void(0);">
-                                                        <span class="title">Open level 5</span>
-                                                    </a>
-                                                    <!--start submenu -->
-                                                    <ul>
-                                                        <li><a href="#"><span class="title">Item 5</span></a></li>
-                                                        <li><a href="#"><span class="title">Item 5</span></a></li>
-                                                    </ul><!--end /submenu -->
-                                                </li><!--end /submenu-li -->
-                                            </ul><!--end /submenu -->
-                                        </li><!--end /submenu-li -->
-                                    </ul><!--end /submenu -->
-                                </li><!--end /submenu-li -->
-                            </ul><!--end /submenu -->
-                        </li><!--end /submenu-li -->
-                    </ul><!--end /submenu -->
-                </li><!--end /menu-li -->
-                <!-- END LEVELS -->
-
-            </ul><!--end .main-menu -->
-            <!-- END MAIN MENU -->
-
-            <div class="menubar-foot-panel">
-                <small class="no-linebreak hidden-folded">
-                    <span class="opacity-75">Copyright &copy; 2014</span> <strong>CodeCovers</strong>
-                </small>
-            </div>
-        </div><!--end .menubar-scroll-panel-->
-    </div><!--end #menubar-->
-    <!-- END MENUBAR -->
-
-    <!-- BEGIN OFFCANVAS RIGHT -->
-    <div class="offcanvas">
-
-        <!-- BEGIN OFFCANVAS SEARCH -->
-        <div id="offcanvas-search" class="offcanvas-pane width-8">
-            <div class="offcanvas-head">
-                <header class="text-primary">Search</header>
-                <div class="offcanvas-tools">
-                    <a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
-                        <i class="md md-close"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="offcanvas-body no-padding">
-                <ul class="list ">
-                    <li class="tile divider-full-bleed">
-                        <div class="tile-content">
-                            <div class="tile-text"><strong>A</strong></div>
-                        </div>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar4.jpg?1404026791" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Alex Nelson
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar9.jpg?1404026744" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Ann Laurens
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile divider-full-bleed">
-                        <div class="tile-content">
-                            <div class="tile-text"><strong>J</strong></div>
-                        </div>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar2.jpg?1404026449" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Jessica Cruise
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar8.jpg?1404026729" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Jim Peters
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile divider-full-bleed">
-                        <div class="tile-content">
-                            <div class="tile-text"><strong>M</strong></div>
-                        </div>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar5.jpg?1404026513" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Mabel Logan
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar11.jpg?1404026774" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Mary Peterson
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar3.jpg?1404026799" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Mike Alba
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile divider-full-bleed">
-                        <div class="tile-content">
-                            <div class="tile-text"><strong>N</strong></div>
-                        </div>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar6.jpg?1404026572" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Nathan Peterson
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile divider-full-bleed">
-                        <div class="tile-content">
-                            <div class="tile-text"><strong>P</strong></div>
-                        </div>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar7.jpg?1404026721" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Philip Ericsson
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="tile divider-full-bleed">
-                        <div class="tile-content">
-                            <div class="tile-text"><strong>S</strong></div>
-                        </div>
-                    </li>
-                    <li class="tile">
-                        <a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-                            <div class="tile-icon">
-                                <img src="../../assets/img/avatar10.jpg?1404026762" alt="" />
-                            </div>
-                            <div class="tile-text">
-                                Samuel Parsons
-                                <small>123-123-3210</small>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div><!--end .offcanvas-body -->
-        </div><!--end .offcanvas-pane -->
-        <!-- END OFFCANVAS SEARCH -->
-
-        <!-- BEGIN OFFCANVAS CHAT -->
-        <div id="offcanvas-chat" class="offcanvas-pane style-default-light width-12">
-            <div class="offcanvas-head style-default-bright">
-                <header class="text-primary">Chat with Ann Laurens</header>
-                <div class="offcanvas-tools">
-                    <a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
-                        <i class="md md-close"></i>
-                    </a>
-                    <a class="btn btn-icon-toggle btn-default-light pull-right" href="#offcanvas-search" data-toggle="offcanvas" data-backdrop="false">
-                        <i class="md md-arrow-back"></i>
-                    </a>
-                </div>
-                <form class="form">
-                    <div class="form-group floating-label">
-                        <textarea name="sidebarChatMessage" id="sidebarChatMessage" class="form-control autosize" rows="1"></textarea>
-                        <label for="sidebarChatMessage">Leave a message</label>
+                    <div class="col-sm-12" style="height:450px;">
+                        <h4 class="title">TODAY SALES<small>Last update: 1 Hours ago</small></h4>
+                        <div class="top-label"><h2>11.291</h2><h4>Today Total</h4></div>
+                        <div class="bigchart" id="todaysales"></div>
                     </div>
-                </form>
+                    <div class="right" style="height:450px;">
+                        <h4 class="title">PAGE VIEW</h4>
+                        <!-- start stats -->
+                        <ul class="widget-inline-list clearfix">
+                            <li class="col-12"><span>962</span>Themeforest<i class="chart sparkline-green"></i></li>
+                            <li class="col-12"><span>367</span>Codecanyon<i class="chart sparkline-blue"></i></li>
+                            <li class="col-12"><span>92</span>Photodune<i class="chart sparkline-red"></i></li>
+                        </ul>
+                        <!-- end stats -->
+                    </div>
+
+
+                </div>
             </div>
-            <div class="offcanvas-body">
-                <ul class="list-chats">
-                    <li>
-                        <div class="chat">
-                            <div class="chat-avatar"><img class="img-circle" src="../../assets/img/avatar1.jpg?1403934956" alt="" /></div>
-                            <div class="chat-body">
-                                Yes, it is indeed very beautiful.
-                                <small>10:03 pm</small>
-                            </div>
-                        </div><!--end .chat -->
-                    </li>
-                    <li class="chat-left">
-                        <div class="chat">
-                            <div class="chat-avatar"><img class="img-circle" src="../../assets/img/avatar9.jpg?1404026744" alt="" /></div>
-                            <div class="chat-body">
-                                Did you see the changes?
-                                <small>10:02 pm</small>
-                            </div>
-                        </div><!--end .chat -->
-                    </li>
-                    <li>
-                        <div class="chat">
-                            <div class="chat-avatar"><img class="img-circle" src="../../assets/img/avatar1.jpg?1403934956" alt="" /></div>
-                            <div class="chat-body">
-                                I just arrived at work, it was quite busy.
-                                <small>06:44pm</small>
-                            </div>
-                            <div class="chat-body">
-                                I will take look in a minute.
-                                <small>06:45pm</small>
-                            </div>
-                        </div><!--end .chat -->
-                    </li>
-                    <li class="chat-left">
-                        <div class="chat">
-                            <div class="chat-avatar"><img class="img-circle" src="../../assets/img/avatar9.jpg?1404026744" alt="" /></div>
-                            <div class="chat-body">
-                                The colors are much better now.
-                            </div>
-                            <div class="chat-body">
-                                The colors are brighter than before.
-                                I have already sent an example.
-                                This will make it look sharper.
-                                <small>Mon</small>
-                            </div>
-                        </div><!--end .chat -->
-                    </li>
-                    <li>
-                        <div class="chat">
-                            <div class="chat-avatar"><img class="img-circle" src="../../assets/img/avatar1.jpg?1403934956" alt="" /></div>
-                            <div class="chat-body">
-                                Are the colors of the logo already adapted?
-                                <small>Last week</small>
-                            </div>
-                        </div><!--end .chat -->
-                    </li>
-                </ul>
-            </div><!--end .offcanvas-body -->
-        </div><!--end .offcanvas-pane -->
-        <!-- END OFFCANVAS CHAT -->
+            <!-- End Chart Daily -->
 
-    </div><!--end .offcanvas-->
-    <!-- END OFFCANVAS RIGHT -->
 
-</div><!--end #base-->
-<!-- END BASE -->
+            <!-- Start Files -->
+            <div class="col-md-12 col-lg-5">
+                <div class="panel panel-widget" style="height:450px;">
+                    <div class="panel-title">
+                        My Files <span class="label label-danger">29</span>
+                        <ul class="panel-tools">
+                            <li><a class="icon"><i class="fa fa-refresh"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body table-responsive">
 
-<!-- BEGIN JAVASCRIPT -->
-<script src="{{ asset('adminAssets/js/all.js') }}"></script>
-<!-- END JAVASCRIPT -->
+                        <table class="table table-dic table-hover ">
+                            <tbody>
+                            <tr>
+                                <td><i class="fa fa-folder-o"></i>Projects</td>
+                                <td>Folder</td>
+                                <td class="text-r">27/2/2015 12:34 AM</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-file-archive-o"></i>Backup</td>
+                                <td>Zip</td>
+                                <td class="text-r">27/2/2015 12:34 AM</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-file-code-o"></i>Kode Theme</td>
+                                <td>Html</td>
+                                <td class="text-r">27/2/2015 12:34 AM</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-file-pdf-o"></i>Documents</td>
+                                <td>Pdf</td>
+                                <td class="text-r">27/2/2015 12:34 AM</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-folder-o"></i>Themes</td>
+                                <td>Folder</td>
+                                <td class="text-r">27/2/2015 12:34 AM</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-folder-o"></i>Uploaded Files</td>
+                                <td>Folder</td>
+                                <td class="text-r">27/2/2015 12:34 AM</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-folder-o"></i>Personal Files</td>
+                                <td>Folder</td>
+                                <td class="text-r">27/2/2015 12:34 AM</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Files -->
+
+        </div>
+        <!-- End First Row -->
+
+
+        <!-- Start Second Row -->
+        <div class="row">
+
+
+
+            <!-- Start Today Activity -->
+            <div class="col-md-12 col-lg-3">
+                <div class="panel panel-widget" style="height:380px;">
+                    <div class="panel-title">
+                        TODAY ACTIVITY <span class="label label-success">9</span>
+                        <ul class="panel-tools panel-tools-hover">
+                            <li><a class="icon"><i class="fa fa-refresh"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+
+                        <ul class="widget-inline-list clearfix">
+                            <li class="col-4"><span>1:52:22</span>Active Time</li>
+                            <li class="col-4"><span>60%</span>Completed</li>
+                            <li class="col-4"><span>0:11:46</span>Break Time</li>
+                        </ul>
+
+                        <div id="todayactivity" class="chart-on-bottom"></div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Today Activity -->
+
+            <!-- Start Server Status -->
+            <div class="col-md-12 col-lg-6">
+                <div class="panel panel-widget" style="height:380px;">
+                    <div class="panel-title">
+                        SERVER STATUS <span class="label label-default">196</span>
+                        <ul class="panel-tools panel-tools-hover">
+                            <li><a class="icon"><i class="fa fa-refresh"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+
+                        <ul class="widget-inline-list clearfix">
+                            <li class="col-3 color10"><span>28.9GB</span>Total Usage</li>
+                            <li class="col-3"><span>92%</span>Space Left</li>
+                            <li class="col-3 color7"><span>22%</span>CPU</li>
+                            <li class="col-3"><span>512MB</span>Total RAM</li>
+                        </ul>
+
+                        <div id="realtime" class="flotchart-placeholder" style="height:190px;"></div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Server Status -->
+
+            <!-- Start Profile Widget -->
+            <div class="col-md-12 col-lg-3">
+                <div class="widget profile-widget" style="height:380px;">
+                    <img src="img/profileimg.png" class="profile-image" alt="img">
+                    <h1>Jonathan Doe</h1>
+                    <p><i class="fa fa-map-marker"></i> London</p>
+                    <a href="#" class="btn btn-sm">Follow</a>
+                    <ul class="stats widget-inline-list clearfix">
+                        <li class="col-4"><span>2.109</span>Followers</li>
+                        <li class="col-4"><span>596</span>Photos</li>
+                        <li class="col-4"><span>902</span>Like</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Profile Widget -->
+
+
+        </div>
+        <!-- End Second Row -->
+
+
+        <!-- Start Third Row -->
+        <div class="row">
+
+
+            <!-- Start General Stats -->
+            <div class="col-md-12 col-lg-6">
+                <div class="panel panel-widget" style="height:205px;">
+                    <div class="panel-title">
+                        General Stats
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="easypie margin-b-50" data-percent="82"><span>82%</span>New Visit</div>
+                        <div class="easypie margin-b-50" data-percent="30"><span>30%</span>Order</div>
+                        <div class="easypie margin-b-50 margin-b-40" data-percent="62"><span>62%</span>Page View</div>
+                        <div class="easypie margin-b-50" data-percent="15"><span>15%</span>Client</div>
+                        <div class="easypie margin-b-50" data-percent="45"><span>45%</span>Storage</div>
+                        <div class="easypie margin-b-50" data-percent="75"><span>76%</span>Comments</div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End General Stats -->
+
+            <!-- Start TwitterBox -->
+            <div class="col-md-6 col-lg-3">
+                <div class="widget socialbox" style="background:#02A8F3; height:205px;">
+
+                    <p class="text">
+                        Never in all their history have men been able truly...
+                    </p>
+                    <p class="text-info">22 May, 2015 via mobile</p>
+
+                    <div class="logo"><i class="fa fa-twitter"></i></div>
+
+                    <ul class="info">
+                        <li><i class="fa fa-retweet"></i>694</li>
+                        <li><i class="fa fa-star-o"></i>2.192</li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- End TwitterBox -->
+
+            <!-- Start FacebookBox -->
+            <div class="col-md-6 col-lg-3">
+                <div class="widget socialbox" style="background:#47639E; height:205px;">
+
+                    <p class="text">
+                        Science has not yet mastered prophecy.
+                    </p>
+                    <p class="text-info">22 May, 2015 via mobile</p>
+
+                    <div class="logo"><i class="fa fa-facebook"></i></div>
+
+                    <ul class="info">
+                        <li><i class="fa fa-thumbs-up"></i>694</li>
+                        <li><i class="fa fa-comment"></i>2.192</li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- End FacebookBox -->
+
+        </div>
+        <!-- End Third Row -->
+
+
+        <!-- Start Fourth Row -->
+        <div class="row">
+
+            <!-- Start Browser Stats -->
+            <div class="col-md-12 col-lg-3">
+                <div class="panel panel-widget">
+                    <div class="panel-title">
+                        Browser Stats
+                        <ul class="panel-tools panel-tools-hover">
+                            <li><a class="icon"><i class="fa fa-refresh"></i></a></li>
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+
+                        <ul class="basic-list">
+                            <li>Google Chrome <span class="right label label-default">42.8%</span></li>
+                            <li>Firefox <span class="right label label-danger">16.9%</span></li>
+                            <li>Safari <span class="right label label-success">15.5%</span></li>
+                            <li>Opera <span class="right label label-primary">11.8%</span></li>
+                            <li>Internet Explorer <span class="right label label-danger">3.2%</span></li>
+                            <li>Mobile <span class="right label label-warning">3%</span></li>
+                            <li>Others <span class="right label label-warning">0%</span></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Browser Stats -->
+
+            <!-- Start Orders -->
+            <div class="col-md-12 col-lg-6">
+                <div class="panel panel-widget">
+                    <div class="panel-title">
+                        LAST ORDERS <span class="label label-warning">196</span>
+                        <ul class="panel-tools">
+                            <li><a class="icon search-tool"><i class="fa fa-search"></i></a></li>
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="panel-search">
+                        <form>
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <i class="fa fa-search icon"></i>
+                        </form>
+                    </div>
+
+
+                    <div class="panel-body table-responsive">
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <td class="text-center"><i class="fa fa-trash"></i></td>
+                                <td>Order ID</td>
+                                <td>Product</td>
+                                <td>Buyer</td>
+                                <td>Date</td>
+                                <td>Payment</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center"><div class="checkbox margin-t-0"><input id="checkbox1" type="checkbox"><label for="checkbox1"></label></div></td>
+                                <td># <b>9652</b></td>
+                                <td>Kode Gaming Laptop</td>
+                                <td>John Doe</td>
+                                <td>12/10/2015</td>
+                                <td>Credit Card</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><div class="checkbox margin-t-0"><input id="checkbox2" type="checkbox"><label for="checkbox2"></label></div></td>
+                                <td># <b>1963</b></td>
+                                <td>New Season Jacket</td>
+                                <td>Jane Doe</td>
+                                <td>12/10/2015</td>
+                                <td>Paypal</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><div class="checkbox margin-t-0"><input id="checkbox3" type="checkbox"><label for="checkbox3"></label></div></td>
+                                <td># <b>9652</b></td>
+                                <td>IO Mouse</td>
+                                <td>Jonathan Doe</td>
+                                <td>12/10/2015</td>
+                                <td>Credit Card</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><div class="checkbox margin-t-0"><input id="checkbox4" type="checkbox"><label for="checkbox4"></label></div></td>
+                                <td># <b>9651</b></td>
+                                <td>Doe Bike</td>
+                                <td>Jonathan Doe</td>
+                                <td>12/10/2015</td>
+                                <td>Credit Card</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Orders -->
+
+
+            <!-- Start Inbox -->
+            <div class="col-md-12 col-lg-3">
+                <div class="panel panel-widget">
+                    <div class="panel-title">
+                        Inbox <span class="label label-danger">9</span>
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+
+                        <ul class="mailbox-inbox">
+
+                            <li>
+                                <a href="#" class="item clearfix">
+                                    <img src="img/profileimg.png" alt="img" class="img">
+                                    <span class="from">Jonathan Doe</span>
+                                    Hello, m8 how is goin ?
+                                    <span class="date">22 May</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="item clearfix">
+                                    <img src="img/profileimg2.png" alt="img" class="img">
+                                    <span class="from">Egemem Ka</span>
+                                    Problems look mighty small...
+                                    <span class="date">22 May</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="item clearfix">
+                                    <img src="img/profileimg3.png" alt="img" class="img">
+                                    <span class="from">James Throwing</span>
+                                    New job offer ?
+                                    <span class="date">22 May</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="item clearfix">
+                                    <img src="img/profileimg4.png" alt="img" class="img">
+                                    <span class="from">Timmy Jefsin</span>
+                                    Tonight Party
+                                    <span class="date">22 May</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <!-- End Inbox -->
+
+        </div>
+        <!-- End Fourth Row -->
+
+
+        <!-- Start Fifth Row -->
+        <div class="row">
+
+
+            <!-- Start Project Stats -->
+            <div class="col-md-12 col-lg-6">
+                <div class="panel panel-widget">
+                    <div class="panel-title">
+                        Projects Stats <span class="label label-info">62</span>
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="panel-search">
+                        <form>
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <i class="fa fa-search icon"></i>
+                        </form>
+                    </div>
+
+
+                    <div class="panel-body table-responsive">
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Project</td>
+                                <td>Status</td>
+                                <td class="text-right">Progress</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>965</td>
+                                <td>Kode Dashboard Template</td>
+                                <td><span class="label label-default">Developing</span></td>
+                                <td class="text-right"><span class="demo-project-stats"></span></td>
+                            </tr>
+                            <tr>
+                                <td>620</td>
+                                <td>EBI iOS Application</td>
+                                <td><span class="label label-warning">Design</span></td>
+                                <td class="text-right"><span class="demo-project-stats"></span></td>
+                            </tr>
+                            <tr>
+                                <td>621</td>
+                                <td>Kode Landing Page</td>
+                                <td><span class="label label-info">Testing</span></td>
+                                <td class="text-right"><span class="demo-project-stats"></span></td>
+                            </tr>
+                            <tr>
+                                <td>621</td>
+                                <td>John Coffe Shop Logo</td>
+                                <td><span class="label label-danger">Canceled</span></td>
+                                <td class="text-right"><span class="demo-project-stats"></span></td>
+                            </tr>
+                            <tr>
+                                <td>621</td>
+                                <td>BKM Website Design</td>
+                                <td><span class="label label-primary">Reply waiting</span></td>
+                                <td class="text-right"><span class="demo-project-stats"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Start Project Stats -->
+
+
+            <!-- Start BlogPost -->
+            <div class="col-md-12 col-lg-3">
+                <div class="panel panel-widget blog-post">
+                    <div class="panel-body">
+
+                        <div class="image-div color10-bg">
+                            <img src="img/example1.jpg" class="image" alt="img">
+                            <h1 class="title"><a href="#">Across the sea of space, the stars are other suns.</a></h1>
+                        </div>
+                        <p class="text">There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally...</p>
+                        <a href="#">Read More</a>
+                        <p class="author">
+                            <img src="img/profileimg.png" alt="img">
+                            <span>Jonathan Doe</span>
+                            Designer
+                        </p>
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- End BlogPost -->
+
+
+            <!-- Start Teammates -->
+            <div class="col-md-12 col-lg-3">
+                <div class="panel panel-info panel-widget">
+                    <div class="panel-title">
+                        Teammates
+                    </div>
+                    <div class="panel-body">
+                        <ul class="basic-list image-list">
+                            <li><img src="img/profileimg.png" alt="img" class="img"><b>Jonathan Doe</b><span class="desc">Designer</span></li>
+                            <li><img src="img/profileimg2.png" alt="img" class="img"><b>Egemem Ka</b><span class="desc">Front-End Developer</span></li>
+                            <li><img src="img/profileimg3.png" alt="img" class="img"><b>Timmy Jefsin</b><span class="desc">Back-End Developer</span></li>
+                            <li><img src="img/profileimg4.png" alt="img" class="img"><b>James K. Throwing</b><span class="desc">Marketing</span></li>
+                            <li><img src="img/profileimg5.png" alt="img" class="img"><b>John Doe</b><span class="desc">iOS Developer</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End Teammates -->
+
+
+        </div>
+        <!-- End Fifth Row -->
+
+
+
+
+    </div>
+    <!-- END CONTAINER -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- Start Footer -->
+    <div class="row footer">
+        <div class="col-md-6 text-left">
+            Copyright © 2015 <a href="http://themeforest.net/user/egemem/portfolio" target="_blank">Egemem</a> All rights reserved.
+        </div>
+        <div class="col-md-6 text-right">
+            Design and Developed by <a href="http://themeforest.net/user/egemem/portfolio" target="_blank">Egemem</a>
+        </div>
+    </div>
+    <!-- End Footer -->
+
+
+</div>
+<!-- End Content -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+
+
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START SIDEPANEL -->
+<div role="tabpanel" class="sidepanel">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#today" aria-controls="today" role="tab" data-toggle="tab">TODAY</a></li>
+        <li role="presentation"><a href="#tasks" aria-controls="tasks" role="tab" data-toggle="tab">TASKS</a></li>
+        <li role="presentation"><a href="#chat" aria-controls="chat" role="tab" data-toggle="tab">CHAT</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+        <!-- Start Today -->
+        <div role="tabpanel" class="tab-pane active" id="today">
+
+            <div class="sidepanel-m-title">
+                Today
+                <span class="left-icon"><a href="#"><i class="fa fa-refresh"></i></a></span>
+                <span class="right-icon"><a href="#"><i class="fa fa-file-o"></i></a></span>
+            </div>
+
+            <div class="gn-title">NEW</div>
+
+            <ul class="list-w-title">
+                <li>
+                    <a href="#">
+                        <span class="label label-danger">ORDER</span>
+                        <span class="date">9 hours ago</span>
+                        <h4>New Jacket 2.0</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="label label-success">COMMENT</span>
+                        <span class="date">14 hours ago</span>
+                        <h4>Bill Jackson</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="label label-info">MEETING</span>
+                        <span class="date">at 2:30 PM</span>
+                        <h4>Developer Team</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="label label-warning">EVENT</span>
+                        <span class="date">3 days left</span>
+                        <h4>Birthday Party</h4>
+                        Etiam auctor porta augue sit amet facilisis. Sed libero nisi, scelerisque.
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <!-- End Today -->
+
+        <!-- Start Tasks -->
+        <div role="tabpanel" class="tab-pane" id="tasks">
+
+            <div class="sidepanel-m-title">
+                To-do List
+                <span class="left-icon"><a href="#"><i class="fa fa-pencil"></i></a></span>
+                <span class="right-icon"><a href="#"><i class="fa fa-trash"></i></a></span>
+            </div>
+
+            <div class="gn-title">TODAY</div>
+
+            <ul class="todo-list">
+                <li class="checkbox checkbox-primary">
+                    <input id="checkboxside1" type="checkbox"><label for="checkboxside1">Add new products</label>
+                </li>
+
+                <li class="checkbox checkbox-primary">
+                    <input id="checkboxside2" type="checkbox"><label for="checkboxside2"><b>May 12, 6:30 pm</b> Meeting with Team</label>
+                </li>
+
+                <li class="checkbox checkbox-warning">
+                    <input id="checkboxside3" type="checkbox"><label for="checkboxside3">Design Facebook page</label>
+                </li>
+
+                <li class="checkbox checkbox-info">
+                    <input id="checkboxside4" type="checkbox"><label for="checkboxside4">Send Invoice to customers</label>
+                </li>
+
+                <li class="checkbox checkbox-danger">
+                    <input id="checkboxside5" type="checkbox"><label for="checkboxside5">Meeting with developer team</label>
+                </li>
+            </ul>
+
+            <div class="gn-title">TOMORROW</div>
+            <ul class="todo-list">
+                <li class="checkbox checkbox-warning">
+                    <input id="checkboxside6" type="checkbox"><label for="checkboxside6">Redesign our company blog</label>
+                </li>
+
+                <li class="checkbox checkbox-success">
+                    <input id="checkboxside7" type="checkbox"><label for="checkboxside7">Finish client work</label>
+                </li>
+
+                <li class="checkbox checkbox-info">
+                    <input id="checkboxside8" type="checkbox"><label for="checkboxside8">Call Johnny from Developer Team</label>
+                </li>
+
+            </ul>
+        </div>
+        <!-- End Tasks -->
+
+        <!-- Start Chat -->
+        <div role="tabpanel" class="tab-pane" id="chat">
+
+            <div class="sidepanel-m-title">
+                Friend List
+                <span class="left-icon"><a href="#"><i class="fa fa-pencil"></i></a></span>
+                <span class="right-icon"><a href="#"><i class="fa fa-trash"></i></a></span>
+            </div>
+
+            <div class="gn-title">ONLINE MEMBERS (3)</div>
+            <ul class="group">
+                <li class="member"><a href="#"><img src="img/profileimg.png" alt="img"><b>Allice Mingham</b>Los Angeles</a><span class="status online"></span></li>
+                <li class="member"><a href="#"><img src="img/profileimg2.png" alt="img"><b>James Throwing</b>Las Vegas</a><span class="status busy"></span></li>
+                <li class="member"><a href="#"><img src="img/profileimg3.png" alt="img"><b>Fred Stonefield</b>New York</a><span class="status away"></span></li>
+                <li class="member"><a href="#"><img src="img/profileimg4.png" alt="img"><b>Chris M. Johnson</b>California</a><span class="status online"></span></li>
+            </ul>
+
+            <div class="gn-title">OFFLINE MEMBERS (8)</div>
+            <ul class="group">
+                <li class="member"><a href="#"><img src="img/profileimg5.png" alt="img"><b>Allice Mingham</b>Los Angeles</a><span class="status offline"></span></li>
+                <li class="member"><a href="#"><img src="img/profileimg6.png" alt="img"><b>James Throwing</b>Las Vegas</a><span class="status offline"></span></li>
+            </ul>
+
+            <form class="search">
+                <input type="text" class="form-control" placeholder="Search a Friend...">
+            </form>
+        </div>
+        <!-- End Chat -->
+
+    </div>
+
+</div>
+<!-- END SIDEPANEL -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+
+@include('admin.partials.scripts')
+
+
 
 </body>
 </html>
