@@ -2,7 +2,7 @@
 
     <!-- Start App Logo -->
     <div class="applogo">
-        <a href="{{ route('admin.dashboard') }}" class="logo">kode</a>
+        <a href="{{ route('admin.dashboard') }}" class="logo">Ismartz</a>
     </div>
     <!-- End App Logo -->
 
@@ -41,12 +41,48 @@
     <ul class="top-right">
 
         <li class="dropdown link">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle hdbutton">Edit<span class="caret"></span></a>
+            <ul class="dropdown-menu dropdown-menu-list">
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Main Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Intro Content</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Built-in Features Content</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Sample Website Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Creative Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Websites Features Content</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Websites Features Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Testimonials</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Blog</a></li>
+                <li><a href="#"><i class="fa falist fa-money"></i>Pricing Packages</a></li>
+                <li><a href="#"><i class="fa falist fa-at"></i>Contact Page</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown link">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle hdbutton">Show <span class="caret"></span></a>
+            <ul class="dropdown-menu dropdown-menu-list">
+                <li><a href="{{ route('admin.slider.main') }}"><i class="fa falist fa-file-image-o"></i>Main Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Intro Content</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Built-in Features Content</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Sample Website Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Creative Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Websites Features Content</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Websites Features Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Testimonials</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Blog</a></li>
+                <li><a href="#"><i class="fa falist fa-money"></i>Pricing Packages</a></li>
+                <li><a href="#"><i class="fa falist fa-at"></i>Contact Page</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown link">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle hdbutton">Create New <span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-menu-list">
-                <li><a href="#"><i class="fa falist fa-paper-plane-o"></i>Product or Item</a></li>
-                <li><a href="#"><i class="fa falist fa-font"></i>Blog Post</a></li>
-                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Image Gallery</a></li>
-                <li><a href="#"><i class="fa falist fa-file-video-o"></i>Video Gallery</a></li>
+                <li><a href="{{ route('admin.slider.main.create') }}"><i class="fa falist fa-file-image-o"></i>Main Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Sample Website Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Creative Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-file-image-o"></i>Websites Features Slider</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Testimonials</a></li>
+                <li><a href="#"><i class="fa falist fa-font"></i>Blog</a></li>
             </ul>
         </li>
 

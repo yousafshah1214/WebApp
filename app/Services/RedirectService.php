@@ -127,6 +127,25 @@ class RedirectService extends RedirectServiceAbstract implements RedirectService
     }
 
     /**
+     * Redirects User to Main SLiders List Page
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     * @throws Exception
+     */
+    public function toMainSlidersListPage($messageKey = null, $messageLangKey = null)
+    {
+        try{
+            return $this->makeRedirect('admin.slider.main',$messageKey,$messageLangKey);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+
+    /**
      * Make Redirect to given route with given parameters
      *
      * @param $route

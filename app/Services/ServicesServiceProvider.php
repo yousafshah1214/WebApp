@@ -43,5 +43,8 @@ class ServicesServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Services\DataExtractorServiceInterface',
             'App\Services\DataExtractorService');
+
+        $this->app->bind('App\Contracts\Services\SliderServiceInterface',
+            'App\Services\SliderService');
     }
 }

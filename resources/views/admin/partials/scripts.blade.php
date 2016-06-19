@@ -1,13 +1,19 @@
-<!-- google maps api -->
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
-<script src="{{ elixir('adminAssets/js/all.js') }}"></script>
+
+<!-- ================================================
+jQuery Library
+================================================ -->
+<script type="text/javascript" src="{{ elixir('adminAssets/js/all.js') }}"></script>
+
+<!-- google maps api -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
 
 <!-- ================================================
 Below codes are only for index widgets
 ================================================ -->
 <!-- Today Sales -->
-<script>
+<script type="text/javascript">
 
     // set up our data series with 50 random data points
 
@@ -21,7 +27,7 @@ Below codes are only for index widgets
     // instantiate our graph!
 
     var graph = new Rickshaw.Graph( {
-        element: document.getElementById("todaysales"),
+        element: document.querySelector("#todaysales"),
         renderer: 'bar',
         series: [
             {
@@ -55,7 +61,7 @@ Below codes are only for index widgets
 </script>
 
 <!-- Today Activity -->
-<script>
+<script type="text/javascript">
     // set up our data series with 50 random data points
 
     var seriesData = [ [], [], [] ];
@@ -95,3 +101,5 @@ Below codes are only for index widgets
         }
     } );
 </script>
+
+@include('././partials.sweetAlert')

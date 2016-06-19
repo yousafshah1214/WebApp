@@ -81,6 +81,7 @@ elixir(function(mix) {
 
     mix.scripts([
             'admin/jquery.min.js',
+            'vendor/jquery-2.2.2.min.js',
             'admin/bootstrap/bootstrap.min.js',
             'admin/plugins.js',
             'admin/bootstrap-select/bootstrap-select.js',
@@ -110,20 +111,19 @@ elixir(function(mix) {
             "admin/jquery-ui/jquery-ui.min.js",
             "admin/moment/moment.min.js",
             "admin/full-calendar/fullcalendar.js",
-            "admin/date-range-picker/daterangepicker.js"
+            "admin/date-range-picker/daterangepicker.js",
         ],'public/adminAssets/js');
 
     mix.copy("resources/assets/img","public/build/img");
 
+    mix.copy("resources/assets/js/admin/mainSliderScript.js","public/build/adminAssets/js");
+
     mix.copy("resources/assets/img/admin","public/build/adminAssets/img");
+
+    mix.copy("resources/assets/js/admin/sweet-alert/sweet-alert.min.js","public/build/adminAssets/js/sweet-alert");
 
     mix.version(['css/all.css','js/all.js','adminAssets/js/all.js','adminAssets/css/all.css']);
 
-    //mix.phpUnit();
+    mix.phpUnit();
 
-    /**
-     *
-     * Admin related gulp tasks
-     *
-     */
 });

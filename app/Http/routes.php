@@ -48,6 +48,15 @@ Route::group(['middleware' => ['web']], function(){
 
         Route::post('admin/search', 'Admin\SearchController@index')->name('admin.search');
 
+        Route::get('admin/main-slider','Admin\MainSliderController@index')->name('admin.slider.main');
+
+        Route::get('admin/test','Admin\MainSliderController@test')->name('test');
+
+        Route::get('admin/main-slider/create','Admin\MainSliderController@create')->name('admin.slider.main.create');
+
+        Route::post('admin/main-slider/store','Admin\MainSliderController@store')->name('admin.slider.main.store');
+
+        Route::get('admin/logout','Admin\Auth\LoginController@logout')->name('admin.logout');
     });
 
 });

@@ -31,5 +31,8 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Repositories\SocialUserRepositoryInterface',
             'App\Repositories\SocialUserRepository');
+
+        $this->app->bind('App\Contracts\Repositories\SliderRepositoryInterface',
+            'App\Repositories\SliderRepository');
     }
 }

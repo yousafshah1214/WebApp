@@ -58,4 +58,13 @@ interface RedirectServiceInterface extends BaseServiceInterface
      * @return mixed
      */
     public function toIntendedPage($messageKey = null, $messageLangKey = null);
+
+    /**
+     * Redirects User to Main SLiders List Page
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     */
+    public function toMainSlidersListPage($messageKey = null, $messageLangKey = null);
 }

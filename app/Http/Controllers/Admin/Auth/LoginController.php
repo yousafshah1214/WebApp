@@ -41,6 +41,14 @@ class LoginController extends Controller
         }
     }
 
+    public function logout(){
+        if(Auth::guard($this->guard)->check()){
+            Auth::guard($this->guard)->logout();
+        }
+
+        return redirect('admin/login')->with('successMessage',"Successfully Logout from Admin Panel");
+    }
+
     /**
      * Store a newly created resource in storage.
      *
