@@ -144,6 +144,60 @@ class RedirectService extends RedirectServiceAbstract implements RedirectService
         }
     }
 
+    /**
+     * Redirects User to Main Posts List Page
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     * @throws Exception
+     */
+    public function toMainPostsListPage($messageKey = null, $messageLangKey = null)
+    {
+        try{
+            return $this->makeRedirect('admin.homepage.main-post.index',$messageKey,$messageLangKey);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Redirect User to BuiltIn Features Posts List page
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     * @throws Exception
+     */
+    public function toBuiltInFeaturesPostsListPage($messageKey = null, $messageLangKey = null)
+    {
+        try{
+            return $this->makeRedirect('admin.homepage.features.index',$messageKey,$messageLangKey);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Redirect User to Sample Website Posts List Page
+     *
+     * @param null $messageKey
+     * @param null $messageLangKey
+     * @return mixed
+     * @throws Exception
+     */
+    public function toSampleWebsitePostsListPage($messageKey = null, $messageLangKey = null)
+    {
+        try{
+            return $this->makeRedirect('admin.homepage.website.sample.index',$messageKey,$messageLangKey);
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
 
     /**
      * Make Redirect to given route with given parameters
@@ -190,5 +244,4 @@ class RedirectService extends RedirectServiceAbstract implements RedirectService
             throw $e;
         }
     }
-
 }

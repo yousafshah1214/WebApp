@@ -3,8 +3,9 @@
  */
 
 $(document).ready(function () {
+
     $('#checkbox102').change(function () {
         $('#buttonText').prop('disabled', !this.checked);
         $('#buttonUrl').prop('disabled', !this.checked);
-    }).change();
+    });
 });

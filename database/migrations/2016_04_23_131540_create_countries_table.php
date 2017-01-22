@@ -26,12 +26,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        //Schema::drop('countries');
-        /**
-         * IMPORTANT NOTE
-         *
-         * This Migrations Drop code is in User_Profiles migration file
-         *
-         */
+        Schema::drop('countries');
     }
 }

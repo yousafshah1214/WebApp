@@ -2,10 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Contracts\Models\ImageModelInterface;
 use App\Contracts\Models\SliderModelInterface;
 use App\Contracts\Repositories\SliderRepositoryInterface;
+use App\Contracts\Services\UploadServiceInterface;
 use App\Repositories\AbstractRepositories\SliderRepositoryAbstract;
+use App\Slider;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class SliderRepository extends SliderRepositoryAbstract implements SliderRepositoryInterface{
 
@@ -15,42 +19,221 @@ class SliderRepository extends SliderRepositoryAbstract implements SliderReposit
     protected $model;
 
     /**
-     * @var Uploaded Image destination
+     * Uploaded Image destination
+     *
+     * @var
      */
     protected $destination;
+
+    /**
+     * @var UploadServiceInterface
+     */
+    protected $uploader;
 
     /**
      * SliderRepository constructor.
      *
      * @param SliderModelInterface $slider
+     * @param UploadServiceInterface $uploadService
      */
-    function __construct(SliderModelInterface $slider)
+    function __construct(SliderModelInterface $slider,UploadServiceInterface $uploadService)
     {
         $this->model = $slider;
-        $this->destination = resource_path('assets/img/admin');
+        $this->destination = public_path('adminAssets/img');
+        $this->uploader = $uploadService;
     }
 
     /**
      * Adds New Main Slider To Database via Model
      *
+     * @param $type
      * @param array $columns
      * @return mixed
      * @throws Exception
      */
-    public function addNewMainSlider(array $columns)
+    public function createNewSlider($type,array $columns)
     {
         try{
-            $credentials = $this->getCredentials('main-slider',$columns);
+            $credentials = $this->getCredentials($type,$columns);
 
-            $filename = $this->uploadImage($columns['image']);
-
-            $credentials['image']   =   $filename;
+            if(isset($columns['image'])){
+                unset($columns['image']);
+            }
 
             $this->getSliderModelFilled($credentials);
 
             if(! $this->model->save()){
                 throw new Exception("Main Slider is not getting saved to database");
             }
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Creates Slider Record for database but doesn't save it
+     *
+     * @param $type
+     * @param array $columns
+     * @return mixed
+     * @throws Exception
+     */
+    public function makeNewSlider($type, array $columns)
+    {
+        try{
+            $credentials = $this->getCredentials($type,$columns);
+
+            if(isset($columns['image'])){
+                unset($columns['image']);
+            }
+
+            $this->getSliderModelFilled($credentials);
+
+            return $this->model;
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Update Specific type of slider of given ID with given data.
+     *
+     * @param $type
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     * @throws Exception
+     */
+    public function updateSlider($type, $id, array $columns)
+    {
+        try{
+            $this->model = $this->model->where('type','=',$type)->where('uniqueId','=',$id)->first();
+
+            $credentials = $this->getCredentials($type,$columns);
+
+            if(isset($columns['image'])){
+
+                unset($columns['image']);
+
+            }
+
+            $this->getSliderModelFilled($credentials);
+
+            if(! $this->model->save()){
+
+                throw new Exception("Main Slider changes are not getting saved to database");
+
+            }
+
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Return Updated model of slider of given ID with given data but doesn't save it.
+     *
+     * @param $type
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     * @throws Exception
+     */
+    public function makeUpdateSlider($type, $id, array $columns)
+    {
+        try{
+            $this->model = $this->model->where('type','=',$type)->where('uniqueId','=',$id)->first();
+
+            $credentials = $this->getCredentials($type,$columns);
+
+            if(isset($columns['image'])){
+
+                unset($columns['image']);
+
+            }
+
+            $this->getSliderModelFilled($credentials);
+
+            return $this->model;
+
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+
+    /**
+     * Delete Slider at given ID
+     *
+     * @param $type
+     * @param $id
+     * @return mixed
+     * @throws Exception
+     */
+    public function deleteSlider($type, $id)
+    {
+        try{
+            $slider = $this->model->where('type','=',$type)->where('uniqueId','=',$id)->first();
+
+            $slider->delete();
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Insert Image to Images table and returns ID of newly inserted Image
+     *
+     * @param ImageModelInterface $image
+     * @return mixed
+     * @throws Exception
+     * @internal param $filename
+     */
+    public function attachImage(ImageModelInterface $image)
+    {
+        try{
+            dd($this->model->image()->save($image));
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Count Sliders with given type and ID
+     *
+     * @param $type
+     * @param $id
+     * @return mixed
+     * @throws Exception
+     */
+    public function getSliderCountWithIdAndType($type, $id)
+    {
+        try{
+            return $this->model->where('type','=',$type)->where('uniqueId','=',$id)->count();
+        }
+        catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    /**
+     * Return Slider Model if found on given Id
+     *
+     * @param $type
+     * @param $id
+     * @return mixed
+     * @throws Exception
+     */
+    public function getSliderById($type,$id)
+    {
+        try{
+            return $this->model->where('type','=',$type)->where('uniqueId','=',$id)->first();
         }
         catch(Exception $e){
             throw $e;
@@ -71,39 +254,14 @@ class SliderRepository extends SliderRepositoryAbstract implements SliderReposit
             return array(
                 'type'          =>  $type,
                 'title'         =>  $columns['title'],
-                'tagLine'       =>  $columns['tagline'],
+                'tagline'       =>  $columns['tagline'],
                 'button'        =>  isset($columns['button']),
                 'buttonText'    =>  isset($columns['buttonText'])?$columns['buttonText']:null,
                 'buttonUrl'     =>  isset($columns['buttonUrl'])?$columns['buttonUrl']:null,
-                'featured'      =>  isset($columns['featured'])
+                'featured'      =>  isset($columns['featured']),
+                'uniqueId'      =>  uniqid(str_random(2)),
+                'admin_id'      =>  Auth::guard('admin')->user()->id
             );
-        }
-        catch(Exception $e){
-            throw $e;
-        }
-    }
-
-    /**
-     * Upload Image and returns file storage address
-     *
-     * @param $image
-     * @return mixed
-     * @throws Exception
-     */
-    protected function uploadImage($image)
-    {
-        try{
-            if($image->isValid()){
-
-                $filename = time().".".$image->getClientOriginalExtension();
-
-                $image->move($this->destination,$filename);
-
-                return $filename;
-            }
-            else{
-                throw new Exception("Image is inValid");
-            }
         }
         catch(Exception $e){
             throw $e;
@@ -128,6 +286,5 @@ class SliderRepository extends SliderRepositoryAbstract implements SliderReposit
             throw $e;
         }
     }
-
 
 }

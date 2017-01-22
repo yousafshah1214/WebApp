@@ -37,8 +37,12 @@ class CreateUserProfilesTable extends Migration
      */
     public function down()
     {
+        Schema::table('user_profiles', function (Blueprint $table) {
+            $table->dropForeign('user_profiles_user_id_foreign');
+        });
+
         Schema::drop('user_profiles');
-        Schema::drop('cities');
-        Schema::drop('countries');
+
+
     }
 }

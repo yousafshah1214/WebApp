@@ -60,9 +60,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
-						<h2>The Ultimate CMS Website</h2>
-						<p>Yes! manage your website content your way, you can even manage<br> your content remotely from Facebook.</p>
-						<img src="{{ asset('build/img/mob.png') }}" alt="phone" />
+						<h2>{{ $mainPost->title }}</h2>
+                        <p>{{ $mainPost->intro }}</p>
+						{{--<p>Yes! manage your website content your way, you can even manage<br> your content remotely from Facebook.</p>--}}
+						<img src="{{ asset($mainPost->image->directory.'/'.$mainPost->image->filename) }}" alt="phone" />
 					</div>
 				</div>
 			</div>

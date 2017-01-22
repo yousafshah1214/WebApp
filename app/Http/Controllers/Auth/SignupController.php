@@ -153,13 +153,13 @@ class SignupController extends Controller
 
     /**
      * Callback function for facebook oAuth api
-     * @param Request $request
      * @param RegistrationServiceInterface $registrationService
      * @param ExtraValidationServiceInterface $extraValidations
      * @param AuthenticationServiceInterface $authService
      * @return mixed
+     * @internal param Request $request
      */
-    public function facebookCallback(Request $request ,RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations, AuthenticationServiceInterface $authService){
+    public function facebookCallback(RegistrationServiceInterface $registrationService, ExtraValidationServiceInterface $extraValidations, AuthenticationServiceInterface $authService){
         try{
             $user = Socialite::driver('facebook')->user();
             $type = 'facebook';

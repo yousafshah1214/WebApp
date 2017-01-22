@@ -9,6 +9,7 @@
 namespace App\Repositories\AbstractRepositories;
 
 
+use App\Contracts\Models\ImageModelInterface;
 use App\Repositories\BaseRepository;
 
 abstract class SliderRepositoryAbstract extends BaseRepository
@@ -21,14 +22,6 @@ abstract class SliderRepositoryAbstract extends BaseRepository
      * @return mixed
      */
     abstract protected function getCredentials($type,array $columns);
-
-    /**
-     * Upload Image and returns file storage address
-     *
-     * @param $image
-     * @return mixed
-     */
-    abstract protected function uploadImage($image);
 
     /**
      * Fill Slider Model with given column values

@@ -13,5 +13,7 @@ return [
     |
     */
 
-    'created'      => 'Successfully New Slider Image Added'
+    'created'       =>  'Successfully New Slider Image Added !!',
+    'edited'        =>  'Slider Updated !!',
+    'deleted'       =>  'Slider Deleted !!'
 ];

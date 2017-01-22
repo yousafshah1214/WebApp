@@ -23,13 +23,24 @@ class MainSliderRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = array(
             'title'         =>  'required',
             'tagline'       =>  'required',
+            'button'        =>  'required_if:button,true|boolean',
             'buttonText'    =>  'required_with:button,true',
             'buttonUrl'     =>  'required_with:button,true',
             'featured'      =>  'required_if:featured,true|boolean',
-            'image'         =>  'required|mimes:jpeg,bmp,png,jpg'
-        ];
+        );
+
+        if($this->getRequestUri() == "/admin/main-slider/store"){
+            // Special Rule for New Slider Request
+            $rules['image'] =   'required|mimes:jpeg,bmp,png,jpg';
+        }
+        else{
+            // Special Rule for Edit Slider Request
+            $rules['image'] =   'mimes:jpeg,bmp,png,jpg';
+        }
+
+        return $rules;
     }
 }

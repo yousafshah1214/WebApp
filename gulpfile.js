@@ -77,6 +77,7 @@ elixir(function(mix) {
         'main.js',
         'sweetalert.min.js',
         'pace.min.js',
+        'laravel.js',
     ]);
 
     mix.scripts([
@@ -112,6 +113,7 @@ elixir(function(mix) {
             "admin/moment/moment.min.js",
             "admin/full-calendar/fullcalendar.js",
             "admin/date-range-picker/daterangepicker.js",
+            "laravel.js",
         ],'public/adminAssets/js');
 
     mix.copy("resources/assets/img","public/build/img");

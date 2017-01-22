@@ -46,17 +46,39 @@ Route::group(['middleware' => ['web']], function(){
 
         Route::get('admin', 'Admin\AdminController@index')->name('admin.dashboard');
 
-        Route::post('admin/search', 'Admin\SearchController@index')->name('admin.search');
+        Route::group(['prefix'  =>  'admin'],function(){
 
-        Route::get('admin/main-slider','Admin\MainSliderController@index')->name('admin.slider.main');
+            Route::post('search', 'Admin\SearchController@index')->name('admin.search');
 
-        Route::get('admin/test','Admin\MainSliderController@test')->name('test');
+            Route::get('main-slider','Admin\MainSliderController@index')->name('admin.slider.main');
 
-        Route::get('admin/main-slider/create','Admin\MainSliderController@create')->name('admin.slider.main.create');
+            Route::group(['prefix'   =>  'main-slider'],function(){
 
-        Route::post('admin/main-slider/store','Admin\MainSliderController@store')->name('admin.slider.main.store');
+                Route::get('create','Admin\MainSliderController@create')->name('admin.slider.main.create');
 
-        Route::get('admin/logout','Admin\Auth\LoginController@logout')->name('admin.logout');
+                Route::post('store','Admin\MainSliderController@store')->name('admin.slider.main.store');
+
+                Route::get('{id}/edit','Admin\MainSliderController@edit')->name('admin.slider.main.edit');
+
+                Route::patch('{id}','Admin\MainSliderController@update')->name('admin.slider.main.update');
+
+                Route::get('{id}/delete','Admin\MainSliderController@destroy')->name('admin.slider.main.destroy');
+
+            });
+
+            Route::resource('homepage/main-post','Admin\MainPostController');
+
+            Route::resource('homepage/features','Admin\BuiltInFeaturesController');
+
+            Route::get('homepage/features/{id}/delete','Admin\BuiltInFeaturesController@destroy')->name('admin.homepage.features.destroy');
+
+            Route::resource('homepage/website/sample','Admin\SampleWebsiteController');
+
+            Route::resource('homepage/creative/slider','Admin\CreativeSliderController');
+
+            Route::get('logout','Admin\Auth\LoginController@logout')->name('admin.logout');
+
+        });
     });
 
 });

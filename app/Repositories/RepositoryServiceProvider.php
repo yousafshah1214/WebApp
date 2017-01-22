@@ -34,5 +34,17 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Repositories\SliderRepositoryInterface',
             'App\Repositories\SliderRepository');
+
+        $this->app->bind('App\Contracts\Repositories\AdminRepositoryInterface',
+            'App\Repositories\AdminRepository');
+
+        $this->app->bind('App\Contracts\Repositories\ImageRepositoryInterface',
+            'App\Repositories\ImageRepository');
+
+        $this->app->bind('App\Contracts\Repositories\ContentRepositoryInterface',
+            'App\Repositories\ContentRepository');
+
+        $this->app->bind('App\Contracts\Repositories\IconRepositoryInterface',
+            'App\Repositories\IconRepository');
     }
 }

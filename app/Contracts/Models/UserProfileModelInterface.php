@@ -11,5 +11,17 @@ namespace App\Contracts\Models;
 
 interface UserProfileModelInterface extends ModelBaseInterface
 {
+    /**
+     * Accessor for UserProfile User Relationship
+     *
+     * @return mixed
+     */
     public function user();
+
+    /**
+     * Accessor for UserProfile Image Relationship
+     *
+     * @return mixed
+     */
+    public function image();
 }

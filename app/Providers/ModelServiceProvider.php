@@ -37,5 +37,11 @@ class ModelServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Models\SliderModelInterface',
             'App\Slider');
+
+        $this->app->bind('App\Contracts\Models\ImageModelInterface',
+            'App\Image');
+
+        $this->app->bind('App\Contracts\Models\ContentModelInterface',
+            'App\Content');
     }
 }

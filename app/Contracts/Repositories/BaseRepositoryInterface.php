@@ -60,4 +60,5 @@ interface BaseRepositoryInterface {
      * @return mixed
      */
     public function update($id, array $column);
+
 }

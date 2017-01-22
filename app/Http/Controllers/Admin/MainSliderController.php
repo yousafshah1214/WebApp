@@ -7,6 +7,7 @@ use App\Contracts\Services\LoggerServiceInterface;
 use App\Contracts\Services\RedirectServiceInterface;
 use App\Contracts\Services\SliderServiceInterface;
 use App\Http\Requests\Admin\MainSliderRequest;
+use App\Slider;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,11 @@ class MainSliderController extends Controller
     private $redirect;
 
     /**
+     * @var string
+     */
+    private $sliderType;
+
+    /**
      * MainSliderController constructor.
      * @param LoggerServiceInterface $loggerService
      * @param RedirectServiceInterface $redirect
@@ -34,6 +40,7 @@ class MainSliderController extends Controller
     {
         $this->logger = $loggerService;
         $this->redirect = $redirect;
+        $this->sliderType = 'main-slider';
     }
 
     /**
@@ -43,9 +50,15 @@ class MainSliderController extends Controller
      */
     public function index()
     {
-        $title = 'All Main Sliders';
+        try{
+            $title = 'All Main Sliders';
+            $mainSliders = Slider::where('type','=','main-slider')->get();
 
-        return view('admin.mainSlider.list',compact('title'));
+            return view('admin.mainSlider.list',compact('title','mainSliders'));
+        }
+        catch(Exception $e){
+            $this->logger->logException($e,'Admin Urgent');
+        }
     }
 
     /**
@@ -55,8 +68,17 @@ class MainSliderController extends Controller
      */
     public function create()
     {
-        $title = 'Create Main Slider';
-        return view('admin.mainSlider.create',compact('title'));
+
+        try {
+
+            $title = 'Create New Main Slider';
+            return view('admin.mainSlider.create', compact('title'));
+
+        } catch (Exception $e) {
+
+            $this->logger->logException($e, 'Admin Urgent');
+
+        }
     }
 
     /**
@@ -71,7 +93,8 @@ class MainSliderController extends Controller
     {
         // validated request
         try{
-            $sliderService->createMainSlider($request->all(),$sliderRepository);
+
+            $sliderService->createSlider($this->sliderType,$request->all(),$sliderRepository);
 
             return $this->redirect->toMainSlidersListPage("successMessage","slider.created");
 
@@ -82,47 +105,64 @@ class MainSliderController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     * @param SliderServiceInterface $sliderService
+     * @param SliderRepositoryInterface $sliderRepository
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,SliderServiceInterface $sliderService, SliderRepositoryInterface $sliderRepository)
     {
-        //
+        try{
+            $title = 'Edit Main Slider';
+            $slider =  $sliderService->getSliderById($this->sliderType,$id,$sliderRepository);
+            return view('admin.mainSlider.edit',compact('slider','title'));
+        }
+        catch(Exception $e){
+            $this->logger->logException($e,'Developer Urgent');
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param MainSliderRequest|Request $request
+     * @param  int $id
+     * @param SliderServiceInterface $sliderService
+     * @param SliderRepositoryInterface $sliderRepository
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MainSliderRequest $request, $id,SliderServiceInterface $sliderService, SliderRepositoryInterface $sliderRepository)
     {
-        //
+        try{
+            $sliderService->updateSlider($this->sliderType,$id,$request->all(),$sliderRepository);
+
+            return $this->redirect->toMainSlidersListPage("successMessage","slider.edited");
+
+        }
+        catch(Exception $e){
+            $this->logger->logException($e,'Admin Urgent');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     * @param SliderServiceInterface $sliderService
+     * @param SliderRepositoryInterface $sliderRepository
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,SliderServiceInterface $sliderService, SliderRepositoryInterface $sliderRepository)
     {
-        //
+        try{
+            $sliderService->deleteSlider($this->sliderType,$id,$sliderRepository);
+
+            return $this->redirect->toMainSlidersListPage("successMessage","slider.deleted");
+        }
+        catch(Exception $e){
+            $this->logger->logException($e,'Admin Urgent');
+        }
     }
 }

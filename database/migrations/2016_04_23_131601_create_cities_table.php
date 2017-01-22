@@ -29,7 +29,11 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        //Schema::drop('cities');
+        Schema::table('cities', function (Blueprint $table) {
+            $table->dropForeign('cities_country_id_foreign');
+        });
+
+        Schema::drop('cities');
         
 
         /**

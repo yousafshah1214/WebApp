@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\Services\LoggerServiceInterface;
+use Exception;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,14 +13,33 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     /**
+     * @var LoggerServiceInterface
+     */
+    private $logger;
+
+    /**
+     * AdminController constructor.
+     * @param LoggerServiceInterface $logger
+     */
+    function __construct(LoggerServiceInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $title = 'dashboard';
-        return view('admin.dashboard',compact('title'));
+        try {
+            $title = 'dashboard';
+            return view('admin.dashboard', compact('title'));
+        }
+        catch(Exception $e){
+            $this->logger->logException($e,'Admin Urgent');
+        }
     }
 
     /**

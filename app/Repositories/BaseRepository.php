@@ -9,9 +9,10 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\BaseRepositoryInterface;
+use App\Repositories\AbstractRepositories\BaseRepositoryAbstract;
 use Exception;
 
-abstract class BaseRepository implements BaseRepositoryInterface{
+abstract class BaseRepository extends BaseRepositoryAbstract implements BaseRepositoryInterface{
 
     /**
      * Fetch all records
@@ -119,6 +120,19 @@ abstract class BaseRepository implements BaseRepositoryInterface{
         }
     }
 
+    /**
+     * Fill Model with given data
+     *
+     * @param array $columns
+     * @return mixed
+     */
+    protected function getModelFilledWithData(array $columns)
+    {
+        foreach($columns as $key => $value){
+            $this->model->{$key}      = $value;
+        }
+        return $this->model;
+    }
 
 }
 

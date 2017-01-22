@@ -12,6 +12,18 @@ namespace App\Contracts\Models;
 interface SliderModelInterface extends ModelBaseInterface
 {
 
+    /**
+     * Relationship method for Image Model
+     *
+     * @return mixed
+     */
+    public function image();
 
+    /**
+     * Relationship method for Admin Model
+     *
+     * @return mixed
+     */
+    public function admin();
 
 }

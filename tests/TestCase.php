@@ -1,5 +1,7 @@
 <?php
 
+use App\Admin;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -21,5 +23,12 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    protected function actingAsAdmin()
+    {
+        $admin = Admin::first();
+        $this->actingAs($admin,'admin');
+        return $this;
     }
 }

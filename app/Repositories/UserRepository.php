@@ -118,7 +118,7 @@ class UserRepository extends UserRepositoryAbstract implements UserRepositoryInt
 
             $this->createUserWith($userCredentials);
 
-            if(! $this->model->save() ){
+            if( ! $this->model->save() ){
                 throw new Exception("Error In saving User to Database");
             }
 

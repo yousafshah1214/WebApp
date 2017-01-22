@@ -46,5 +46,11 @@ class ServicesServiceProvider extends ServiceProvider
 
         $this->app->bind('App\Contracts\Services\SliderServiceInterface',
             'App\Services\SliderService');
+
+        $this->app->bind('App\Contracts\Services\UploadServiceInterface',
+            'App\Services\UploadService');
+
+        $this->app->bind('App\Contracts\Services\PageContentServiceInterface',
+            'App\Services\PageContentService');
     }
 }

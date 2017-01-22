@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Content;
 use App\Http\Requests;
 
 /**
@@ -18,6 +19,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $mainPost = Content::active()->mainPost()->first();
+        return view('home',compact('mainPost'));
     }
 }
